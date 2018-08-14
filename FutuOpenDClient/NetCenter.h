@@ -24,6 +24,7 @@ namespace ftq
 		PROTO_HANDLER_MEMBER(Qot_RegQotPush);
 		PROTO_HANDLER_MEMBER(Qot_UpdateTicker);
 		PROTO_HANDLER_MEMBER(Qot_UpdateBroker);
+		PROTO_HANDLER_MEMBER(Qot_UpdateOrderBook);
 	};
 #undef PROTO_HANDLER_MEMBER
 
@@ -85,6 +86,7 @@ namespace ftq
 							);
 	private:
 		u32_t Send(u32_t nProtoID, const google::protobuf::Message &pbObj);
+		void HandlePacket(const APIProtoHeader &header, const i8_t *pData, i32_t nLen);
 	private:
 		uv_loop_t *m_pLoop{ nullptr };
 		uv_timer_t m_keepAliveTimer{};
