@@ -80,7 +80,8 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         if (memcmp(sha1, header.body_sha1_, 20) != 0)
         {
             //error
-            cerr << "sha check fail" << endl;
+            //cerr << "sha check fail" << endl;
+            DEBUGLOG("sha check fail");
             buffer->remove_front((i32_t)sizeof(header) + header.body_len_);
             continue;
         }
@@ -93,12 +94,14 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
 void NetCenter::on_error(TcpConnect *conn, int uv_err)
 {
-    cerr << "Net error: " << uv_err << " " << uv_strerror(uv_err) << endl;
+    //cerr << "Net error: " << uv_err << " " << uv_strerror(uv_err) << endl;
+    DEBUGLOG("Net error: %d %s", uv_err, uv_strerror(uv_err));
 }
 
 void NetCenter::on_disconnect(TcpConnect *conn)
 {
-    cerr << "Disconnected" << endl;
+    //cerr << "Disconnected" << endl;
+    DEBUGLOG("Disconnected");
 }
 
 
