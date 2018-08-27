@@ -73,7 +73,7 @@ public:
                        bool first_push
     );
 private:
-    u32_t net_send(u32_t proto_id, const google::protobuf::Message &pb_obj);
+    u32_t net_send(u32_t proto_id, const google::protobuf::Message &pb_obj, bool need_encrypt = false);
     void handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len);
 private:
     uv_loop_t *loop_ {nullptr};

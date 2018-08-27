@@ -1,5 +1,6 @@
 ﻿#include "NetCenter.h"
 #include "SHA1.h"
+#include "myrsa.h"
 #include <iostream>
 #include <time.h>
 #include "pb/pb_header.h"
@@ -74,8 +75,19 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
             return;
         }
 
-        u8_t sha1[20] = {0};
         const char *pBody = pData + sizeof(header);
+
+        static bool first_time = true;
+
+        if(first_time)
+        {
+            int de_ret1 = my_decrypt_pri((char*)pBody, header.body_len_, "rsa_key.txt", (char*)pBody);
+            DEBUGLOG("de_ret: %d", de_ret1);
+            header.body_len_ = de_ret1;
+            first_time = false;
+        }
+
+        u8_t sha1[20] = {0};
         SHA1((char*)sha1, pBody, header.body_len_);
         if (memcmp(sha1, header.body_sha1_, 20) != 0)
         {
@@ -136,7 +148,7 @@ u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool 
     c2s->set_recvnotify(recv_notify);
     InitConnect::Request req;
     req.set_allocated_c2s(c2s);
-    return net_send(API_ProtoID_InitConnect, req);
+    return net_send(API_ProtoID_InitConnect, req, true);
 }
 
 
@@ -209,7 +221,7 @@ u32_t NetCenter::req_reg_push(const std::vector<Qot_Common::Security> &stocks,
     return net_send(API_ProtoID_Qot_RegQotPush, req);
 }
 
-u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj)
+u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj, bool need_encrypt)
 {
     u32_t packet_no = 0;
 
@@ -231,9 +243,20 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     SHA1((char*)header.body_sha1_, body_data.c_str(), nSize);
     const char *p_header = (const char *)&header;
 
+    char body[40960] = {0};
+    memcpy(body, body_data.c_str(), body_data.size());
+
+
+    if(need_encrypt)
+    {
+        int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);
+        header.body_len_ = a;
+    }
+
     string packetData;
     packetData.append(p_header, p_header + sizeof(header));
-    packetData.append(body_data.begin(), body_data.end());
+    //packetData.append(body_data.begin(), body_data.end());
+    packetData.append(body, body + header.body_len_);
     if (quote_conn_->send(packetData.data(), (int)packetData.size()))
     {
         packet_no = header.serial_no_;
