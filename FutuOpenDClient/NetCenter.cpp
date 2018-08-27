@@ -115,7 +115,6 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
         u8_t sha1[20] = {0};
         SHA1((char*)sha1, pBody, header.body_len_);
-        handle_packet(header, (const i8_t*)pBody, header.body_len_);
         if (memcmp(sha1, header.body_sha1_, 20) != 0)
         {
             //error
