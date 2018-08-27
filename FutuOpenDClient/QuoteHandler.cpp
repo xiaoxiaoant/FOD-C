@@ -141,7 +141,7 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
     {
         const Qot_Common::Ticker &data = rsp.s2c().tickerlist(i);
         //cout << "Ticker: Code=" << rsp.s2c().security().code() << "; Time=" << data.time() << "; Price=" << data.price() << ";" << endl;
-        DEBUGLOG("Ticker: Code=%s; Time=%s; Price=%lf;", rsp.s2c().security().code(), data.time(), data.price());
+        DEBUGLOG("Ticker: Code=%s; Time=%s; Price=%lf;", rsp.s2c().security().code().c_str(), data.time().c_str(), data.price());
     }
 }
 
