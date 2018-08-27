@@ -135,57 +135,57 @@ void TcpConnect::after_connect(uv_connect_t *pReq, int nStatus)
 
 void TcpConnect::after_read(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
 {
-    TcpConnect *pSelf = (TcpConnect*)stream->data;
+    TcpConnect *conn_self = (TcpConnect*)stream->data;
 
     if (nread < 0)
     {
         if (nread == UV_EOF)
         {
             cout << "remote closed" << endl;
-            pSelf->handler_->on_disconnect(pSelf);
+            conn_self->handler_->on_disconnect(conn_self);
         }
         else if (nread == UV_ECONNRESET)
         {
             cout << "conn reset" << endl;
-            pSelf->handler_->on_disconnect(pSelf);
+            conn_self->handler_->on_disconnect(conn_self);
         }
         else {
             cout << "error: " << uv_strerror((int)nread) << endl;
-            pSelf->handler_->on_error(pSelf, (int)nread);
+            conn_self->handler_->on_error(conn_self, (int)nread);
         }
         return;
     }
 
-    pSelf->read_store_.set_data_len((int)nread + pSelf->read_store_.get_data_len());
-    pSelf->handler_->on_recv(pSelf, &pSelf->read_store_);
+    conn_self->read_store_.set_data_len((int)nread + conn_self->read_store_.get_data_len());
+    conn_self->handler_->on_recv(conn_self, &conn_self->read_store_);
 }
 
 void TcpConnect::after_write(uv_write_t *req, int status)
 {
     int nErr = status;
-    TcpConnect *pSelf = (TcpConnect*)req->data;
-    pSelf->write_stores_[pSelf->cur_using_write_store_idx_].clear();
-    int nOtherWriteStoreIdx = pSelf->cur_using_write_store_idx_ == 0 ? 1 : 0;
-    pSelf->cur_using_write_store_idx_ = -1;
+    TcpConnect *conn_self = (TcpConnect*)req->data;
+    conn_self->write_stores_[conn_self->cur_using_write_store_idx_].clear();
+    int other_write_storeIdx = conn_self->cur_using_write_store_idx_ == 0 ? 1 : 0;
+    conn_self->cur_using_write_store_idx_ = -1;
 
     if (status == 0)
     {
-        std::vector<char> *pOtherWriteStore = &pSelf->write_stores_[nOtherWriteStoreIdx];
+        std::vector<char> *pOtherWriteStore = &conn_self->write_stores_[other_write_storeIdx];
         if (pOtherWriteStore->size() > 0)
         {
-            pSelf->cur_using_write_store_idx_ = nOtherWriteStoreIdx;
-            pSelf->uv_write_buf_ = uv_buf_init(pOtherWriteStore->data(), (int)pOtherWriteStore->size());
-            int nRet = uv_write(&pSelf->uv_write_, (uv_stream_t *)&pSelf->uv_tcp_, &pSelf->uv_write_buf_, 1, after_write);
-            if (nRet != 0)
+            conn_self->cur_using_write_store_idx_ = other_write_storeIdx;
+            conn_self->uv_write_buf_ = uv_buf_init(pOtherWriteStore->data(), (int)pOtherWriteStore->size());
+            int ret = uv_write(&conn_self->uv_write_, (uv_stream_t *)&conn_self->uv_tcp_, &conn_self->uv_write_buf_, 1, after_write);
+            if (ret != 0)
             {
-                nErr = nRet;
+                nErr = ret;
             }
         }
     }
 
     if (nErr != 0)
     {
-        pSelf->handler_->on_error(pSelf, nErr);
+        conn_self->handler_->on_error(conn_self, nErr);
     }
 }
 

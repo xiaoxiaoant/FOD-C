@@ -118,21 +118,21 @@ void NetCenter::start_keep_alive_timer(i32_t interval)
 
 u32_t NetCenter::req_get_global_state(u64_t user_id)
 {
-    GetGlobalState::C2S *pC2S = new GetGlobalState::C2S();
-    pC2S->set_userid(user_id);
+    GetGlobalState::C2S *c2s = new GetGlobalState::C2S();
+    c2s->set_userid(user_id);
     GetGlobalState::Request req;
-    req.set_allocated_c2s(pC2S);
+    req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_GlobalState, req);
 }
 
 u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool recv_notify)
 {
-    InitConnect::C2S *pC2S = new InitConnect::C2S();
-    pC2S->set_clientver(client_ver);
-    pC2S->set_clientid(client_id);
-    pC2S->set_recvnotify(recv_notify);
+    InitConnect::C2S *c2s = new InitConnect::C2S();
+    c2s->set_clientver(client_ver);
+    c2s->set_clientid(client_id);
+    c2s->set_recvnotify(recv_notify);
     InitConnect::Request req;
-    req.set_allocated_c2s(pC2S);
+    req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_InitConnect, req);
 }
 
@@ -144,78 +144,78 @@ u32_t NetCenter::req_subscribe(const std::vector<Qot_Common::Security> &stocks,
                                const std::vector<Qot_Common::RehabType> &rehab_types,
                                bool first_push)
 {
-    Qot_Sub::C2S *pC2S = new Qot_Sub::C2S();
+    Qot_Sub::C2S *c2s = new Qot_Sub::C2S();
 
-    for (auto &security : stocks)
+    for (auto &stock : stocks)
     {
-        Qot_Common::Security *pSecurity = pC2S->add_securitylist();
-        *pSecurity = security;
+        Qot_Common::Security *security = c2s->add_securitylist();
+        *security = stock;
     }
 
     for (auto &subType : sub_types)
     {
-        pC2S->add_subtypelist(subType);
+        c2s->add_subtypelist(subType);
     }
-    pC2S->set_issuborunsub(is_sub);
-    pC2S->set_isregorunregpush(reg_push);
-    pC2S->set_isfirstpush(first_push);
+    c2s->set_issuborunsub(is_sub);
+    c2s->set_isregorunregpush(reg_push);
+    c2s->set_isfirstpush(first_push);
 
     Qot_Sub::Request req;
-    req.set_allocated_c2s(pC2S);
+    req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_Qot_Sub, req);
 }
 
 u32_t NetCenter::req_keep_alive()
 {
-    KeepAlive::C2S *pC2S = new KeepAlive::C2S();
-    pC2S->set_time(time(NULL));
+    KeepAlive::C2S *c2s = new KeepAlive::C2S();
+    c2s->set_time(time(NULL));
     KeepAlive::Request req;
-    req.set_allocated_c2s(pC2S);
+    req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_KeepAlive, req);
 }
 
 u32_t NetCenter::req_reg_push(const std::vector<Qot_Common::Security> &stocks,
                               const std::vector<Qot_Common::SubType> &sub_types,
                               const std::vector<Qot_Common::RehabType> &rehab_types,
-                              bool isRegPush,
+                              bool is_reg_push,
                               bool first_push)
 {
-    Qot_RegQotPush::C2S *pC2S = new Qot_RegQotPush::C2S();
+    Qot_RegQotPush::C2S *c2s = new Qot_RegQotPush::C2S();
 
     for (auto &stock : stocks)
     {
-        Qot_Common::Security *pStock = pC2S->add_securitylist();
-        *pStock = stock;
+        Qot_Common::Security *security = c2s->add_securitylist();
+        *security = stock;
     }
 
     for (auto &subType : sub_types)
     {
-        pC2S->add_subtypelist(subType);
+        c2s->add_subtypelist(subType);
     }
 
-    for (auto &rehabType : rehab_types)
+    for (auto &rehab_type : rehab_types)
     {
-        pC2S->add_rehabtypelist(rehabType);
+        c2s->add_rehabtypelist(rehab_type);
     }
 
-    pC2S->set_isregorunreg(isRegPush);
-    pC2S->set_isfirstpush(first_push);
+    c2s->set_isregorunreg(is_reg_push);
+    c2s->set_isfirstpush(first_push);
 
     Qot_RegQotPush::Request req;
-    req.set_allocated_c2s(pC2S);
+    req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_Qot_RegQotPush, req);
 }
 
 u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj)
 {
-    u32_t nPacketNo = 0;
+    u32_t packet_no = 0;
 
     i32_t nSize = (i32_t)pb_obj.ByteSize();
-    string bodyData;
-    bodyData.resize(nSize);
-    if (!pb_obj.SerializeToString(&bodyData))
+    string body_data;
+    body_data.resize(nSize);
+    if (!pb_obj.SerializeToString(&body_data))
     {
-        return nPacketNo;
+        return packet_no;
     }
 
     APIProtoHeader header;
@@ -225,17 +225,17 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     header.proto_ver_ = 0;
     header.serial_no_ = next_packet_no_++;
     header.body_len_ = nSize;
-    SHA1((char*)header.body_sha1_, bodyData.c_str(), nSize);
-    const char *pHeader = (const char *)&header;
+    SHA1((char*)header.body_sha1_, body_data.c_str(), nSize);
+    const char *p_header = (const char *)&header;
 
     string packetData;
-    packetData.append(pHeader, pHeader + sizeof(header));
-    packetData.append(bodyData.begin(), bodyData.end());
+    packetData.append(p_header, p_header + sizeof(header));
+    packetData.append(body_data.begin(), body_data.end());
     if (quote_conn_->send(packetData.data(), (int)packetData.size()))
     {
-        nPacketNo = header.serial_no_;
+        packet_no = header.serial_no_;
     }
-    return nPacketNo;
+    return packet_no;
 }
 
 void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len)
