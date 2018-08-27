@@ -17,10 +17,12 @@ bool ParsePb(google::protobuf::Message *pb_obj, u32_t proto_id, const i8_t *data
         DEBUGLOG("Protobuf parse error: ProtoID = %d", proto_id);
         return false;
     }
+    string a = pb_obj->DebugString();
+    DEBUGLOG("pb proto_id: %d len: %d %s", proto_id, len, a.c_str());
     return true;
 }
 
-void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *data, i32_t len)
+std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
     //cout << "OnRsp_InitConnect: " << endl;
     DEBUGLOG("OnRsp_InitConnect: ");
@@ -28,14 +30,16 @@ void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i
     InitConnect::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, data, len))
     {
-        return;
+        return std::string();
     }
+
+    conn_aes_key = rsp.s2c().connaeskey();
 
     //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
-        return;
+        return std::string();
     }
 
     keep_alive_interval_ = rsp.s2c().keepaliveinterval();
@@ -49,9 +53,15 @@ void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i
 
     //subscribe stock
     Qot_Common::Security stock;
+
+    vector<Qot_Common::Security> stocks;
+
     stock.set_market(Qot_Common::QotMarket_HK_Security);
     stock.set_code("00700");
-    vector<Qot_Common::Security> stocks;
+    stocks.push_back(stock);
+
+    stock.set_market(Qot_Common::QotMarket_US_Security);
+    stock.set_code("GOOG");
     stocks.push_back(stock);
 
     vector<Qot_Common::SubType> subTypes;
@@ -66,6 +76,8 @@ void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i
 
     //注册接收逐笔推送
     NetCenter::instance()->req_reg_push(stocks, subTypes, rehabTypes, true, true);
+
+    return conn_aes_key;
 }
 
 void QuoteHandler::on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)

@@ -13,7 +13,7 @@ namespace ftq
 class IProtoHandler
 {
 public:
-    virtual void on_request_init_connect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
+    virtual std::string on_request_init_connect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
 
     // 处理OpenD发过来的数据包
     virtual void on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
@@ -81,6 +81,7 @@ private:
     IProtoHandler *proto_handler_ {nullptr};
     TcpConnect *quote_conn_ {nullptr};
     u32_t next_packet_no_ {1};
+    std::string conn_aes_key;
 
 private:
     static NetCenter *instance_;

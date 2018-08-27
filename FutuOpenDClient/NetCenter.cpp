@@ -1,6 +1,7 @@
 ﻿#include "NetCenter.h"
 #include "SHA1.h"
 #include "myrsa.h"
+#include "myaes.h"
 #include <iostream>
 #include <time.h>
 #include "pb/pb_header.h"
@@ -54,53 +55,79 @@ void NetCenter::set_proto_handler(IProtoHandler *handler)
 void NetCenter::on_connect(TcpConnect *conn)
 {
     //连接成功后需要调用InitConnect
-    req_init_connect(100, "demo", true);
+    req_init_connect(100, "ant_demo", true);
 }
 
 void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 {
+    DEBUGLOG("len: %d", buffer->get_data_len());
     for (;;)
     {
         APIProtoHeader header;
         const char *pData = buffer->get_data();
+        DEBUGLOG("buffer starts with %c%c", pData[0], pData[1]);
         i32_t nLen = buffer->get_data_len();
         if (nLen < (i32_t)sizeof(header))
         {
+            if(nLen > 0)
+                DEBUGLOG("len error, len is %d", nLen);
             return;
         }
 
         header = *(APIProtoHeader*)pData;
+        DEBUGLOG("proto_id_ is %d, body_len_ is %d", header.proto_id_, header.body_len_);
+	DEBUGLOG("key: %s", conn_aes_key.c_str());
         if (nLen < (i32_t)sizeof(header) + header.body_len_)
         {
+            DEBUGLOG("len error, len is %d, body_len_ is %d", nLen, header.body_len_);
             return;
         }
 
         const char *pBody = pData + sizeof(header);
 
-        static bool first_time = true;
+        auto origin_body_len = header.body_len_;
 
-        if(first_time)
+        if(conn_aes_key == "")
         {
             int de_ret1 = my_decrypt_pri((char*)pBody, header.body_len_, "rsa_key.txt", (char*)pBody);
             DEBUGLOG("de_ret: %d", de_ret1);
             header.body_len_ = de_ret1;
-            first_time = false;
         }
+        else
+	{
+
+            unsigned char out[40960] = {0};
+
+            int mod_len = pBody[header.body_len_ - 1];
+
+            int body_real_len = header.body_len_ - 16;
+            int body_part = body_real_len / 16;
+
+            DEBUGLOG("size %d b_len %d m_len %d body_rlen %d b_part %d", nLen, header.body_len_, mod_len, body_real_len, body_part);
+
+            AES_KEY dkey;
+            AES_set_decrypt_key((unsigned char*)conn_aes_key.c_str(), 128, &dkey);
+            DEBUGLOG("aes_key %s", conn_aes_key.c_str());
+
+            for (int i = 0; i < body_part; i++)
+                AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
+	}
 
         u8_t sha1[20] = {0};
         SHA1((char*)sha1, pBody, header.body_len_);
+        handle_packet(header, (const i8_t*)pBody, header.body_len_);
         if (memcmp(sha1, header.body_sha1_, 20) != 0)
         {
             //error
             //cerr << "sha check fail" << endl;
             DEBUGLOG("sha check fail");
-            buffer->remove_front((i32_t)sizeof(header) + header.body_len_);
+            buffer->remove_front((i32_t)sizeof(header) + origin_body_len);
             continue;
         }
 
         handle_packet(header, (const i8_t*)pBody, header.body_len_);
 
-        buffer->remove_front((i32_t)sizeof(header) + header.body_len_);
+        buffer->remove_front((i32_t)sizeof(header) + origin_body_len);
     }
 }
 
@@ -243,14 +270,21 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     SHA1((char*)header.body_sha1_, body_data.c_str(), nSize);
     const char *p_header = (const char *)&header;
 
-    char body[40960] = {0};
-    memcpy(body, body_data.c_str(), body_data.size());
+    unsigned char body[40960];// = {0};
+    memcpy(body, body_data.c_str(), body_data.size() + 1);
 
 
     if(need_encrypt)
     {
         int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);
         header.body_len_ = a;
+    }
+
+    if(conn_aes_key != "")
+    {
+        int a = my_encrypt_aes(body, header.body_len_, conn_aes_key, body);
+        header.body_len_ = a;
+        DEBUGLOG("ret %d body_len %d", a, header.body_len_);
     }
 
     string packetData;
@@ -266,10 +300,11 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
 
 void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
+    DEBUGLOG("proto_id: %d", header.proto_id_);
     switch (header.proto_id_)
     {
         case API_ProtoID_InitConnect:
-            proto_handler_->on_request_init_connect(header, data, len);
+            conn_aes_key = proto_handler_->on_request_init_connect(header, data, len);
             break;
         case API_ProtoID_GlobalState:
             proto_handler_->on_request_get_global_state(header, data, len);
