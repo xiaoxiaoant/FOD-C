@@ -46,7 +46,8 @@ std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, 
     user_id_ = rsp.s2c().loginuserid();
 
     //启动心跳定时器
-    NetCenter::instance()->start_keep_alive_timer(keep_alive_interval_ * 4 / 5);
+    //NetCenter::instance()->start_keep_alive_timer(keep_alive_interval_ * 4 / 5);
+    NetCenter::instance()->start_keep_alive_timer(2);
 
     //获取市场全局状态
     NetCenter::instance()->req_get_global_state(user_id_);

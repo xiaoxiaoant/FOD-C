@@ -76,7 +76,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
         header = *(APIProtoHeader*)pData;
         DEBUGLOG("proto_id_ is %d, body_len_ is %d", header.proto_id_, header.body_len_);
-	DEBUGLOG("key: %s", conn_aes_key.c_str());
+        DEBUGLOG("aes_key is %s", conn_aes_key.c_str());
         if (nLen < (i32_t)sizeof(header) + header.body_len_)
         {
             DEBUGLOG("len error, len is %d, body_len_ is %d", nLen, header.body_len_);
@@ -89,6 +89,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
         if(conn_aes_key == "")
         {
+            DEBUGLOG("aes_key is NULL, use rsa_key.txt to decrypt");
             int de_ret1 = my_decrypt_pri((char*)pBody, header.body_len_, "rsa_key.txt", (char*)pBody);
             DEBUGLOG("de_ret: %d", de_ret1);
             header.body_len_ = de_ret1;
@@ -107,7 +108,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
             AES_KEY dkey;
             AES_set_decrypt_key((unsigned char*)conn_aes_key.c_str(), 128, &dkey);
-            DEBUGLOG("aes_key %s", conn_aes_key.c_str());
+            DEBUGLOG("use aes_key %s to decrypt", conn_aes_key.c_str());
 
             for (int i = 0; i < body_part; i++)
                 AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
@@ -174,7 +175,7 @@ u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool 
     c2s->set_recvnotify(recv_notify);
     InitConnect::Request req;
     req.set_allocated_c2s(c2s);
-    return net_send(API_ProtoID_InitConnect, req, true);
+    return net_send(API_ProtoID_InitConnect, req);
 }
 
 
@@ -247,7 +248,7 @@ u32_t NetCenter::req_reg_push(const std::vector<Qot_Common::Security> &stocks,
     return net_send(API_ProtoID_Qot_RegQotPush, req);
 }
 
-u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj, bool need_encrypt)
+u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj)
 {
     u32_t packet_no = 0;
 
@@ -273,15 +274,17 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     memcpy(body, body_data.c_str(), body_data.size() + 1);
 
 
-    if(need_encrypt)
+    if(conn_aes_key == "")
     {
-        int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);
+        DEBUGLOG("aes_key is NULL, use pub.key to encrypt");
+        //int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);
+        int a = my_encrypt_pub((char*)body, body_data.size(), "pub.key", (char*)body);
         header.body_len_ = a;
     }
-
-    if(conn_aes_key != "")
+    else
     {
-        int a = my_encrypt_aes(body, header.body_len_, conn_aes_key, body);
+        DEBUGLOG("use aes_key %s to encrypt", conn_aes_key.c_str());
+        int a = my_encrypt_aes(body, body_data.size(), conn_aes_key, body);
         header.body_len_ = a;
         DEBUGLOG("ret %d body_len %d", a, header.body_len_);
     }
