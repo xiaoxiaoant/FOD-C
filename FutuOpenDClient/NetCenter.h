@@ -32,12 +32,12 @@ class NetCenter: public ITcpHandler
 {
 public:
     virtual ~NetCenter();
-    bool Init(uv_loop_t *pLoop);
-    void Connect(const char *pIp, i32_t nPort);
+    bool init(uv_loop_t *pLoop);
+    void connect(const char *pIp, i32_t nPort);
 
-    static NetCenter *Default();
+    static NetCenter *default();
 public:
-    void SetProtoHandler(IProtoHandler *pHandler);
+    void set_proto_handler(IProtoHandler *pHandler);
 public:
     virtual void OnConnect(TcpConnect *pConn) override;
     virtual void OnRecv(TcpConnect *pConn, Buffer *pBuf) override;

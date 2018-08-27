@@ -7,11 +7,11 @@ using namespace std;
 
 namespace ftq
 {
-	void APIProtoHeader::Init()
-	{
-		memset(this, 0, sizeof(*this));
-		szHeaderFlag[0] = 'F';
-		szHeaderFlag[1] = 'T';
-	}
+void APIProtoHeader::Init()
+{
+    memset(this, 0, sizeof(*this));
+    szHeaderFlag[0] = 'F';
+    szHeaderFlag[1] = 'T';
+}
 }
 
