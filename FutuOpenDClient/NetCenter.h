@@ -5,8 +5,7 @@
 #include <vector>
 #include <string>
 #include "TcpConnect.h"
-#include "pb/Qot_Common.pb.h"
-#include "pb/Qot_Sub.pb.h"
+#include "pb/pb_header.h"
 
 namespace ftq
 {

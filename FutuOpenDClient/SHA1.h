@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-typedef struct
+typedef struct SHA1_CTX
 {
     uint32_t state[5];
     uint32_t count[2];
