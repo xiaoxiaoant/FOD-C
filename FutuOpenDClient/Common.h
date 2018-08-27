@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include "string.h"
+#include "DebugLog.h"
+
 #include <uv.h>
 
 #if defined(__linux__) || defined(__APPLE__)

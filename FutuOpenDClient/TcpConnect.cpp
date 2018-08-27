@@ -1,4 +1,5 @@
-﻿#include "TcpConnect.h"
+﻿#include "DebugLog.h"
+#include "TcpConnect.h"
 #include <iostream>
 #include <string>
 #include <cassert>
@@ -113,24 +114,24 @@ void TcpConnect::after_close(uv_handle_t *pHandle)
 }
 
 
-void TcpConnect::after_connect(uv_connect_t *pReq, int nStatus)
+void TcpConnect::after_connect(uv_connect_t *request, int status)
 {
-    TcpConnect *pSelf = (TcpConnect*)pReq->data;
+    TcpConnect *self = (TcpConnect*)request->data;
 
-    if (nStatus != 0)
+    if (status != 0)
     {
-        pSelf->handler_->on_error(pSelf, nStatus);
+        self->handler_->on_error(self, status);
         return;
     }
 
-    int nRet = uv_read_start(pReq->handle, on_alloc_buf, after_read);
-    if (nRet != 0)
+    int ret = uv_read_start(request->handle, on_alloc_buf, after_read);
+    if (ret != 0)
     {
-        pSelf->handler_->on_error(pSelf, nStatus);
+        self->handler_->on_error(self, status);
         return;
     }
 
-    pSelf->handler_->on_connect(pSelf);
+    self->handler_->on_connect(self);
 }
 
 void TcpConnect::after_read(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
@@ -141,16 +142,19 @@ void TcpConnect::after_read(uv_stream_t *stream, ssize_t nread, const uv_buf_t *
     {
         if (nread == UV_EOF)
         {
-            cout << "remote closed" << endl;
+            //cout << "remote closed" << endl;
+            DEBUGLOG("remote closed");
             conn_self->handler_->on_disconnect(conn_self);
         }
         else if (nread == UV_ECONNRESET)
         {
-            cout << "conn reset" << endl;
+            //cout << "conn reset" << endl;
+            DEBUGLOG("conn reset");
             conn_self->handler_->on_disconnect(conn_self);
         }
         else {
-            cout << "error: " << uv_strerror((int)nread) << endl;
+            //cout << "error: " << uv_strerror((int)nread) << endl;
+            DEBUGLOG("error: %s", uv_strerror((int)nread));
             conn_self->handler_->on_error(conn_self, (int)nread);
         }
         return;

@@ -9,27 +9,30 @@ using namespace std;
 
 namespace ftq
 {
-bool ParsePb(google::protobuf::Message *pPbObj, u32_t nProtoID, const i8_t *pData, i32_t nLen)
+bool ParsePb(google::protobuf::Message *pb_obj, u32_t proto_id, const i8_t *data, i32_t len)
 {
-    if (!pPbObj->ParseFromArray(pData, nLen))
+    if (!pb_obj->ParseFromArray(data, len))
     {
-        cerr << "Protobuf parse error: ProtoID=" << nProtoID << endl;
+        //cerr << "Protobuf parse error: ProtoID=" << nProtoID << endl;
+        DEBUGLOG("Protobuf parse error: ProtoID = %d", proto_id);
         return false;
     }
     return true;
 }
 
-void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
-    cout << "OnRsp_InitConnect: " << endl;
+    //cout << "OnRsp_InitConnect: " << endl;
+    DEBUGLOG("OnRsp_InitConnect: ");
 
     InitConnect::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, data, len))
     {
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
         return;
@@ -67,24 +70,29 @@ void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i
 
 void QuoteHandler::on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_KeepAlive: " << endl;
+    //cout << "OnRsp_KeepAlive: " << endl;
+    DEBUGLOG("OnRsp_KeepAlive:");
 }
 
 void QuoteHandler::on_request_get_global_state(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_GetGlobalState: " << endl;
+    //cout << "OnRsp_GetGlobalState: " << endl;
+    DEBUGLOG("OnRsp_Qot_Sub:");
+
     GetGlobalState::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << "; ServerVer=" << rsp.s2c().serverver() << "; " << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << "; ServerVer=" << rsp.s2c().serverver() << "; " << endl;
+    DEBUGLOG("Ret=%d; Msg=%s; ServerVer=%d;", rsp.rettype(), rsp.retmsg().c_str(), rsp.s2c().serverver());
 }
 
 void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_Qot_Sub: " << endl;
+    //cout << "OnRsp_Qot_Sub: " << endl;
+    DEBUGLOG("OnRsp_Qot_Sub:");
 
     Qot_Sub::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
@@ -92,12 +100,14 @@ void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
 }
 
 void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_Qot_RegQotPush:" << endl;
+    //cout << "OnRsp_Qot_RegQotPush:" << endl;
+    DEBUGLOG("OnRsp_Qot_RegQotPush:");
 
     Qot_RegQotPush::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
@@ -105,12 +115,14 @@ void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
 }
 
 void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_Qot_UpdateTicker:" << endl;
+    //cout << "OnRsp_Qot_UpdateTicker:" << endl;
+    DEBUGLOG("OnRsp_Qot_UpdateTicker:");
 
     Qot_UpdateTicker::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
@@ -118,7 +130,8 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
         return;
@@ -127,16 +140,15 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
     for (int i = 0; i < rsp.s2c().tickerlist_size(); ++i)
     {
         const Qot_Common::Ticker &data = rsp.s2c().tickerlist(i);
-        cout << "Ticker: Code=" << rsp.s2c().security().code() <<
-            "; Time=" << data.time() <<
-            "; Price=" << data.price() <<
-            ";" << endl;
+        //cout << "Ticker: Code=" << rsp.s2c().security().code() << "; Time=" << data.time() << "; Price=" << data.price() << ";" << endl;
+        DEBUGLOG("Ticker: Code=%s; Time=%s; Price=%lf;", rsp.s2c().security().code(), data.time(), data.price());
     }
 }
 
 void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_Qot_UpdateBroker:" << endl;
+    //cout << "OnRsp_Qot_UpdateBroker:" << endl;
+    DEBUGLOG("OnRsp_Qot_UpdateBroker:");
 
     Qot_UpdateBroker::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
@@ -144,7 +156,8 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
         return;
@@ -153,14 +166,15 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
     for (int i = 0; i < rsp.s2c().brokerasklist_size(); ++i)
     {
         const Qot_Common::Broker &data = rsp.s2c().brokerasklist(i);
-        cout << "Broker: ID=" << data.id() <<
-            ";" << endl;
+        //cout << "Broker: ID=" << data.id() << ";" << endl;
+        DEBUGLOG("Broker: ID=%lld;", data.id());
     }
 }
 
 void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    cout << "OnRsp_Qot_UpdateOrderBook:" << endl;
+    //cout << "OnRsp_Qot_UpdateOrderBook:" << endl;
+    DEBUGLOG("OnRsp_Qot_UpdateOrderBook:");
 
     Qot_UpdateOrderBook::Response rsp;
     if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
@@ -168,7 +182,8 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
+    DEBUGLOG("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
         return;
@@ -178,6 +193,7 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
     {
         const Qot_Common::OrderBook &data = rsp.s2c().orderbookasklist(i);
         cout << "Price: " << data.price() << endl;
+        DEBUGLOG("Price: %lf", data.price());
     }
 }
 

@@ -24,24 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TcpConnect.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Common.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SHA1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="QuoteHandler.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="NetCenter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="pb\src\Notify.pb.cc">
       <Filter>源文件\pb\src</Filter>
     </ClCompile>
@@ -186,23 +168,29 @@
     <ClCompile Include="pb\src\KeepAlive.pb.cc">
       <Filter>源文件\pb\src</Filter>
     </ClCompile>
+    <ClCompile Include="QuoteHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SHA1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpConnect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NetCenter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugLog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TcpConnect.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SHA1.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="QuoteHandler.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NetCenter.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="pb\src\Notify.pb.h">
       <Filter>源文件\pb\src</Filter>
     </ClInclude>
@@ -349,6 +337,24 @@
     </ClInclude>
     <ClInclude Include="pb\pb_header.h">
       <Filter>源文件\pb</Filter>
+    </ClInclude>
+    <ClInclude Include="NetCenter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="QuoteHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpConnect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugLog.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

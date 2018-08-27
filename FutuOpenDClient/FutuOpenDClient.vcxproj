@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="DebugLog.cpp" />
     <ClCompile Include="NetCenter.cpp" />
     <ClCompile Include="pb\src\Common.pb.cc" />
     <ClCompile Include="pb\src\GetGlobalState.pb.cc" />
@@ -214,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="DebugLog.h" />
     <ClInclude Include="NetCenter.h" />
     <ClInclude Include="pb\pb_header.h" />
     <ClInclude Include="pb\src\Common.pb.h" />

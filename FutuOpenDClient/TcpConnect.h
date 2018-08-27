@@ -57,8 +57,8 @@ public:
     static void after_connect(uv_connect_t *pReq, int nStatus);
     static void after_close(uv_handle_t *pHandle);
     static void after_read(uv_stream_t* stream,
-                          ssize_t nread,
-                          const uv_buf_t* buf);
+                           ssize_t nread,
+                           const uv_buf_t* buf);
     static void after_write(uv_write_t* req, int status);
     static void on_alloc_buf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
 private:

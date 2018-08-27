@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <assert.h>
 #include "NetCenter.h"
 #include "QuoteHandler.h"
 
@@ -10,10 +9,9 @@ int main(int argc, const char * argv[])
     if (argc != 3)
     {
         fprintf(stderr, "usage: %s ip port\n", argv[0]);
+        return -1;
     }
     
-    assert(argc == 3);
-
     NetCenter::instance()->init(uv_default_loop());
 
     IProtoHandler *quote_handler = new QuoteHandler();
