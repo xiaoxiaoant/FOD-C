@@ -189,6 +189,12 @@
     <ClCompile Include="DebugLog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="myrsa.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="myaes.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pb\src\Notify.pb.h">
@@ -354,6 +360,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DebugLog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="myrsa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="myaes.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
