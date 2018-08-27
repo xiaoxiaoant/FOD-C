@@ -2,10 +2,7 @@
 #include "SHA1.h"
 #include <iostream>
 #include <time.h>
-#include "pb/InitConnect.pb.h"
-#include "pb/KeepAlive.pb.h"
-#include "pb/Qot_RegQotPush.pb.h"
-#include "pb/GetGlobalState.pb.h"
+#include "pb/pb_header.h"
 
 using namespace std;
 

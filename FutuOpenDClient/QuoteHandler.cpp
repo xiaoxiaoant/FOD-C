@@ -3,15 +3,7 @@
 #include <vector>
 #include "google/protobuf/message.h"
 #include "NetCenter.h"
-#include "pb/InitConnect.pb.h"
-#include "pb/Qot_Common.pb.h"
-#include "pb/Qot_Sub.pb.h"
-#include "pb/Qot_RegQotPush.pb.h"
-#include "pb/Qot_UpdateTicker.pb.h"
-#include "pb/GetGlobalState.pb.h"
-#include "pb/Qot_UpdateBroker.pb.h"
-#include "pb/Qot_UpdateOrderBook.pb.h"
-
+#include "pb/pb_header.h"
 
 using namespace std;
 
