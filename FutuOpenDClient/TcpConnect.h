@@ -13,38 +13,38 @@ public:
     ~Buffer();
     int get_total_len()
     {
-        return nBufLen;
+        return buf_len_;
     }
     char *get_data()
     {
-        return pBuf;
+        return buffer_;
     }
     int get_data_len()
     {
-        return nDataLen;
+        return data_len_;
     }
     void set_data_len(int nLen);
     int get_remain_len();
     char *get_write_start()
     {
-        return pBuf + nDataLen;
+        return buffer_ + data_len_;
     }
     bool resize(int nNewLen);
     void remove_front(int nLen);
 private:
-    int nDataLen {0};
-    int nBufLen {0};
-    char *pBuf {nullptr};
+    int data_len_ {0};
+    int buf_len_ {0};
+    char *buffer_ {nullptr};
 };
 
 class TcpConnect;
 
 class ITcpHandler {
 public:
-    virtual void on_connect(TcpConnect *pConn) = 0;
-    virtual void on_recv(TcpConnect *pConn, Buffer *pBuf) = 0;
-    virtual void on_error(TcpConnect *pConn, int nUvErr) = 0;
-    virtual void on_disconnect(TcpConnect *pConn) = 0;
+    virtual void on_connect(TcpConnect *conn) = 0;
+    virtual void on_recv(TcpConnect *conn, Buffer *buff) = 0;
+    virtual void on_error(TcpConnect *conn, int uv_err) = 0;
+    virtual void on_disconnect(TcpConnect *conn) = 0;
 };
 
 class TcpConnect {
@@ -62,16 +62,16 @@ public:
     static void after_write(uv_write_t* req, int status);
     static void on_alloc_buf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
 private:
-    uv_loop_t *m_pUvLoop {nullptr};
-    uv_tcp_t m_tcp {};
-    uv_connect_t m_connect {};
-    uv_write_t m_write {};
-    uv_buf_t m_readBuf {};
-    uv_buf_t m_writeBuf {};
-    std::vector<char> m_writeStores[2];
-    int m_nCurUsingWriteStoreIdx {-1};
-    Buffer m_readStore {10 * 1024 * 1024};
-    ITcpHandler *m_pHandler {nullptr};
+    uv_loop_t *uv_loop_ {nullptr};
+    uv_tcp_t uv_tcp_ {};
+    uv_connect_t uv_connect_ {};
+    uv_write_t uv_write_ {};
+    uv_buf_t uv_read_buf_ {};
+    uv_buf_t uv_write_buf_ {};
+    std::vector<char> write_stores_[2];
+    int cur_using_write_store_idx_ {-1};
+    Buffer read_store_ {10 * 1024 * 1024};
+    ITcpHandler *handler_ {nullptr};
 };
 }
 

@@ -12,31 +12,31 @@ NetCenter *NetCenter::instance_ = new NetCenter();
 
 NetCenter::~NetCenter()
 {
-    if (m_pQuoteConn)
+    if (quote_conn_)
     {
-        m_pQuoteConn->close();
-        m_pQuoteConn = nullptr;
+        quote_conn_->close();
+        quote_conn_ = nullptr;
     }
 }
 
 
-bool NetCenter::init(uv_loop_t *pLoop)
+bool NetCenter::init(uv_loop_t *uv_loop)
 {
-    if (!pLoop)
+    if (!uv_loop)
     {
         return false;
     }
 
-    m_pLoop = pLoop;
-    m_pQuoteConn = new TcpConnect();
-    m_pQuoteConn->init(pLoop, this);
+    loop_ = uv_loop;
+    quote_conn_ = new TcpConnect();
+    quote_conn_->init(uv_loop, this);
     return true;
 }
 
 
-void NetCenter::connect(const char *pIp, i32_t nPort)
+void NetCenter::connect(const char *ip, i32_t port)
 {
-    m_pQuoteConn->connect(pIp, nPort);
+    quote_conn_->connect(ip, port);
 }
 
 
@@ -45,99 +45,104 @@ NetCenter * NetCenter::instance()
     return instance_;
 }
 
-void NetCenter::set_proto_handler(IProtoHandler *pHandler)
+void NetCenter::set_proto_handler(IProtoHandler *handler)
 {
-    m_pProtoHandler = pHandler;
+    proto_handler_ = handler;
 }
 
-void NetCenter::on_connect(TcpConnect *pConn)
+void NetCenter::on_connect(TcpConnect *conn)
 {
     //连接成功后需要调用InitConnect
-    Req_InitConnect(100, "demo", true);
+    req_init_connect(100, "demo", true);
 }
 
-void NetCenter::on_recv(TcpConnect *pConn, Buffer *pBuf)
+void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 {
     for (;;)
     {
         APIProtoHeader header;
-        const char *pData = pBuf->get_data();
-        i32_t nLen = pBuf->get_data_len();
+        const char *pData = buffer->get_data();
+        i32_t nLen = buffer->get_data_len();
         if (nLen < (i32_t)sizeof(header))
         {
             return;
         }
 
         header = *(APIProtoHeader*)pData;
-        if (nLen < (i32_t)sizeof(header) + header.nBodyLen)
+        if (nLen < (i32_t)sizeof(header) + header.body_len_)
         {
             return;
         }
 
         u8_t sha1[20] = {0};
         const char *pBody = pData + sizeof(header);
-        SHA1((char*)sha1, pBody, header.nBodyLen);
-        if (memcmp(sha1, header.arrBodySHA1, 20) != 0)
+        SHA1((char*)sha1, pBody, header.body_len_);
+        if (memcmp(sha1, header.body_sha1_, 20) != 0)
         {
             //error
             cerr << "sha check fail" << endl;
-            pBuf->remove_front((i32_t)sizeof(header) + header.nBodyLen);
+            buffer->remove_front((i32_t)sizeof(header) + header.body_len_);
             continue;
         }
 
-        HandlePacket(header, (const i8_t*)pBody, header.nBodyLen);
+        handle_packet(header, (const i8_t*)pBody, header.body_len_);
 
-        pBuf->remove_front((i32_t)sizeof(header) + header.nBodyLen);
+        buffer->remove_front((i32_t)sizeof(header) + header.body_len_);
     }
 }
 
-void NetCenter::on_error(TcpConnect *pConn, int nUvErr)
+void NetCenter::on_error(TcpConnect *conn, int uv_err)
 {
-    cerr << "Net error: " << nUvErr << " " << uv_strerror(nUvErr) << endl;
+    cerr << "Net error: " << uv_err << " " << uv_strerror(uv_err) << endl;
 }
 
-void NetCenter::on_disconnect(TcpConnect *pConn)
+void NetCenter::on_disconnect(TcpConnect *conn)
 {
     cerr << "Disconnected" << endl;
 }
 
 
-void NetCenter::OnKeepAliveTimer(uv_timer_t* handle)
+void NetCenter::on_keep_alive_timer(uv_timer_t* handle)
 {
     NetCenter *pSelf = (NetCenter*)handle->data;
-    pSelf->Req_KeepAlive();
+    pSelf->req_keep_alive();
 }
 
-void NetCenter::StartKeepAliveTimer(i32_t nInterval)
+void NetCenter::start_keep_alive_timer(i32_t interval)
 {
-    m_keepAliveTimer.data = this;
-    uv_timer_init(m_pLoop, &m_keepAliveTimer);
-    uv_timer_start(&m_keepAliveTimer, OnKeepAliveTimer, nInterval * 1000, nInterval * 1000);
+    keep_alive_timer_.data = this;
+    uv_timer_init(loop_, &keep_alive_timer_);
+    uv_timer_start(&keep_alive_timer_, on_keep_alive_timer, interval * 1000, interval * 1000);
 }
 
 
-u32_t NetCenter::Req_GetGlobalState(u64_t nUserID)
+u32_t NetCenter::req_get_global_state(u64_t user_id)
 {
     GetGlobalState::C2S *pC2S = new GetGlobalState::C2S();
-    pC2S->set_userid(nUserID);
+    pC2S->set_userid(user_id);
     GetGlobalState::Request req;
     req.set_allocated_c2s(pC2S);
-    return Send(API_ProtoID_GlobalState, req);
+    return net_send(API_ProtoID_GlobalState, req);
 }
 
-u32_t NetCenter::Req_InitConnect(i32_t nClientVer, const char *szClientID, bool bRecvNotify)
+u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool recv_notify)
 {
     InitConnect::C2S *pC2S = new InitConnect::C2S();
-    pC2S->set_clientver(nClientVer);
-    pC2S->set_clientid(szClientID);
-    pC2S->set_recvnotify(bRecvNotify);
+    pC2S->set_clientver(client_ver);
+    pC2S->set_clientid(client_id);
+    pC2S->set_recvnotify(recv_notify);
     InitConnect::Request req;
     req.set_allocated_c2s(pC2S);
-    return Send(API_ProtoID_InitConnect, req);
+    return net_send(API_ProtoID_InitConnect, req);
 }
 
 
-u32_t NetCenter::Req_Subscribe(const std::vector<Qot_Common::Security> &stocks, const std::vector<Qot_Common::SubType> &subTypes, bool isSub, bool bRegPush, const std::vector<Qot_Common::RehabType> &rehabTypes, bool bFirstPush)
+u32_t NetCenter::req_subscribe(const std::vector<Qot_Common::Security> &stocks,
+                               const std::vector<Qot_Common::SubType> &sub_types,
+                               bool is_sub,
+                               bool reg_push,
+                               const std::vector<Qot_Common::RehabType> &rehab_types,
+                               bool first_push)
 {
     Qot_Sub::C2S *pC2S = new Qot_Sub::C2S();
 
@@ -147,31 +152,33 @@ u32_t NetCenter::Req_Subscribe(const std::vector<Qot_Common::Security> &stocks, 
         *pSecurity = security;
     }
 
-    for (auto &subType : subTypes)
+    for (auto &subType : sub_types)
     {
         pC2S->add_subtypelist(subType);
     }
-    pC2S->set_issuborunsub(isSub);
-    pC2S->set_isregorunregpush(bRegPush);
-    pC2S->set_isfirstpush(bFirstPush);
+    pC2S->set_issuborunsub(is_sub);
+    pC2S->set_isregorunregpush(reg_push);
+    pC2S->set_isfirstpush(first_push);
 
     Qot_Sub::Request req;
     req.set_allocated_c2s(pC2S);
-    return Send(API_ProtoID_Qot_Sub, req);
+    return net_send(API_ProtoID_Qot_Sub, req);
 }
 
-
-u32_t NetCenter::Req_KeepAlive()
+u32_t NetCenter::req_keep_alive()
 {
     KeepAlive::C2S *pC2S = new KeepAlive::C2S();
     pC2S->set_time(time(NULL));
     KeepAlive::Request req;
     req.set_allocated_c2s(pC2S);
-    return Send(API_ProtoID_KeepAlive, req);
+    return net_send(API_ProtoID_KeepAlive, req);
 }
 
-
-u32_t NetCenter::Req_RegPush(const std::vector<Qot_Common::Security> &stocks, const std::vector<Qot_Common::SubType> &subTypes, const std::vector<Qot_Common::RehabType> &rehabTypes, bool isRegPush, bool bFirstPush)
+u32_t NetCenter::req_reg_push(const std::vector<Qot_Common::Security> &stocks,
+                              const std::vector<Qot_Common::SubType> &sub_types,
+                              const std::vector<Qot_Common::RehabType> &rehab_types,
+                              bool isRegPush,
+                              bool first_push)
 {
     Qot_RegQotPush::C2S *pC2S = new Qot_RegQotPush::C2S();
 
@@ -181,83 +188,83 @@ u32_t NetCenter::Req_RegPush(const std::vector<Qot_Common::Security> &stocks, co
         *pStock = stock;
     }
 
-    for (auto &subType : subTypes)
+    for (auto &subType : sub_types)
     {
         pC2S->add_subtypelist(subType);
     }
 
-    for (auto &rehabType : rehabTypes)
+    for (auto &rehabType : rehab_types)
     {
         pC2S->add_rehabtypelist(rehabType);
     }
 
     pC2S->set_isregorunreg(isRegPush);
-    pC2S->set_isfirstpush(bFirstPush);
+    pC2S->set_isfirstpush(first_push);
 
     Qot_RegQotPush::Request req;
     req.set_allocated_c2s(pC2S);
-    return Send(API_ProtoID_Qot_RegQotPush, req);
+    return net_send(API_ProtoID_Qot_RegQotPush, req);
 }
 
-u32_t NetCenter::Send(u32_t nProtoID, const google::protobuf::Message &pbObj)
+u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_obj)
 {
     u32_t nPacketNo = 0;
 
-    i32_t nSize = (i32_t)pbObj.ByteSize();
+    i32_t nSize = (i32_t)pb_obj.ByteSize();
     string bodyData;
     bodyData.resize(nSize);
-    if (!pbObj.SerializeToString(&bodyData))
+    if (!pb_obj.SerializeToString(&bodyData))
     {
         return nPacketNo;
     }
 
     APIProtoHeader header;
-    header.Init();
-    header.nProtoID = nProtoID;
-    header.nProtoFmtType = 0; //pb
-    header.nProtoVer = 0;
-    header.nSerialNo = m_nNextPacketNo++;
-    header.nBodyLen = nSize;
-    SHA1((char*)header.arrBodySHA1, bodyData.c_str(), nSize);
+    header.init();
+    header.proto_id_ = proto_id;
+    header.proto_fmt_type_ = 0; //pb
+    header.proto_ver_ = 0;
+    header.serial_no_ = next_packet_no_++;
+    header.body_len_ = nSize;
+    SHA1((char*)header.body_sha1_, bodyData.c_str(), nSize);
     const char *pHeader = (const char *)&header;
 
     string packetData;
     packetData.append(pHeader, pHeader + sizeof(header));
     packetData.append(bodyData.begin(), bodyData.end());
-    if (m_pQuoteConn->send(packetData.data(), (int)packetData.size()))
+    if (quote_conn_->send(packetData.data(), (int)packetData.size()))
     {
-        nPacketNo = header.nSerialNo;
+        nPacketNo = header.serial_no_;
     }
     return nPacketNo;
 }
 
-void NetCenter::HandlePacket(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
-    switch (header.nProtoID)
+    switch (header.proto_id_)
     {
         case API_ProtoID_InitConnect:
-            m_pProtoHandler->OnRsp_InitConnect(header, pData, nLen);
+            proto_handler_->on_request_init_connect(header, data, len);
             break;
         case API_ProtoID_GlobalState:
-            m_pProtoHandler->OnRsp_GetGlobalState(header, pData, nLen);
+            proto_handler_->on_request_get_global_state(header, data, len);
             break;
         case API_ProtoID_Qot_Sub:
-            m_pProtoHandler->OnRsp_Qot_Sub(header, pData, nLen);
+            proto_handler_->on_request_qot_sub(header, data, len);
             break;
         case API_ProtoID_Qot_UpdateTicker:
-            m_pProtoHandler->OnRsp_Qot_UpdateTicker(header, pData, nLen);
+            proto_handler_->on_request_update_ticker(header, data, len);
             break;
         case API_ProtoID_Qot_RegQotPush:
-            m_pProtoHandler->OnRsp_Qot_RegQotPush(header, pData, nLen);
+            proto_handler_->on_request_reg_qot_push(header, data, len);
             break;
         case API_ProtoID_KeepAlive:
-            m_pProtoHandler->OnRsp_KeepAlive(header, pData, nLen);
+            proto_handler_->on_request_keep_alive(header, data, len);
             break;
         case API_ProtoID_Qot_UpdateBroker:
-            m_pProtoHandler->OnRsp_Qot_UpdateBroker(header, pData, nLen);
+            proto_handler_->on_request_update_broker(header, data, len);
             break;
         case API_ProtoID_Qot_UpdateOrderBook:
-            m_pProtoHandler->OnRsp_Qot_UpdateOrderBook(header, pData, nLen);
+            proto_handler_->on_request_update_order_book(header, data, len);
             break;
         default:
             break;

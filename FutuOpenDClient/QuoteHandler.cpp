@@ -19,12 +19,12 @@ bool ParsePb(google::protobuf::Message *pPbObj, u32_t nProtoID, const i8_t *pDat
     return true;
 }
 
-void QuoteHandler::OnRsp_InitConnect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_InitConnect: " << endl;
 
     InitConnect::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -39,10 +39,10 @@ void QuoteHandler::OnRsp_InitConnect(const APIProtoHeader &header, const i8_t *p
     user_id_ = rsp.s2c().loginuserid();
 
     //启动心跳定时器
-    NetCenter::instance()->StartKeepAliveTimer(keep_alive_interval_ * 4 / 5);
+    NetCenter::instance()->start_keep_alive_timer(keep_alive_interval_ * 4 / 5);
 
     //获取市场全局状态
-    NetCenter::instance()->Req_GetGlobalState(user_id_);
+    NetCenter::instance()->req_get_global_state(user_id_);
 
     //subscribe stock
     Qot_Common::Security stock;
@@ -59,22 +59,22 @@ void QuoteHandler::OnRsp_InitConnect(const APIProtoHeader &header, const i8_t *p
     rehabTypes.push_back(Qot_Common::RehabType_None);
 
     //订阅00700的逐笔数据
-    NetCenter::instance()->Req_Subscribe(stocks, subTypes, true, true, rehabTypes, true);
+    NetCenter::instance()->req_subscribe(stocks, subTypes, true, true, rehabTypes, true);
 
     //注册接收逐笔推送
-    NetCenter::instance()->Req_RegPush(stocks, subTypes, rehabTypes, true, true);
+    NetCenter::instance()->req_reg_push(stocks, subTypes, rehabTypes, true, true);
 }
 
-void QuoteHandler::OnRsp_KeepAlive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_KeepAlive: " << endl;
 }
 
-void QuoteHandler::OnRsp_GetGlobalState(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_get_global_state(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_GetGlobalState: " << endl;
     GetGlobalState::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -82,12 +82,12 @@ void QuoteHandler::OnRsp_GetGlobalState(const APIProtoHeader &header, const i8_t
     cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << "; ServerVer=" << rsp.s2c().serverver() << "; " << endl;
 }
 
-void QuoteHandler::OnRsp_Qot_Sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_Qot_Sub: " << endl;
 
     Qot_Sub::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -95,12 +95,12 @@ void QuoteHandler::OnRsp_Qot_Sub(const APIProtoHeader &header, const i8_t *pData
     cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
 }
 
-void QuoteHandler::OnRsp_Qot_RegQotPush(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_Qot_RegQotPush:" << endl;
 
     Qot_RegQotPush::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -108,12 +108,12 @@ void QuoteHandler::OnRsp_Qot_RegQotPush(const APIProtoHeader &header, const i8_t
     cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
 }
 
-void QuoteHandler::OnRsp_Qot_UpdateTicker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_Qot_UpdateTicker:" << endl;
 
     Qot_UpdateTicker::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -134,12 +134,12 @@ void QuoteHandler::OnRsp_Qot_UpdateTicker(const APIProtoHeader &header, const i8
     }
 }
 
-void QuoteHandler::OnRsp_Qot_UpdateBroker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_Qot_UpdateBroker:" << endl;
 
     Qot_UpdateBroker::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
@@ -158,12 +158,12 @@ void QuoteHandler::OnRsp_Qot_UpdateBroker(const APIProtoHeader &header, const i8
     }
 }
 
-void QuoteHandler::OnRsp_Qot_UpdateOrderBook(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     cout << "OnRsp_Qot_UpdateOrderBook:" << endl;
 
     Qot_UpdateOrderBook::Response rsp;
-    if (!ParsePb(&rsp, header.nProtoID, pData, nLen))
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
     {
         return;
     }
