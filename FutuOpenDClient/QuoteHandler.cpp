@@ -35,12 +35,14 @@ void QuoteHandler::OnRsp_InitConnect(const APIProtoHeader &header, const i8_t *p
         return;
     }
 
-    m_nKeepAliveInterval = rsp.s2c().keepaliveinterval();
-    m_nUserID = rsp.s2c().loginuserid();
+    keep_alive_interval_ = rsp.s2c().keepaliveinterval();
+    user_id_ = rsp.s2c().loginuserid();
+
     //启动心跳定时器
-    NetCenter::default()->StartKeepAliveTimer(m_nKeepAliveInterval * 4 / 5);
+    NetCenter::instance()->StartKeepAliveTimer(keep_alive_interval_ * 4 / 5);
+
     //获取市场全局状态
-    NetCenter::default()->Req_GetGlobalState(m_nUserID);
+    NetCenter::instance()->Req_GetGlobalState(user_id_);
 
     //subscribe stock
     Qot_Common::Security stock;
@@ -57,10 +59,10 @@ void QuoteHandler::OnRsp_InitConnect(const APIProtoHeader &header, const i8_t *p
     rehabTypes.push_back(Qot_Common::RehabType_None);
 
     //订阅00700的逐笔数据
-    NetCenter::default()->Req_Subscribe(stocks, subTypes, true, true, rehabTypes, true);
+    NetCenter::instance()->Req_Subscribe(stocks, subTypes, true, true, rehabTypes, true);
 
     //注册接收逐笔推送
-    NetCenter::default()->Req_RegPush(stocks, subTypes, rehabTypes, true, true);
+    NetCenter::instance()->Req_RegPush(stocks, subTypes, rehabTypes, true, true);
 }
 
 void QuoteHandler::OnRsp_KeepAlive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
@@ -77,9 +79,7 @@ void QuoteHandler::OnRsp_GetGlobalState(const APIProtoHeader &header, const i8_t
         return;
     }
 
-    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() <<
-        "; ServerVer=" << rsp.s2c().serverver() <<
-        "; " << endl;
+    cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << "; ServerVer=" << rsp.s2c().serverver() << "; " << endl;
 }
 
 void QuoteHandler::OnRsp_Qot_Sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)

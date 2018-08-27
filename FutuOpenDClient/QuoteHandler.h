@@ -17,7 +17,7 @@ public:
     virtual void OnRsp_Qot_UpdateBroker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
     virtual void OnRsp_Qot_UpdateOrderBook(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
 private:
-    i32_t m_nKeepAliveInterval {5};
-    u64_t m_nUserID {0};
+    i32_t keep_alive_interval_ {5};
+    u64_t user_id_ {0};
 };
 }

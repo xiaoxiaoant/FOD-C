@@ -8,13 +8,13 @@ using namespace std;
 
 namespace ftq
 {
-NetCenter *NetCenter::ms_pDefault = new NetCenter();
+NetCenter *NetCenter::instance_ = new NetCenter();
 
 NetCenter::~NetCenter()
 {
     if (m_pQuoteConn)
     {
-        m_pQuoteConn->Close();
+        m_pQuoteConn->close();
         m_pQuoteConn = nullptr;
     }
 }
@@ -29,20 +29,20 @@ bool NetCenter::init(uv_loop_t *pLoop)
 
     m_pLoop = pLoop;
     m_pQuoteConn = new TcpConnect();
-    m_pQuoteConn->Init(pLoop, this);
+    m_pQuoteConn->init(pLoop, this);
     return true;
 }
 
 
 void NetCenter::connect(const char *pIp, i32_t nPort)
 {
-    m_pQuoteConn->Connect(pIp, nPort);
+    m_pQuoteConn->connect(pIp, nPort);
 }
 
 
-NetCenter * NetCenter::default()
+NetCenter * NetCenter::instance()
 {
-    return ms_pDefault;
+    return instance_;
 }
 
 void NetCenter::set_proto_handler(IProtoHandler *pHandler)
@@ -50,19 +50,19 @@ void NetCenter::set_proto_handler(IProtoHandler *pHandler)
     m_pProtoHandler = pHandler;
 }
 
-void NetCenter::OnConnect(TcpConnect *pConn)
+void NetCenter::on_connect(TcpConnect *pConn)
 {
     //连接成功后需要调用InitConnect
     Req_InitConnect(100, "demo", true);
 }
 
-void NetCenter::OnRecv(TcpConnect *pConn, Buffer *pBuf)
+void NetCenter::on_recv(TcpConnect *pConn, Buffer *pBuf)
 {
     for (;;)
     {
         APIProtoHeader header;
-        const char *pData = pBuf->GetData();
-        i32_t nLen = pBuf->GetDataLen();
+        const char *pData = pBuf->get_data();
+        i32_t nLen = pBuf->get_data_len();
         if (nLen < (i32_t)sizeof(header))
         {
             return;
@@ -81,22 +81,22 @@ void NetCenter::OnRecv(TcpConnect *pConn, Buffer *pBuf)
         {
             //error
             cerr << "sha check fail" << endl;
-            pBuf->RemoveFront((i32_t)sizeof(header) + header.nBodyLen);
+            pBuf->remove_front((i32_t)sizeof(header) + header.nBodyLen);
             continue;
         }
 
         HandlePacket(header, (const i8_t*)pBody, header.nBodyLen);
 
-        pBuf->RemoveFront((i32_t)sizeof(header) + header.nBodyLen);
+        pBuf->remove_front((i32_t)sizeof(header) + header.nBodyLen);
     }
 }
 
-void NetCenter::OnError(TcpConnect *pConn, int nUvErr)
+void NetCenter::on_error(TcpConnect *pConn, int nUvErr)
 {
     cerr << "Net error: " << nUvErr << " " << uv_strerror(nUvErr) << endl;
 }
 
-void NetCenter::OnDisconnect(TcpConnect *pConn)
+void NetCenter::on_disconnect(TcpConnect *pConn)
 {
     cerr << "Disconnected" << endl;
 }
@@ -224,7 +224,7 @@ u32_t NetCenter::Send(u32_t nProtoID, const google::protobuf::Message &pbObj)
     string packetData;
     packetData.append(pHeader, pHeader + sizeof(header));
     packetData.append(bodyData.begin(), bodyData.end());
-    if (m_pQuoteConn->Send(packetData.data(), (int)packetData.size()))
+    if (m_pQuoteConn->send(packetData.data(), (int)packetData.size()))
     {
         nPacketNo = header.nSerialNo;
     }

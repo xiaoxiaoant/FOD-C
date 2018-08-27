@@ -24,12 +24,12 @@ Buffer::~Buffer()
     nBufLen = 0;
 }
 
-int Buffer::GetRemainLen()
+int Buffer::get_remain_len()
 {
     return nBufLen - nDataLen;
 }
 
-bool Buffer::Resize(int nNewLen)
+bool Buffer::resize(int nNewLen)
 {
     assert(nNewLen > 0);
 
@@ -48,13 +48,13 @@ bool Buffer::Resize(int nNewLen)
     return true;
 }
 
-void Buffer::SetDataLen(int nLen)
+void Buffer::set_data_len(int nLen)
 {
     assert(nLen <= nBufLen);
     nDataLen = nLen;
 }
 
-void Buffer::RemoveFront(int nLen)
+void Buffer::remove_front(int nLen)
 {
     assert(nLen <= nDataLen);
 
@@ -66,7 +66,7 @@ void Buffer::RemoveFront(int nLen)
     nDataLen = nRemainDataLen;
 }
 
-bool TcpConnect::Init(uv_loop_t *pUvLoop, ITcpHandler *pHandler)
+bool TcpConnect::init(uv_loop_t *pUvLoop, ITcpHandler *pHandler)
 {
     assert(pUvLoop);
     assert(pHandler);
@@ -85,12 +85,12 @@ bool TcpConnect::Init(uv_loop_t *pUvLoop, ITcpHandler *pHandler)
     return true;
 }
 
-void TcpConnect::Close()
+void TcpConnect::close()
 {
-    uv_close((uv_handle_t*)&m_tcp, AfterClose);
+    uv_close((uv_handle_t*)&m_tcp, after_close);
 }
 
-bool TcpConnect::Connect(const char *pHost, int nPort)
+bool TcpConnect::connect(const char *pHost, int nPort)
 {
     struct sockaddr_in addr_in;
     int nRet = uv_ip4_addr(pHost, nPort, &addr_in);
@@ -99,7 +99,7 @@ bool TcpConnect::Connect(const char *pHost, int nPort)
         return false;
     }
 
-    nRet = uv_tcp_connect(&m_connect, &m_tcp, (const struct sockaddr*)&addr_in, AfterConnect);
+    nRet = uv_tcp_connect(&m_connect, &m_tcp, (const struct sockaddr*)&addr_in, after_connect);
     if (nRet != 0)
     {
         return false;
@@ -107,33 +107,33 @@ bool TcpConnect::Connect(const char *pHost, int nPort)
     return true;
 }
 
-void TcpConnect::AfterClose(uv_handle_t *pHandle)
+void TcpConnect::after_close(uv_handle_t *pHandle)
 {
     //todo
 }
 
 
-void TcpConnect::AfterConnect(uv_connect_t *pReq, int nStatus)
+void TcpConnect::after_connect(uv_connect_t *pReq, int nStatus)
 {
     TcpConnect *pSelf = (TcpConnect*)pReq->data;
 
     if (nStatus != 0)
     {
-        pSelf->m_pHandler->OnError(pSelf, nStatus);
+        pSelf->m_pHandler->on_error(pSelf, nStatus);
         return;
     }
 
-    int nRet = uv_read_start(pReq->handle, OnAllocBuf, AfterRead);
+    int nRet = uv_read_start(pReq->handle, on_alloc_buf, after_read);
     if (nRet != 0)
     {
-        pSelf->m_pHandler->OnError(pSelf, nStatus);
+        pSelf->m_pHandler->on_error(pSelf, nStatus);
         return;
     }
 
-    pSelf->m_pHandler->OnConnect(pSelf);
+    pSelf->m_pHandler->on_connect(pSelf);
 }
 
-void TcpConnect::AfterRead(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
+void TcpConnect::after_read(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
 {
     TcpConnect *pSelf = (TcpConnect*)stream->data;
 
@@ -142,32 +142,25 @@ void TcpConnect::AfterRead(uv_stream_t *stream, ssize_t nread, const uv_buf_t *b
         if (nread == UV_EOF)
         {
             cout << "remote closed" << endl;
-            pSelf->m_pHandler->OnDisconnect(pSelf);
+            pSelf->m_pHandler->on_disconnect(pSelf);
         }
         else if (nread == UV_ECONNRESET)
         {
             cout << "conn reset" << endl;
-            pSelf->m_pHandler->OnDisconnect(pSelf);
+            pSelf->m_pHandler->on_disconnect(pSelf);
         }
         else {
             cout << "error: " << uv_strerror((int)nread) << endl;
-            pSelf->m_pHandler->OnError(pSelf, (int)nread);
+            pSelf->m_pHandler->on_error(pSelf, (int)nread);
         }
         return;
     }
 
-    pSelf->m_readStore.SetDataLen((int)nread + pSelf->m_readStore.GetDataLen());
-    pSelf->m_pHandler->OnRecv(pSelf, &pSelf->m_readStore);
-//        string str;
-//        str.insert(str.end(),
-//                   pSelf->m_readStore.GetData(),
-//                   pSelf->m_readStore.GetData() + pSelf->m_readStore.GetDataLen());
-//        pSelf->m_readStore.RemoveFront(pSelf->m_readStore.GetDataLen());
-//        str.append("\0");
-//        std::cout << "recv: " << str << endl;
+    pSelf->m_readStore.set_data_len((int)nread + pSelf->m_readStore.get_data_len());
+    pSelf->m_pHandler->on_recv(pSelf, &pSelf->m_readStore);
 }
 
-void TcpConnect::AfterWrite(uv_write_t *req, int status)
+void TcpConnect::after_write(uv_write_t *req, int status)
 {
     int nErr = status;
     TcpConnect *pSelf = (TcpConnect*)req->data;
@@ -182,7 +175,7 @@ void TcpConnect::AfterWrite(uv_write_t *req, int status)
         {
             pSelf->m_nCurUsingWriteStoreIdx = nOtherWriteStoreIdx;
             pSelf->m_writeBuf = uv_buf_init(pOtherWriteStore->data(), (int)pOtherWriteStore->size());
-            int nRet = uv_write(&pSelf->m_write, (uv_stream_t *)&pSelf->m_tcp, &pSelf->m_writeBuf, 1, AfterWrite);
+            int nRet = uv_write(&pSelf->m_write, (uv_stream_t *)&pSelf->m_tcp, &pSelf->m_writeBuf, 1, after_write);
             if (nRet != 0)
             {
                 nErr = nRet;
@@ -192,18 +185,18 @@ void TcpConnect::AfterWrite(uv_write_t *req, int status)
 
     if (nErr != 0)
     {
-        pSelf->m_pHandler->OnError(pSelf, nErr);
+        pSelf->m_pHandler->on_error(pSelf, nErr);
     }
 }
 
-void TcpConnect::OnAllocBuf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf)
+void TcpConnect::on_alloc_buf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf)
 {
     TcpConnect *pSelf = (TcpConnect*)handle->data;
-    buf->base = pSelf->m_readStore.GetWriteStart();
-    buf->len = pSelf->m_readStore.GetRemainLen();
+    buf->base = pSelf->m_readStore.get_write_start();
+    buf->len = pSelf->m_readStore.get_remain_len();
 }
 
-bool TcpConnect::Send(const char *pData, int nLen)
+bool TcpConnect::send(const char *pData, int nLen)
 {
     std::vector<char> *pWriteStore = nullptr;
     if (m_nCurUsingWriteStoreIdx < 0)
@@ -213,7 +206,7 @@ bool TcpConnect::Send(const char *pData, int nLen)
         m_writeBuf = uv_buf_init(m_writeStores[0].data(), (int)m_writeStores[0].size());
         m_nCurUsingWriteStoreIdx = 0;
 
-        int nRet = uv_write(&m_write, (uv_stream_t *)&m_tcp, &m_writeBuf, 1, AfterWrite);
+        int nRet = uv_write(&m_write, (uv_stream_t *)&m_tcp, &m_writeBuf, 1, after_write);
         if (nRet != 0)
         {
             return false;

@@ -11,26 +11,26 @@ class Buffer {
 public:
     Buffer(int nBufLen);
     ~Buffer();
-    int GetTotalLen()
+    int get_total_len()
     {
         return nBufLen;
     }
-    char *GetData()
+    char *get_data()
     {
         return pBuf;
     }
-    int GetDataLen()
+    int get_data_len()
     {
         return nDataLen;
     }
-    void SetDataLen(int nLen);
-    int GetRemainLen();
-    char *GetWriteStart()
+    void set_data_len(int nLen);
+    int get_remain_len();
+    char *get_write_start()
     {
         return pBuf + nDataLen;
     }
-    bool Resize(int nNewLen);
-    void RemoveFront(int nLen);
+    bool resize(int nNewLen);
+    void remove_front(int nLen);
 private:
     int nDataLen {0};
     int nBufLen {0};
@@ -41,26 +41,26 @@ class TcpConnect;
 
 class ITcpHandler {
 public:
-    virtual void OnConnect(TcpConnect *pConn) = 0;
-    virtual void OnRecv(TcpConnect *pConn, Buffer *pBuf) = 0;
-    virtual void OnError(TcpConnect *pConn, int nUvErr) = 0;
-    virtual void OnDisconnect(TcpConnect *pConn) = 0;
+    virtual void on_connect(TcpConnect *pConn) = 0;
+    virtual void on_recv(TcpConnect *pConn, Buffer *pBuf) = 0;
+    virtual void on_error(TcpConnect *pConn, int nUvErr) = 0;
+    virtual void on_disconnect(TcpConnect *pConn) = 0;
 };
 
 class TcpConnect {
 public:
-    bool Init(uv_loop_t *pUvLoop, ITcpHandler *pHandler);
-    void Close();
-    bool Connect(const char *pHost, int nPort);
-    bool Send(const char *pData, int nLen);
+    bool init(uv_loop_t *pUvLoop, ITcpHandler *pHandler);
+    void close();
+    bool connect(const char *pHost, int nPort);
+    bool send(const char *pData, int nLen);
 public:
-    static void AfterConnect(uv_connect_t *pReq, int nStatus);
-    static void AfterClose(uv_handle_t *pHandle);
-    static void AfterRead(uv_stream_t* stream,
+    static void after_connect(uv_connect_t *pReq, int nStatus);
+    static void after_close(uv_handle_t *pHandle);
+    static void after_read(uv_stream_t* stream,
                           ssize_t nread,
                           const uv_buf_t* buf);
-    static void AfterWrite(uv_write_t* req, int status);
-    static void OnAllocBuf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
+    static void after_write(uv_write_t* req, int status);
+    static void on_alloc_buf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
 private:
     uv_loop_t *m_pUvLoop {nullptr};
     uv_tcp_t m_tcp {};
