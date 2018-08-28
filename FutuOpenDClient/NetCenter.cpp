@@ -147,8 +147,18 @@ void NetCenter::on_disconnect(TcpConnect *conn)
 {
     //cerr << "Disconnected" << endl;
     LOGD("Disconnected");
+
+    uv_timer_stop(&keep_alive_timer_);
+    uv_timer_init(loop_, &keep_alive_timer_);
+    //根据正常连接时间来设置心跳
+    uv_timer_start(&keep_alive_timer_, on_connect_again, 4 * 1000, 4 * 1000);
 }
 
+void NetCenter::on_connect_again(uv_timer_t* handle)
+{
+    NetCenter *pSelf = (NetCenter*)handle->data;
+    pSelf->req_connect_again();
+}
 
 void NetCenter::on_keep_alive_timer(uv_timer_t* handle)
 {
@@ -183,6 +193,21 @@ u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool 
     req.set_allocated_c2s(c2s);
     return net_send(API_ProtoID_InitConnect, req);
 }
+
+void NetCenter::req_connect_again()
+{
+    LOGD("Connect Again!");
+
+    auto last_host = quote_conn_->get_host();
+    auto last_port = quote_conn_->get_port();
+
+    delete quote_conn_;
+    quote_conn_ = new TcpConnect();
+    quote_conn_->init(loop_, this);
+    //quote_conn_->set_socket(last_host, last_port);
+    quote_conn_->connect(last_host, last_port);
+}
+
 
 
 u32_t NetCenter::req_subscribe(const std::vector<Qot_Common::Security> &stocks,

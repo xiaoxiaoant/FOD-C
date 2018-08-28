@@ -67,14 +67,24 @@ void Buffer::remove_front(int nLen)
     data_len_ = nRemainDataLen;
 }
 
+TcpConnect::TcpConnect()
+{
+    memset(host_, 0, sizeof(host_));
+    port_ = 0;
+}
+
+TcpConnect::~TcpConnect()
+{
+}
+
 bool TcpConnect::init(uv_loop_t *pUvLoop, ITcpHandler *pHandler)
 {
     assert(pUvLoop);
     assert(pHandler);
 
     uv_loop_ = pUvLoop;
-    int nRet = uv_tcp_init(pUvLoop, &uv_tcp_);
-    if (nRet != 0)
+    int ret = uv_tcp_init(pUvLoop, &uv_tcp_);
+    if (ret != 0)
     {
         return false;
     }
@@ -93,19 +103,33 @@ void TcpConnect::close()
 
 bool TcpConnect::connect(const char *pHost, int nPort)
 {
-    struct sockaddr_in addr_in;
-    int nRet = uv_ip4_addr(pHost, nPort, &addr_in);
-    if (nRet != 0)
+    sockaddr_in addr_in;
+
+    int ret = uv_ip4_addr(pHost, nPort, &addr_in);
+    if (ret != 0)
     {
-        return false;
+	    return false;
     }
 
-    nRet = uv_tcp_connect(&uv_connect_, &uv_tcp_, (const struct sockaddr*)&addr_in, after_connect);
-    if (nRet != 0)
+    strncpy(host_, pHost, 50);
+    port_ = nPort;
+
+    ret = uv_tcp_connect(&uv_connect_, &uv_tcp_, (const struct sockaddr*)&addr_in, after_connect);
+    if (ret != 0)
     {
-        return false;
+	    return false;
     }
     return true;
+}
+
+char* TcpConnect::get_host()
+{
+    return host_;
+}
+
+int TcpConnect::get_port()
+{
+    return port_;
 }
 
 void TcpConnect::after_close(uv_handle_t *pHandle)
@@ -210,8 +234,8 @@ bool TcpConnect::send(const char *pData, int nLen)
         uv_write_buf_ = uv_buf_init(write_stores_[0].data(), (int)write_stores_[0].size());
         cur_using_write_store_idx_ = 0;
 
-        int nRet = uv_write(&uv_write_, (uv_stream_t *)&uv_tcp_, &uv_write_buf_, 1, after_write);
-        if (nRet != 0)
+        int ret = uv_write(&uv_write_, (uv_stream_t *)&uv_tcp_, &uv_write_buf_, 1, after_write);
+        if (ret != 0)
         {
             return false;
         }

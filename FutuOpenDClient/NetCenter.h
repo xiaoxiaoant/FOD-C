@@ -46,6 +46,8 @@ public:
     // 心跳定时器回调
     static void on_keep_alive_timer(uv_timer_t* handle);
 
+    static void on_connect_again(uv_timer_t* handle);
+
     // 开始心跳定时器
     void start_keep_alive_timer(i32_t interval);
 
@@ -54,6 +56,8 @@ public:
 
     // 初始化连接，连接上FutuOpenD后首先要调用这个函数
     u32_t req_init_connect(i32_t client_ver, const char *client_id, bool recv_notify);
+
+    void req_connect_again();
 
     // 订阅股票，有些api比如推送，需要先订阅
     u32_t req_subscribe(const std::vector<Qot_Common::Security> &stocks,

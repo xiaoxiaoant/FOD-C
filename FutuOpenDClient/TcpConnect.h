@@ -39,7 +39,8 @@ private:
 
 class TcpConnect;
 
-class ITcpHandler {
+class ITcpHandler
+{
 public:
     virtual void on_connect(TcpConnect *conn) = 0;
     virtual void on_recv(TcpConnect *conn, Buffer *buff) = 0;
@@ -47,8 +48,11 @@ public:
     virtual void on_disconnect(TcpConnect *conn) = 0;
 };
 
-class TcpConnect {
+class TcpConnect
+{
 public:
+    TcpConnect();
+    ~TcpConnect();
     bool init(uv_loop_t *pUvLoop, ITcpHandler *pHandler);
     void close();
     bool connect(const char *pHost, int nPort);
@@ -61,6 +65,9 @@ public:
                            const uv_buf_t* buf);
     static void after_write(uv_write_t* req, int status);
     static void on_alloc_buf(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buf);
+
+    char* get_host();
+    int get_port();
 private:
     uv_loop_t *uv_loop_ {nullptr};
     uv_tcp_t uv_tcp_ {};
@@ -72,6 +79,9 @@ private:
     int cur_using_write_store_idx_ {-1};
     Buffer read_store_ {10 * 1024 * 1024};
     ITcpHandler *handler_ {nullptr};
+
+    char host_[50];
+    int port_;
 };
 }
 
