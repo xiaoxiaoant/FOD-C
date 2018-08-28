@@ -5,7 +5,7 @@ int my_encrypt_aes(const unsigned char *str, const int len, const std::string ae
 {
     if (!str || len <= 0)
     {
-        DEBUGLOG("error! len is %d", len);
+        LOGD("error! len is %d", len);
         return 0;
     }
 
@@ -33,7 +33,7 @@ int my_decrypt_aes(const unsigned char *str, const int len, const std::string ae
 {
     if (!str || len <= 0 || len % 16)
     {
-        DEBUGLOG("error! len is %d", len);
+        LOGD("error! len is %d", len);
         return 0;
     }
 

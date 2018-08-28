@@ -60,26 +60,26 @@ void NetCenter::on_connect(TcpConnect *conn)
 
 void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 {
-    DEBUGLOG("len: %d", buffer->get_data_len());
+    LOGT("len: %d", buffer->get_data_len());
     for (;;)
     {
         APIProtoHeader header;
         const char *pData = buffer->get_data();
-        DEBUGLOG("buffer starts with %c%c", pData[0], pData[1]);
+        LOGT("buffer starts with %c%c", pData[0], pData[1]);
         i32_t nLen = buffer->get_data_len();
         if (nLen < (i32_t)sizeof(header))
         {
             if (nLen > 0)
-                DEBUGLOG("len error, len is %d", nLen);
+                LOGE("len error, len is %d", nLen);
             return;
         }
 
         header = *(APIProtoHeader*)pData;
-        DEBUGLOG("proto_id_ is %d, body_len_ is %d", header.proto_id_, header.body_len_);
-        DEBUGLOG("aes_key is %s", conn_aes_key.c_str());
+        LOGT("proto_id_ is %d, body_len_ is %d", header.proto_id_, header.body_len_);
+        LOGT("aes_key is %s", conn_aes_key.c_str());
         if (nLen < (i32_t)sizeof(header) + header.body_len_)
         {
-            DEBUGLOG("len error, len is %d, body_len_ is %d", nLen, header.body_len_);
+            LOGE("len error, len is %d, body_len_ is %d", nLen, header.body_len_);
             return;
         }
 
@@ -89,9 +89,9 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
         if (conn_aes_key == "")
         {
-            DEBUGLOG("aes_key is NULL, use rsa_key.txt to decrypt");
+            LOGT("aes_key is NULL, use rsa_key.txt to decrypt");
             int de_ret1 = my_decrypt_pri((char*)pBody, header.body_len_, "rsa_key.txt", (char*)pBody);
-            DEBUGLOG("de_ret: %d", de_ret1);
+            LOGT("de_ret: %d", de_ret1);
             header.body_len_ = de_ret1;
         }
         else
@@ -104,11 +104,11 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
             int body_real_len = header.body_len_ - 16;
             int body_part = body_real_len / 16;
 
-            DEBUGLOG("size %d b_len %d m_len %d body_rlen %d b_part %d", nLen, header.body_len_, mod_len, body_real_len, body_part);
+            LOGT("size %d b_len %d m_len %d body_rlen %d b_part %d", nLen, header.body_len_, mod_len, body_real_len, body_part);
 
             AES_KEY dkey;
             AES_set_decrypt_key((unsigned char*)conn_aes_key.c_str(), 128, &dkey);
-            DEBUGLOG("use aes_key %s to decrypt", conn_aes_key.c_str());
+            LOGT("use aes_key %s to decrypt", conn_aes_key.c_str());
 
             for (int i = 0; i < body_part; i++)
                 AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
@@ -126,7 +126,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         {
             //error
             //cerr << "sha check fail" << endl;
-            DEBUGLOG("sha check fail");
+            LOGE("sha check fail");
             buffer->remove_front((i32_t)sizeof(header) + origin_body_len);
             continue;
         }
@@ -140,13 +140,13 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 void NetCenter::on_error(TcpConnect *conn, int uv_err)
 {
     //cerr << "Net error: " << uv_err << " " << uv_strerror(uv_err) << endl;
-    DEBUGLOG("Net error: %d %s", uv_err, uv_strerror(uv_err));
+    LOGE("Net error: %d %s", uv_err, uv_strerror(uv_err));
 }
 
 void NetCenter::on_disconnect(TcpConnect *conn)
 {
     //cerr << "Disconnected" << endl;
-    DEBUGLOG("Disconnected");
+    LOGD("Disconnected");
 }
 
 
@@ -281,16 +281,16 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
 
     if (conn_aes_key == "")
     {
-        DEBUGLOG("aes_key is NULL, use pub.key to encrypt");
+        LOGT("aes_key is NULL, use pub.key to encrypt");
         //int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);
         int a = my_encrypt_pub((char*)body, body_data.size(), "pub.key", (char*)body);
         header.body_len_ = a;
     }
     else
     {
-        DEBUGLOG("use aes_key %s to encrypt", conn_aes_key.c_str());
+        LOGT("use aes_key %s to encrypt", conn_aes_key.c_str());
         int a = my_encrypt_aes(body, nSize, conn_aes_key, body);
-        DEBUGLOG("ret %d body_len %d", a, header.body_len_);
+        LOGT("ret %d body_len %d", a, header.body_len_);
         header.body_len_ = a;
     }
 
@@ -311,7 +311,7 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
 
 void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
-    DEBUGLOG("proto_id: %d", header.proto_id_);
+    LOGD("proto_id: %d", header.proto_id_);
     switch (header.proto_id_)
     {
         case API_ProtoID_InitConnect:

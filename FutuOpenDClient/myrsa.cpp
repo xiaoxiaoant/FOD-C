@@ -29,7 +29,7 @@ int my_encrypt_pri(const char *str, const int flen, const char *path_key, char *
     memset(p_en, 0, rsa_len + 1);
     //int ret = RSA_public_encrypt(flen,(unsigned char *)str,(unsigned char*)p_en,p_rsa,RSA_PKCS1_PADDING);
     int ret = RSA_private_encrypt(flen, (unsigned char *)str, (unsigned char*)p_en, p_rsa, RSA_PKCS1_PADDING);
-    DEBUGLOG("RSA_private_encrypt ret = %d flen %d rsa_len %d str %p p_en %p", ret, flen, rsa_len, str, p_en);
+    LOGD("RSA_private_encrypt ret = %d flen %d rsa_len %d str %p p_en %p", ret, flen, rsa_len, str, p_en);
     if (ret < 0)
     {
         free(p_en);
@@ -71,7 +71,7 @@ int my_encrypt_pub(const char *str, const int flen, const char *path_key, char *
     memset(p_en, 0, rsa_len + 1);
     int ret = RSA_public_encrypt(flen, (unsigned char *)str, (unsigned char*)p_en, p_rsa, RSA_PKCS1_PADDING);
     //int ret = RSA_private_encrypt(flen, (unsigned char *)str,(unsigned char*)p_en,p_rsa,RSA_PKCS1_PADDING);
-    DEBUGLOG("RSA_public_encrypt ret = %d flen %d rsa_len %d str %p p_en %p", ret, flen, rsa_len, str, p_en);
+    LOGD("RSA_public_encrypt ret = %d flen %d rsa_len %d str %p p_en %p", ret, flen, rsa_len, str, p_en);
     if (ret < 0)
     {
         free(p_en);
@@ -111,7 +111,7 @@ int my_decrypt_pri(const char *str, const int len, const char *path_key, char *d
     for (int i = 0; i < n; i++)
     {
         int ret_len = RSA_private_decrypt(rsa_len, (unsigned char *)str + 128 * i, (unsigned char*)p_de, p_rsa, RSA_PKCS1_PADDING);
-        DEBUGLOG("RSA_private_decrypt ret = %d", ret_len);
+        LOGD("RSA_private_decrypt ret = %d", ret_len);
         if (ret_len < 0)
         {
             free(p_de);
@@ -151,7 +151,7 @@ int my_decrypt_pub(const char *str, const char *path_key, char *de)
     char *p_de = (char *)malloc(rsa_len + 1);
     memset(p_de, 0, rsa_len + 1);
     int ret = RSA_public_decrypt(rsa_len, (unsigned char *)str, (unsigned char*)p_de, p_rsa, RSA_PKCS1_PADDING);
-    DEBUGLOG("RSA_private_decrypt ret = %d", ret);
+    LOGD("RSA_private_decrypt ret = %d", ret);
     if (ret < 0)
     {
         free(p_de);

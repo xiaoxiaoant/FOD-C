@@ -2,14 +2,14 @@
 cmake_minimum_required (VERSION 2.8)
 
 # 项目信息
-project (FutuOpenDClient)
+project (FOD-C)
 set(CMAKE_BUILD_TYPE "Debug")
 
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -fsigned-char")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3 -std=c++11")
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
-set(SRC_DIR ${CMAKE_SOURCE_DIR}/FutuOpenDClient)
+set(SRC_DIR ${CMAKE_SOURCE_DIR}/FOD-C)
 
 include_directories("${ROOT_DIR}/3rd/Include")
 
