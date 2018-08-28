@@ -69,7 +69,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         i32_t nLen = buffer->get_data_len();
         if (nLen < (i32_t)sizeof(header))
         {
-            if(nLen > 0)
+            if (nLen > 0)
                 DEBUGLOG("len error, len is %d", nLen);
             return;
         }
@@ -87,7 +87,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
         auto origin_body_len = header.body_len_;
 
-        if(conn_aes_key == "")
+        if (conn_aes_key == "")
         {
             DEBUGLOG("aes_key is NULL, use rsa_key.txt to decrypt");
             int de_ret1 = my_decrypt_pri((char*)pBody, header.body_len_, "rsa_key.txt", (char*)pBody);
@@ -95,7 +95,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
             header.body_len_ = de_ret1;
         }
         else
-	{
+        {
 
             unsigned char out[40960] = {0};
 
@@ -114,11 +114,11 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
                 AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
             memcpy((char*)pBody, out, header.body_len_);
 
-            if(mod_len == 0)
+            if (mod_len == 0)
                 header.body_len_ = body_real_len;
             else
                 header.body_len_ = body_real_len - 16 + mod_len;
-	}
+        }
 
         u8_t sha1[20] = {0};
         SHA1((char*)sha1, pBody, header.body_len_);
@@ -279,7 +279,7 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     memcpy(body, body_data.c_str(), nSize);
 
 
-    if(conn_aes_key == "")
+    if (conn_aes_key == "")
     {
         DEBUGLOG("aes_key is NULL, use pub.key to encrypt");
         //int a = my_encrypt_pub((char*)body, strlen((char*)body), "pub.key", (char*)body);

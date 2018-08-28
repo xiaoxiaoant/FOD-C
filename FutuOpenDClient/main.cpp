@@ -11,7 +11,7 @@ int main(int argc, const char * argv[])
         fprintf(stderr, "usage: %s ip port\n", argv[0]);
         return -1;
     }
-    
+
     NetCenter::instance()->init(uv_default_loop());
 
     IProtoHandler *quote_handler = new QuoteHandler();

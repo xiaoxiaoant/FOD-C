@@ -72,7 +72,7 @@ void write_log(const char file[], int line, const char func[], const  char* fmt,
             if (ret[i] != "")
             {
                 fprintf(fp0, "%s[%s:%d][%s]%s\n", strTime, file, line, func, ret[i].c_str());
-                fprintf(stdout, "%s[%s:%d][%s]%s\n", strTime, file, line, func, ret[i].c_str());
+                // fprintf(stdout, "%s[%s:%d][%s]%s\n", strTime, file, line, func, ret[i].c_str());
             }
         }
 
