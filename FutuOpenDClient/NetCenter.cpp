@@ -274,10 +274,9 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     header.serial_no_ = next_packet_no_++;
     header.body_len_ = nSize;
     SHA1((char*)header.body_sha1_, body_data.c_str(), nSize);
-    const char *p_header = (const char *)&header;
 
-    unsigned char body[40960];// = {0};
-    memcpy(body, body_data.c_str(), body_data.size() + 1);
+    unsigned char body[40960] = {0};
+    memcpy(body, body_data.c_str(), nSize);
 
 
     if(conn_aes_key == "")
@@ -290,15 +289,19 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     else
     {
         DEBUGLOG("use aes_key %s to encrypt", conn_aes_key.c_str());
-        int a = my_encrypt_aes(body, body_data.size(), conn_aes_key, body);
-        header.body_len_ = a;
+        int a = my_encrypt_aes(body, nSize, conn_aes_key, body);
         DEBUGLOG("ret %d body_len %d", a, header.body_len_);
+        header.body_len_ = a;
     }
 
     string packetData;
+
+    const char *p_header = (const char *)&header;
     packetData.append(p_header, p_header + sizeof(header));
+
     //packetData.append(body_data.begin(), body_data.end());
     packetData.append(body, body + header.body_len_);
+
     if (quote_conn_->send(packetData.data(), (int)packetData.size()))
     {
         packet_no = header.serial_no_;
@@ -313,6 +316,7 @@ void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i3
     {
         case API_ProtoID_InitConnect:
             conn_aes_key = proto_handler_->on_request_init_connect(header, data, len);
+            proto_handler_->my_request();
             break;
         case API_ProtoID_GlobalState:
             proto_handler_->on_request_get_global_state(header, data, len);

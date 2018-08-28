@@ -45,6 +45,11 @@ std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, 
     keep_alive_interval_ = rsp.s2c().keepaliveinterval();
     user_id_ = rsp.s2c().loginuserid();
 
+    return conn_aes_key;
+}
+
+void QuoteHandler::my_request()
+{
     //启动心跳定时器
     //NetCenter::instance()->start_keep_alive_timer(keep_alive_interval_ * 4 / 5);
     NetCenter::instance()->start_keep_alive_timer(2);
@@ -77,8 +82,6 @@ std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, 
 
     //注册接收逐笔推送
     NetCenter::instance()->req_reg_push(stocks, subTypes, rehabTypes, true, true);
-
-    return conn_aes_key;
 }
 
 void QuoteHandler::on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
