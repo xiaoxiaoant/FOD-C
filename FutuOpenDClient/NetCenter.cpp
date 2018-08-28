@@ -112,6 +112,12 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
             for (int i = 0; i < body_part; i++)
                 AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
+            memcpy((char*)pBody, out, header.body_len_);
+
+            if(mod_len == 0)
+                header.body_len_ = body_real_len;
+            else
+                header.body_len_ = body_real_len - 16 + mod_len;
 	}
 
         u8_t sha1[20] = {0};

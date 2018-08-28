@@ -86,3 +86,20 @@ void write_log(const char file[], int line, const char func[], const  char* fmt,
 #endif
 }
 
+std::string hex_to_str(const char *hex, int len)
+{
+    std::string ret;
+    char tmpstr[20];
+    ret += "\n";
+
+    for (int i = 0; i < len; i++)
+    {
+        sprintf(tmpstr, "%02hhX", hex[i]);
+        ret += tmpstr;
+        if (i % 16 == 15)
+            ret += "\n";
+        else if (i % 8 == 7)
+            ret += " ";
+    }
+    return ret;
+}
