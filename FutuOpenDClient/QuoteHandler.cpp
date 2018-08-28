@@ -79,6 +79,8 @@ void QuoteHandler::my_request()
     vector<Qot_Common::SubType> subTypes;
     subTypes.push_back(Qot_Common::SubType_OrderBook);
     subTypes.push_back(Qot_Common::SubType_Broker);
+    subTypes.push_back(Qot_Common::SubType_Ticker);
+    subTypes.push_back(Qot_Common::SubType_Basic);
 
     vector<Qot_Common::RehabType> rehabTypes;
     rehabTypes.push_back(Qot_Common::RehabType_None);
@@ -141,6 +143,18 @@ void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
 }
 
+void QuoteHandler::on_request_update_stock_basic(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
+{
+    //cout << "OnRsp_Qot_UpdateTicker:" << endl;
+    LOGD("OnRsp_Qot_UpdateBasicQot:");
+
+    Qot_UpdateBasicQot::Response rsp;
+    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    {
+        return;
+    }
+}
+
 void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
     //cout << "OnRsp_Qot_UpdateTicker:" << endl;
@@ -188,9 +202,13 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
     for (int i = 0; i < rsp.s2c().brokerasklist_size(); ++i)
     {
         const Qot_Common::Broker &data_ask = rsp.s2c().brokerasklist(i);
+        //cout << "Broker: ID=" << data_ask.id() << ";" << data_bid.id() << endl;
+        LOGD("Broker: bid ID=%lld", data_ask.id());
+    }
+    for (int i = 0; i < rsp.s2c().brokerbidlist_size(); ++i)
+    {
         const Qot_Common::Broker &data_bid = rsp.s2c().brokerbidlist(i);
-        cout << "Broker: ID=" << data_ask.id() << ";" << data_bid.id() << endl;
-        LOGD("Broker: ask ID=%lld; bid ID=%lld", data_ask.id(), data_bid.id());
+        LOGD("Broker: bid ID=%lld", data_bid.id());
     }
 }
 

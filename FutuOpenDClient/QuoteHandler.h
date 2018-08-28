@@ -19,6 +19,7 @@ public:
     virtual void on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
     virtual void on_request_update_broker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
     virtual void on_request_update_order_book(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
+    virtual void on_request_update_stock_basic(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
 
 private:
     i32_t keep_alive_interval_ {5};

@@ -361,10 +361,14 @@ void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i3
         case API_ProtoID_Qot_UpdateBroker:
             proto_handler_->on_request_update_broker(header, data, len);
             break;
+        case API_ProtoID_Qot_UpdateStockBasic:
+            proto_handler_->on_request_update_stock_basic(header, data, len);
+            break;
         case API_ProtoID_Qot_UpdateOrderBook:
             proto_handler_->on_request_update_order_book(header, data, len);
             break;
         default:
+            LOGW("no func for proto_id: %d", header.proto_id_);
             break;
     }
 }

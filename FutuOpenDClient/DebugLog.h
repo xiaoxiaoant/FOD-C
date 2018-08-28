@@ -25,6 +25,7 @@ enum LogErrorLevel
 #define LOGT(...)
 #define LOGD(FMT, ...) (write_log(__FILE__, __LINE__, __FUNCTION__, FMT, ##__VA_ARGS__))
 #define LOGE(...) LOGD(__VA_ARGS__)
+#define LOGW(...) LOGD(__VA_ARGS__)
 
 //void write_log(char*prefix, char*fmt, ...);
 //

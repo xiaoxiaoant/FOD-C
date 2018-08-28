@@ -10,6 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3 -std=c++11")
 
 set(ROOT_DIR ${CMAKE_SOURCE_DIR})
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/FOD-C)
+#message(STATUS ${ROOT_DIR})
 
 include_directories("${ROOT_DIR}/3rd/Include")
 
@@ -17,7 +18,9 @@ file(GLOB_RECURSE SRC "${SRC_DIR}/*.cpp" "${SRC_DIR}/*.cc")
 
 add_executable(${PROJECT_NAME}  ${SRC})
 
-find_library(crypto, /usr/local/openssl/lib/)
+#find_library(crypto, /usr/local/openssl/lib/)
+link_directories("${ROOT_DIR}/3rd/a")
+link_directories("/usr/local/openssl/lib/libcrypto.a")
 
-target_link_libraries(${PROJECT_NAME}  libprotobuf.a libprotobuf-lite.a libuv.a /usr/local/openssl/lib/libcrypto.a pthread ${CMAKE_DL_LIBS})
+target_link_libraries(${PROJECT_NAME} libprotobuf.a libprotobuf-lite.a libuv.a /usr/local/openssl/lib/libcrypto.a pthread ${CMAKE_DL_LIBS})
 
