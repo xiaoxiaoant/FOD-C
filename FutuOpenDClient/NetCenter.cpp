@@ -54,6 +54,7 @@ void NetCenter::set_proto_handler(IProtoHandler *handler)
 
 void NetCenter::on_connect(TcpConnect *conn)
 {
+    uv_timer_stop(&keep_alive_timer_);
     //连接成功后需要调用InitConnect
     req_init_connect(100, "ant_demo", true);
 }
@@ -196,10 +197,13 @@ u32_t NetCenter::req_init_connect(i32_t client_ver, const char *client_id, bool 
 
 void NetCenter::req_connect_again()
 {
-    LOGD("Connect Again!");
+    char last_host[50];
+    strncpy(last_host, quote_conn_->get_host(), sizeof(last_host));
 
-    auto last_host = quote_conn_->get_host();
-    auto last_port = quote_conn_->get_port();
+    int last_port = quote_conn_->get_port();
+    LOGD("Connect Again! ip: %s port: %d", last_host, last_port);
+
+    conn_aes_key  = "";
 
     delete quote_conn_;
     quote_conn_ = new TcpConnect();

@@ -173,11 +173,29 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
         return;
     }
 
+    /*
+	required string time = 1; //时间字符串
+	required int64 sequence = 2; // 唯一标识
+	required int32 dir = 3; //TickerDirection, 买卖方向
+	required double price = 4; //价格
+	required int64 volume = 5; //成交量
+	required double turnover = 6; //成交额
+	optional double recvTime = 7; //收到推送数据的本地时间戳，用于定位延迟
+	optional int32 type = 8; //TickerType, 逐笔类型
+	optional int32 typeSign = 9; //逐笔类型符号
+    */
     for (int i = 0; i < rsp.s2c().tickerlist_size(); ++i)
     {
         const Qot_Common::Ticker &data = rsp.s2c().tickerlist(i);
         //cout << "Ticker: Code=" << rsp.s2c().security().code() << "; Time=" << data.time() << "; Price=" << data.price() << ";" << endl;
-        LOGD("Ticker: Code=%s; Time=%s; Price=%lf;", rsp.s2c().security().code().c_str(), data.time().c_str(), data.price());
+        LOGD("Ticker: C:%s T:%s P:%lf V:%lld D:%d TP:%d S:%d",
+             rsp.s2c().security().code().c_str(),
+             data.time().c_str(),
+             data.price(),
+             data.volume(),
+             data.dir(),
+             data.type(),
+             data.typesign());
     }
 }
 
@@ -242,7 +260,7 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
         order[ 9 - i] = data_bid.price();
         //LOGD("Price: %lf", data.price());
     }
-    printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d-%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+    if(0)printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d-%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
         order[0],
         order[1],
         order[2],

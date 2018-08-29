@@ -111,7 +111,7 @@ bool TcpConnect::connect(const char *pHost, int nPort)
 	    return false;
     }
 
-    strncpy(host_, pHost, 50);
+    strncpy(host_, pHost, sizeof(host_));
     port_ = nPort;
 
     ret = uv_tcp_connect(&uv_connect_, &uv_tcp_, (const struct sockaddr*)&addr_in, after_connect);
