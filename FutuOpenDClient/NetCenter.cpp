@@ -78,7 +78,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         header = *(APIProtoHeader*)pData;
         LOGT("proto_id_ is %d, body_len_ is %d", header.proto_id_, header.body_len_);
         LOGT("aes_key is %s", conn_aes_key.c_str());
-        if (nLen < (i32_t)sizeof(header) + header.body_len_)
+        if (nLen < (i32_t)sizeof(header) + (i32_t)header.body_len_)
         {
             LOGE("len error, len is %d, body_len_ is %d", nLen, header.body_len_);
             return;
@@ -203,7 +203,7 @@ void NetCenter::req_connect_again()
     int last_port = quote_conn_->get_port();
     LOGD("Connect Again! ip: %s port: %d", last_host, last_port);
 
-    conn_aes_key  = "";
+    conn_aes_key = "";
 
     delete quote_conn_;
     quote_conn_ = new TcpConnect();

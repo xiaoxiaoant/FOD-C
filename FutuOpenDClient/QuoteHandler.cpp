@@ -62,11 +62,11 @@ void QuoteHandler::my_request()
     vector<Qot_Common::Security> stocks;
 
     FILE *fp = fopen("stock_list", "r");
-    if(fp)
+    if (fp)
     {
         int type = 0;
         char code[50] = {0};
-        while(fscanf(fp, "%d %s\n", &type, code) == 2)
+        while (fscanf(fp, "%d %s\n", &type, code) == 2)
         {
             stock.set_market(type);
             stock.set_code(code);
@@ -174,15 +174,15 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
     }
 
     /*
-	required string time = 1; //时间字符串
-	required int64 sequence = 2; // 唯一标识
-	required int32 dir = 3; //TickerDirection, 买卖方向
-	required double price = 4; //价格
-	required int64 volume = 5; //成交量
-	required double turnover = 6; //成交额
-	optional double recvTime = 7; //收到推送数据的本地时间戳，用于定位延迟
-	optional int32 type = 8; //TickerType, 逐笔类型
-	optional int32 typeSign = 9; //逐笔类型符号
+    required string time = 1; //时间字符串
+    required int64 sequence = 2; // 唯一标识
+    required int32 dir = 3; //TickerDirection, 买卖方向
+    required double price = 4; //价格
+    required int64 volume = 5; //成交量
+    required double turnover = 6; //成交额
+    optional double recvTime = 7; //收到推送数据的本地时间戳，用于定位延迟
+    optional int32 type = 8; //TickerType, 逐笔类型
+    optional int32 typeSign = 9; //逐笔类型符号
     */
     for (int i = 0; i < rsp.s2c().tickerlist_size(); ++i)
     {
@@ -248,7 +248,7 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
         return;
     }
 
-    float order[20] = {0};
+    double order[20] = {0};
 
     //cout << rsp.s2c().orderbookasklist_size() << " " << rsp.s2c().orderbookbidlist_size() << endl;
 
@@ -257,32 +257,32 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
         const Qot_Common::OrderBook &data_ask = rsp.s2c().orderbookasklist(i);
         const Qot_Common::OrderBook &data_bid = rsp.s2c().orderbookbidlist(i);
         order[10 + i] = data_ask.price();
-        order[ 9 - i] = data_bid.price();
+        order[9 - i] = data_bid.price();
         //LOGD("Price: %lf", data.price());
     }
-    if(0)printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d-%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
-        order[0],
-        order[1],
-        order[2],
-        order[3],
-        order[4],
-        order[5],
-        order[6],
-        order[7],
-        order[8],
-        order[9],
-        rsp.s2c().security().market(),
-        rsp.s2c().security().code().c_str(),
-        order[10],
-        order[11],
-        order[12],
-        order[13],
-        order[14],
-        order[15],
-        order[16],
-        order[17],
-        order[18],
-        order[19]);
+    if (0)printf("%.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d-%s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+                 order[0],
+                 order[1],
+                 order[2],
+                 order[3],
+                 order[4],
+                 order[5],
+                 order[6],
+                 order[7],
+                 order[8],
+                 order[9],
+                 rsp.s2c().security().market(),
+                 rsp.s2c().security().code().c_str(),
+                 order[10],
+                 order[11],
+                 order[12],
+                 order[13],
+                 order[14],
+                 order[15],
+                 order[16],
+                 order[17],
+                 order[18],
+                 order[19]);
 }
 
 }

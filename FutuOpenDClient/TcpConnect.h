@@ -1,52 +1,11 @@
-﻿#ifndef TcpConnect_hpp
-#define TcpConnect_hpp
+﻿#pragma once
 
-#include <stdio.h>
 #include <uv.h>
 #include <vector>
+#include "ITcpHandler.h"
+#include "Buffer.h"
 
 namespace ftq {
-
-class Buffer {
-public:
-    Buffer(int nBufLen);
-    ~Buffer();
-    int get_total_len()
-    {
-        return buf_len_;
-    }
-    char *get_data()
-    {
-        return buffer_;
-    }
-    int get_data_len()
-    {
-        return data_len_;
-    }
-    void set_data_len(int nLen);
-    int get_remain_len();
-    char *get_write_start()
-    {
-        return buffer_ + data_len_;
-    }
-    bool resize(int nNewLen);
-    void remove_front(int nLen);
-private:
-    int data_len_ {0};
-    int buf_len_ {0};
-    char *buffer_ {nullptr};
-};
-
-class TcpConnect;
-
-class ITcpHandler
-{
-public:
-    virtual void on_connect(TcpConnect *conn) = 0;
-    virtual void on_recv(TcpConnect *conn, Buffer *buff) = 0;
-    virtual void on_error(TcpConnect *conn, int uv_err) = 0;
-    virtual void on_disconnect(TcpConnect *conn) = 0;
-};
 
 class TcpConnect
 {
@@ -83,6 +42,6 @@ private:
     char host_[50];
     int port_;
 };
+
 }
 
-#endif /* TcpConnect_hpp */

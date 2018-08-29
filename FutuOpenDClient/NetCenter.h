@@ -1,5 +1,4 @@
-﻿#ifndef NetCenterImpl_hpp
-#define NetCenterImpl_hpp
+﻿#pragma once
 
 #include "Common.h"
 #include <vector>
@@ -7,26 +6,12 @@
 #include "TcpConnect.h"
 #include "pb/pb_header.h"
 
+#include "IProtoHandler.h"
+#include "ITcpHandler.h"
+#include "Buffer.h"
+
 namespace ftq
 {
-
-class IProtoHandler
-{
-public:
-    virtual std::string on_request_init_connect(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-
-    virtual void my_request() = 0;
-
-    // 处理OpenD发过来的数据包
-    virtual void on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_get_global_state(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_qot_sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_reg_qot_push(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_update_broker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_update_order_book(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-    virtual void on_request_update_stock_basic(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) = 0;
-};
 
 class NetCenter: public ITcpHandler
 {
@@ -39,10 +24,10 @@ public:
 public:
     void set_proto_handler(IProtoHandler *handler);
 public:
-    virtual void on_connect(TcpConnect *conn) override;
-    virtual void on_recv(TcpConnect *conn, Buffer *buffer) override;
-    virtual void on_error(TcpConnect *conn, int uv_err) override;
-    virtual void on_disconnect(TcpConnect *conn) override;
+    virtual void on_connect(TcpConnect *conn);
+    virtual void on_recv(TcpConnect *conn, Buffer *buffer);
+    virtual void on_error(TcpConnect *conn, int uv_err);
+    virtual void on_disconnect(TcpConnect *conn);
 public:
     // 心跳定时器回调
     static void on_keep_alive_timer(uv_timer_t* handle);
@@ -95,5 +80,3 @@ private:
 };
 }
 
-
-#endif /* NetCenter_hpp */
