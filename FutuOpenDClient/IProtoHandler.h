@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-#include "Common.h"
+//#include "Common.h"
+#include "APIProtoHeader.h"
 
 namespace ftq
 {
