@@ -6,40 +6,42 @@
 namespace ftq
 {
 
-APIProtoPkg::APIProtoPkg(int id): head(id), size(0)
+APIProtoPkg::APIProtoPkg(int id): head_(id), size_(0)
 {
-    memset(body, 0, sizeof(body));
+    memset(body_, 0, sizeof(body_));
 }
 
 int APIProtoPkg::set_body(std::string b)
 {
-    head.body_len_ = b.size();
-    memcpy(body, b.data(), head.body_len_);
-    SHA1((char*)head.body_sha1_, (char*)body, head.body_len_);
+    u32_t len = static_cast<u32_t>(b.size());
+    head_.set_body_len(len);
+    memcpy(body_, b.data(), len);
+    SHA1((char*)head_.get_sha(), (char*)body_, len);
     //SHA1((unsigned char*)head.arrBodySHA1, head.body_len_, (unsigned char*)body);
-    size = sizeof(head) + head.body_len_ + 1;
+    size_ = sizeof(head_) + len + 1;
 
-    return size;
+    return size_;
 }
 
-int APIProtoPkg::set_body(std::string b, std::string pub_file)
+int APIProtoPkg::set_body_with_rsa(std::string b, std::string pub_file)
 {
     set_body(b);
-    int a = my_encrypt_pub((char*)body, strlen((char*)body), pub_file.c_str(), (char*)body);
-    head.body_len_ = a;
-    size = sizeof(head) + head.body_len_ + 1;
+    int a = my_encrypt_pub((char*)body_, static_cast<int>(strlen((char*)body_)), pub_file.c_str(), (char*)body_);
+    head_.set_body_len(a);
+    size_ = sizeof(head_) + head_.get_body_len() + 1;
 
-    return size;
+    return size_;
 }
 
 int APIProtoPkg::set_body_with_aes(std::string b, std::string aes_key)
 {
     set_body(b);
-    head.body_len_ = my_encrypt_aes(body, head.body_len_, aes_key, body);
-    size = sizeof(head) + head.body_len_ + 1;
-    LOGD("size %d body %d all %d", size, head.body_len_, sizeof(head) + head.body_len_ + 1);
+    u32_t len = my_encrypt_aes(body_, head_.get_body_len(), aes_key, body_);
+    head_.set_body_len(len);
+    size_ = sizeof(head_) + len + 1;
+    LOGD("size %d body %d all %d", size_, len, sizeof(head_) + len + 1);
 
-    return size;
+    return size_;
 }
 
 }

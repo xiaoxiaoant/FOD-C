@@ -28,7 +28,7 @@ std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, 
     LOGD("OnRsp_InitConnect: ");
 
     InitConnect::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, data, len))
+    if (!ParsePb(&rsp, header.get_proto_id(), data, len))
     {
         return std::string();
     }
@@ -104,7 +104,7 @@ void QuoteHandler::on_request_get_global_state(const APIProtoHeader &header, con
     LOGD("OnRsp_Qot_Sub:");
 
     GetGlobalState::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -119,7 +119,7 @@ void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *
     LOGD("OnRsp_Qot_Sub:");
 
     Qot_Sub::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -134,7 +134,7 @@ void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i
     LOGD("OnRsp_Qot_RegQotPush:");
 
     Qot_RegQotPush::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -149,7 +149,7 @@ void QuoteHandler::on_request_update_stock_basic(const APIProtoHeader &header, c
     LOGD("OnRsp_Qot_UpdateBasicQot:");
 
     Qot_UpdateBasicQot::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -161,7 +161,7 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
     LOGD("OnRsp_Qot_UpdateTicker:");
 
     Qot_UpdateTicker::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -205,7 +205,7 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
     LOGD("OnRsp_Qot_UpdateBroker:");
 
     Qot_UpdateBroker::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }
@@ -236,7 +236,7 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
     LOGD("OnRsp_Qot_UpdateOrderBook:");
 
     Qot_UpdateOrderBook::Response rsp;
-    if (!ParsePb(&rsp, header.proto_id_, pData, nLen))
+    if (!ParsePb(&rsp, header.get_proto_id(), pData, nLen))
     {
         return;
     }

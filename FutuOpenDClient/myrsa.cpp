@@ -121,7 +121,7 @@ int my_decrypt_pri(const char *str, const int len, const char *path_key, char *d
         de_p += ret_len;
     }
     de_p[0] = 0;
-    int ret = de_p - de;
+    int ret = static_cast<int>(de_p - de);
     free(p_de);
     RSA_free(p_rsa);
     fclose(file);
