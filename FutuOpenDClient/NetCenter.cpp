@@ -81,7 +81,8 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         {
             ret = pkg.recv_with_aes(buffer->get_data(), buffer->get_data_len(), conn_aes_key);
         }
-
+        
+        LOGD("recv ret = %d", ret);
         switch (ret)
         {
             case API_ERR_NO_ERROR:
