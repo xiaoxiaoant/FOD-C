@@ -57,7 +57,8 @@ API_PKG_ERR APIProtoPkg::recv_with_rsa(char * data, int data_len, std::string rs
         return ret;
     }
 
-    original_body_len_ = head_.get_body_len();
+    auto original_body_len_ = head_.get_body_len();
+    size_ = original_body_len_ + sizeof(APIProtoHeader);
 
     {
         LOGT("aes_key is NULL, use rsa_key.txt to decrypt");
@@ -85,7 +86,8 @@ API_PKG_ERR APIProtoPkg::recv_with_aes(char * data, int data_len, std::string ae
         return ret;
     }
 
-    original_body_len_ = head_.get_body_len();
+    auto original_body_len_ = head_.get_body_len();
+    size_ = original_body_len_ + sizeof(APIProtoHeader);
 
     {
         unsigned char out[40960] = {0};
@@ -124,6 +126,11 @@ API_PKG_ERR APIProtoPkg::recv_with_aes(char * data, int data_len, std::string ae
 const int APIProtoPkg::get_body_len() const
 {
     return head_.get_body_len();
+}
+
+const int APIProtoPkg::get_whole_pkg_len() const
+{
+    return size_;
 }
 
 const char * APIProtoPkg::get_head_pointer() const
