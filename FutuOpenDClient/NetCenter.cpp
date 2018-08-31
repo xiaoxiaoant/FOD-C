@@ -86,18 +86,19 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
         {
             case API_ERR_NO_ERROR:
                 handle_packet(*(APIProtoHeader*)pkg.get_head_pointer(), (const i8_t*)pkg.get_body_pointer(), pkg.get_body_len());
-                buffer->remove_front(buffer->get_data_len());
+                buffer->remove_front(pkg.get_body_len() + sizeof(APIProtoHeader));
                 break;
 
             case API_ERR_HEAD_PROTO_ERR:
-                buffer->remove_front(buffer->get_data_len());
+                buffer->remove_front(1);
                 break;
 
             case API_ERR_BODY_LEN_IS_NOT_ENOUGH:
+                // wait the whole body
                 break;
 
             case API_ERR_SHA_ERR:
-                buffer->remove_front(buffer->get_data_len());
+                buffer->remove_front(pkg.get_body_len() + sizeof(APIProtoHeader));
                 break;
         }
 
