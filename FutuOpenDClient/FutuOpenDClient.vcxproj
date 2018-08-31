@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="APIProtoPkg.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="APIProtoHeader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -218,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APIProtoHeader.h" />
+    <ClInclude Include="APIProtoPkg.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="DebugLog.h" />

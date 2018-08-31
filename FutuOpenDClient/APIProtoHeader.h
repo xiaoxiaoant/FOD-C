@@ -20,6 +20,8 @@ public:
 
 public:
     void init();
+    APIProtoHeader();
+    APIProtoHeader(int proto_id);
 };
 #pragma pack(pop, APIProtoHeader)
 

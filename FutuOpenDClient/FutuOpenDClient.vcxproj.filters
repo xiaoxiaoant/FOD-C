@@ -198,6 +198,9 @@
     <ClCompile Include="APIProtoHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="APIProtoPkg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pb\src\Notify.pb.h">
@@ -381,6 +384,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="APIProtoHeader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="APIProtoPkg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

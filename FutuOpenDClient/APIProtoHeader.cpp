@@ -13,5 +13,17 @@ void APIProtoHeader::init()
     header_flag_[0] = 'F';
     header_flag_[1] = 'T';
 }
+
+APIProtoHeader::APIProtoHeader()
+{
+
+}
+
+APIProtoHeader::APIProtoHeader(int proto_id):
+    proto_id_(proto_id)
+{
+    init();
+}
+
 }
 
