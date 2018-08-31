@@ -50,6 +50,8 @@ public:
     const char* get_body_pointer() const;
     const int get_body_len() const;
 
+    int original_body_len_;
+
 };
 #pragma pack(pop, APIProtoPkg)
 

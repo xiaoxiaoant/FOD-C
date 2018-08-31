@@ -57,11 +57,11 @@ API_PKG_ERR APIProtoPkg::recv_with_rsa(char * data, int data_len, std::string rs
         return ret;
     }
 
-    auto body_len = head_.get_body_len();
+    original_body_len_ = head_.get_body_len();
 
     {
         LOGT("aes_key is NULL, use rsa_key.txt to decrypt");
-        int de_ret1 = my_decrypt_pri((char*)body_, body_len, rsa_key_path.c_str(), (char*)body_);
+        int de_ret1 = my_decrypt_pri((char*)body_, original_body_len_, rsa_key_path.c_str(), (char*)body_);
         LOGT("de_ret: %d", de_ret1);
         head_.set_body_len(de_ret1);
     }
@@ -85,14 +85,14 @@ API_PKG_ERR APIProtoPkg::recv_with_aes(char * data, int data_len, std::string ae
         return ret;
     }
 
-    auto body_len = head_.get_body_len();
+    original_body_len_ = head_.get_body_len();
 
     {
         unsigned char out[40960] = {0};
 
-        int mod_len = body_[body_len - 1];
+        int mod_len = body_[original_body_len_ - 1];
 
-        int body_real_len = body_len - 16;
+        int body_real_len = original_body_len_ - 16;
         int body_part = body_real_len / 16;
 
         LOGT("size %d b_len %d m_len %d body_rlen %d b_part %d", nLen, header.body_len_, mod_len, body_real_len, body_part);
@@ -103,7 +103,7 @@ API_PKG_ERR APIProtoPkg::recv_with_aes(char * data, int data_len, std::string ae
 
         for (int i = 0; i < body_part; i++)
             AES_ecb_encrypt((const unsigned char*)body_ + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
-        memcpy((char*)body_, out, body_len);
+        memcpy((char*)body_, out, original_body_len_);
 
         if (mod_len == 0)
             head_.set_body_len(body_real_len);
