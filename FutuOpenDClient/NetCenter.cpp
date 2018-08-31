@@ -5,6 +5,7 @@
 #include <iostream>
 #include <time.h>
 #include "pb/pb_header.h"
+#include "APIProtoPkg.h"
 
 using namespace std;
 
@@ -64,78 +65,42 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
     LOGT("len: %d", buffer->get_data_len());
     for (;;)
     {
-        APIProtoHeader header;
-        const char *pData = buffer->get_data();
-        LOGT("buffer starts with %c%c", pData[0], pData[1]);
-        i32_t nLen = buffer->get_data_len();
-        if (nLen < (i32_t)sizeof(header))
+        if (buffer->get_data_len() == 0)
         {
-            if (nLen > 0)
-                LOGE("len error, len is %d", nLen);
-            return;
+            break;
         }
 
-        header = *(APIProtoHeader*)pData;
-        auto body_len = header.get_body_len();
-        LOGT("proto_id_ is %d, body_len_ is %d", header.get_proto_id(), body_len);
-        LOGT("aes_key is %s", conn_aes_key.c_str());
-        if (nLen < (i32_t)sizeof(header) + (i32_t)body_len)
-        {
-            LOGE("len error, len is %d, body_len_ is %d", nLen, body_len);
-            return;
-        }
+        APIProtoPkg pkg;
 
-        const char *pBody = pData + sizeof(header);
-
-        auto origin_body_len = body_len;
-
+        API_PKG_ERR ret = API_ERR_NO_ERROR;
         if (conn_aes_key == "")
         {
-            LOGT("aes_key is NULL, use rsa_key.txt to decrypt");
-            int de_ret1 = my_decrypt_pri((char*)pBody, body_len, "rsa_key.txt", (char*)pBody);
-            LOGT("de_ret: %d", de_ret1);
-            header.set_body_len(de_ret1);
+            ret = pkg.recv_with_rsa(buffer->get_data(), buffer->get_data_len(), "rsa_key.txt");
         }
         else
         {
-
-            unsigned char out[40960] = {0};
-
-            int mod_len = pBody[body_len - 1];
-
-            int body_real_len = body_len - 16;
-            int body_part = body_real_len / 16;
-
-            LOGT("size %d b_len %d m_len %d body_rlen %d b_part %d", nLen, header.body_len_, mod_len, body_real_len, body_part);
-
-            AES_KEY dkey;
-            AES_set_decrypt_key((unsigned char*)conn_aes_key.c_str(), 128, &dkey);
-            LOGT("use aes_key %s to decrypt", conn_aes_key.c_str());
-
-            for (int i = 0; i < body_part; i++)
-                AES_ecb_encrypt((const unsigned char*)pBody + 16 * i, out + 16 * i, &dkey, AES_DECRYPT);
-            memcpy((char*)pBody, out, body_len);
-
-            if (mod_len == 0)
-                header.set_body_len(body_real_len);
-            else
-                header.set_body_len(body_real_len - 16 + mod_len);
+            ret = pkg.recv_with_aes(buffer->get_data(), buffer->get_data_len(), conn_aes_key);
         }
 
-        u8_t sha1[20] = {0};
-        SHA1((char*)sha1, pBody, header.get_body_len());
-        if (memcmp(sha1, header.get_sha(), 20) != 0)
+        switch (ret)
         {
-            //error
-            //cerr << "sha check fail" << endl;
-            LOGE("sha check fail");
-            buffer->remove_front((i32_t)sizeof(header) + origin_body_len);
-            continue;
+            case API_ERR_NO_ERROR:
+                handle_packet(*(APIProtoHeader*)pkg.get_head_pointer(), (const i8_t*)pkg.get_body_pointer(), pkg.get_body_len());
+                buffer->remove_front(buffer->get_data_len());
+                break;
+
+            case API_ERR_HEAD_PROTO_ERR:
+                buffer->remove_front(buffer->get_data_len());
+                break;
+
+            case API_ERR_BODY_LEN_IS_NOT_ENOUGH:
+                break;
+
+            case API_ERR_SHA_ERR:
+                buffer->remove_front(buffer->get_data_len());
+                break;
         }
 
-        handle_packet(header, (const i8_t*)pBody, header.get_body_len());
-
-        buffer->remove_front((i32_t)sizeof(header) + origin_body_len);
     }
 }
 
@@ -240,6 +205,7 @@ u32_t NetCenter::req_subscribe(const std::vector<Qot_Common::Security> &stocks,
 
     Qot_Sub::Request req;
     req.set_allocated_c2s(c2s);
+
     return net_send(API_ProtoID_Qot_Sub, req);
 }
 

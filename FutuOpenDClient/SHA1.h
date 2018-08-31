@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 
+#define SHA_LEN 20
+
 typedef struct SHA1_CTX
 {
     uint32_t state[5];
@@ -23,7 +25,7 @@ void SHA1Init(SHA1_CTX * context);
 
 void SHA1Update(SHA1_CTX * context, const unsigned char *data, uint32_t len);
 
-void SHA1Final(unsigned char digest[20], SHA1_CTX * context);
+void SHA1Final(unsigned char digest[SHA_LEN], SHA1_CTX * context);
 
 void SHA1(char *hash_out, const char *str, int len);
 

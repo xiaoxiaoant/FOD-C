@@ -24,7 +24,6 @@ bool ParsePb(google::protobuf::Message *pb_obj, u32_t proto_id, const i8_t *data
 
 std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
-    //cout << "OnRsp_InitConnect: " << endl;
     LOGD("OnRsp_InitConnect: ");
 
     InitConnect::Response rsp;
@@ -35,7 +34,6 @@ std::string QuoteHandler::on_request_init_connect(const APIProtoHeader &header, 
 
     conn_aes_key = rsp.s2c().connaeskey();
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
@@ -57,24 +55,8 @@ void QuoteHandler::my_request()
     NetCenter::instance()->req_get_global_state(user_id_);
 
     //subscribe stock
-    Qot_Common::Security stock;
-
-    vector<Qot_Common::Security> stocks;
-
-    FILE *fp = fopen("stock_list", "r");
-    if (fp)
-    {
-        int type = 0;
-        char code[50] = {0};
-        while (fscanf(fp, "%d %s\n", &type, code) == 2)
-        {
-            stock.set_market(type);
-            stock.set_code(code);
-            stocks.push_back(stock);
-            LOGD("reading %d %s\n", type, code);
-        }
-        fclose(fp);
-    }
+    
+    std::vector<Qot_Common::Security> stocks = load_stocks_list("stock_list");
 
     vector<Qot_Common::SubType> subTypes;
     subTypes.push_back(Qot_Common::SubType_OrderBook);
@@ -94,13 +76,11 @@ void QuoteHandler::my_request()
 
 void QuoteHandler::on_request_keep_alive(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_KeepAlive: " << endl;
     LOGD("OnRsp_KeepAlive:");
 }
 
 void QuoteHandler::on_request_get_global_state(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_GetGlobalState: " << endl;
     LOGD("OnRsp_Qot_Sub:");
 
     GetGlobalState::Response rsp;
@@ -109,13 +89,11 @@ void QuoteHandler::on_request_get_global_state(const APIProtoHeader &header, con
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << "; ServerVer=" << rsp.s2c().serverver() << "; " << endl;
     LOGD("Ret=%d; Msg=%s; ServerVer=%d;", rsp.rettype(), rsp.retmsg().c_str(), rsp.s2c().serverver());
 }
 
 void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_Sub: " << endl;
     LOGD("OnRsp_Qot_Sub:");
 
     Qot_Sub::Response rsp;
@@ -124,13 +102,11 @@ void QuoteHandler::on_request_qot_sub(const APIProtoHeader &header, const i8_t *
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
 }
 
 void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_RegQotPush:" << endl;
     LOGD("OnRsp_Qot_RegQotPush:");
 
     Qot_RegQotPush::Response rsp;
@@ -139,13 +115,11 @@ void QuoteHandler::on_request_reg_qot_push(const APIProtoHeader &header, const i
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
 }
 
 void QuoteHandler::on_request_update_stock_basic(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_UpdateTicker:" << endl;
     LOGD("OnRsp_Qot_UpdateBasicQot:");
 
     Qot_UpdateBasicQot::Response rsp;
@@ -155,9 +129,33 @@ void QuoteHandler::on_request_update_stock_basic(const APIProtoHeader &header, c
     }
 }
 
+std::vector<Qot_Common::Security> QuoteHandler::load_stocks_list(std::string config_file)
+{
+    std::vector<Qot_Common::Security> stocks;
+
+    FILE *fp = fopen(config_file.c_str(), "r");
+    if (fp)
+    {
+        stocks.clear();
+
+        int type = 0;
+        char code[50] = {0};
+        while (fscanf(fp, "%d %s\n", &type, code) == 2)
+        {
+            Qot_Common::Security stock;
+            stock.set_market(type);
+            stock.set_code(code);
+            stocks.push_back(stock);
+            LOGD("reading %d %s\n", type, code);
+        }
+        fclose(fp);
+    }
+
+    return stocks;
+}
+
 void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_UpdateTicker:" << endl;
     LOGD("OnRsp_Qot_UpdateTicker:");
 
     Qot_UpdateTicker::Response rsp;
@@ -166,7 +164,6 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
@@ -201,7 +198,6 @@ void QuoteHandler::on_request_update_ticker(const APIProtoHeader &header, const 
 
 void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_UpdateBroker:" << endl;
     LOGD("OnRsp_Qot_UpdateBroker:");
 
     Qot_UpdateBroker::Response rsp;
@@ -210,7 +206,6 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
@@ -220,7 +215,6 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
     for (int i = 0; i < rsp.s2c().brokerasklist_size(); ++i)
     {
         const Qot_Common::Broker &data_ask = rsp.s2c().brokerasklist(i);
-        //cout << "Broker: ID=" << data_ask.id() << ";" << data_bid.id() << endl;
         LOGD("Broker: bid ID=%lld", data_ask.id());
     }
     for (int i = 0; i < rsp.s2c().brokerbidlist_size(); ++i)
@@ -232,7 +226,6 @@ void QuoteHandler::on_request_update_broker(const APIProtoHeader &header, const 
 
 void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, const i8_t *pData, i32_t nLen)
 {
-    //cout << "OnRsp_Qot_UpdateOrderBook:" << endl;
     LOGD("OnRsp_Qot_UpdateOrderBook:");
 
     Qot_UpdateOrderBook::Response rsp;
@@ -241,7 +234,6 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
         return;
     }
 
-    //cout << "Ret=" << rsp.rettype() << "; Msg=" << rsp.retmsg() << endl;
     LOGD("Ret=%d; Msg=%s", rsp.rettype(), rsp.retmsg().c_str());
     if (rsp.rettype() != 0)
     {
@@ -249,8 +241,6 @@ void QuoteHandler::on_request_update_order_book(const APIProtoHeader &header, co
     }
 
     double order[20] = {0};
-
-    //cout << rsp.s2c().orderbookasklist_size() << " " << rsp.s2c().orderbookbidlist_size() << endl;
 
     for (int i = 0; i < rsp.s2c().orderbookasklist_size(); ++i)
     {

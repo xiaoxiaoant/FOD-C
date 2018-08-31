@@ -22,8 +22,13 @@ public:
     virtual void on_request_update_stock_basic(const APIProtoHeader &header, const i8_t *pData, i32_t nLen) override;
 
 private:
+
+    std::vector<Qot_Common::Security> load_stocks_list(std::string config_file);
+
     i32_t keep_alive_interval_ {5};
     u64_t user_id_ {0};
     std::string conn_aes_key;
+
+    //std::vector<Qot_Common::Security> stocks;
 };
 }

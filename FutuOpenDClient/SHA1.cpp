@@ -218,7 +218,7 @@ void SHA1Update(SHA1_CTX * context, const unsigned char *data, uint32_t len)
 
 /* Add padding and return the message digest. */
 
-void SHA1Final(unsigned char digest[20], SHA1_CTX * context)
+void SHA1Final(unsigned char digest[SHA_LEN], SHA1_CTX * context)
 {
     unsigned i;
 
@@ -257,7 +257,7 @@ void SHA1Final(unsigned char digest[20], SHA1_CTX * context)
         SHA1Update(context, &c, 1);
     }
     SHA1Update(context, finalcount, 8); /* Should cause a SHA1Transform() */
-    for (i = 0; i < 20; i++)
+    for (i = 0; i < SHA_LEN; i++)
     {
         digest[i] = (unsigned char)
             ((context->state[i >> 2] >> ((3 - (i & 3)) * 8)) & 255);
