@@ -36,7 +36,7 @@ private:
     uv_buf_t uv_write_buf_ {};
     std::vector<char> write_stores_[2];
     int cur_using_write_store_idx_ {-1};
-    Buffer read_store_ {10 * 1024 * 1024};
+    Buffer read_store_ {100 * 1024 * 1024};
     ITcpHandler *handler_ {nullptr};
 
     char host_[50];

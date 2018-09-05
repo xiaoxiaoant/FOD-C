@@ -9,7 +9,7 @@ int my_encrypt_aes(const unsigned char *str, const int len, const std::string ae
         return 0;
     }
 
-    unsigned char tmp[2048] = {0};
+    unsigned char tmp[20480] = {0};
 
     memcpy(tmp, str, len);
 
