@@ -67,6 +67,8 @@ public:
 private:
     u32_t net_send(u32_t proto_id, const google::protobuf::Message &pb_obj);
     void handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len);
+
+    void save_to_file(const APIProtoHeader &header, const i8_t *data, i32_t len);
 private:
     uv_loop_t *loop_ {nullptr};
     uv_timer_t keep_alive_timer_ {};

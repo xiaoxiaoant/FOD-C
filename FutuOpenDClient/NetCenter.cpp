@@ -7,6 +7,10 @@
 #include "pb/pb_header.h"
 #include "APIProtoPkg.h"
 
+#include <time.h>
+#include <sys/time.h>
+//#include <unistd.h>
+
 using namespace std;
 
 namespace ftq
@@ -304,10 +308,57 @@ u32_t NetCenter::net_send(u32_t proto_id, const google::protobuf::Message &pb_ob
     return packet_no;
 }
 
+void NetCenter::save_to_file(const APIProtoHeader &header, const i8_t *data, i32_t len)
+{
+    const int head_size = sizeof(header);
+
+    struct timeval tv;
+    struct timezone tz;
+    gettimeofday (&tv , &tz);//获取时区保存tz中
+    time_t utc_now = tz.tz_minuteswest * 60 + tv.tv_sec;
+    //printf("%d %d %d %d %d\n", tz.tz_minuteswest, tz.tz_dsttime, tv.tv_sec, tv.tv_usec, utc_now);
+
+
+    char strTime[64];
+    memset(strTime, 0, sizeof(strTime));
+    strftime(strTime, sizeof(strTime), "[%Y-%m-%d %T]", localtime(&utc_now));
+
+    std::string time_fmt(strTime);
+    time_fmt = time_fmt.substr(1, 13);
+    time_fmt.replace(10, 1, "-");
+    std::string fn = "data/quant" + time_fmt + ".data";
+
+#if !((defined _WIN32) || (defined _WIN64))
+    static pthread_mutex_t MutexSingle = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_lock(&MutexSingle);
+#endif
+
+    FILE *fp0 = fopen(fn.c_str(), "aw");
+    if (fp0)
+    {
+        fwrite("VER01", 5, 1, fp0);
+        fwrite(&tv, sizeof(tv), 1, fp0);
+        fwrite(&tz, sizeof(tz), 1, fp0);
+        fwrite(&header, sizeof(header), 1, fp0);
+        fwrite(data, len, 1, fp0);
+
+        fclose(fp0);
+    }
+
+
+#if !((defined _WIN32) || (defined _WIN64))
+    pthread_mutex_unlock(&MutexSingle);
+#endif
+    return;
+}
+
+
 void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i32_t len)
 {
     u32_t proto_id = header.get_proto_id();
     LOGD("proto_id: %d", proto_id);
+
+    bool need_save = true;
     switch (proto_id)
     {
         case API_ProtoID_InitConnect:
@@ -328,6 +379,7 @@ void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i3
             break;
         case API_ProtoID_KeepAlive:
             proto_handler_->on_request_keep_alive(header, data, len);
+            need_save = false;
             break;
         case API_ProtoID_Qot_UpdateBroker:
             proto_handler_->on_request_update_broker(header, data, len);
@@ -341,6 +393,11 @@ void NetCenter::handle_packet(const APIProtoHeader &header, const i8_t *data, i3
         default:
             LOGW("no func for proto_id: %d", proto_id);
             break;
+    }
+
+    if(need_save)
+    {
+        save_to_file(header, data, len);
     }
 }
 
