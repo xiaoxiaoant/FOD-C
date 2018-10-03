@@ -100,7 +100,7 @@ void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)
 
             case API_ERR_BODY_LEN_IS_NOT_ENOUGH:
                 // wait the whole body
-                break;
+                return;
 
             case API_ERR_SHA_ERR:
                 buffer->remove_front(pkg.get_whole_pkg_len());

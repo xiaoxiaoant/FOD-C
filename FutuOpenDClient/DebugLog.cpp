@@ -55,7 +55,7 @@ void write_log(const char file[], int line, const char func[], const  char* fmt,
         //tmp = strTime + tmp;
         //tmp += "\n";
         //
-        char tmpstr[32767];
+        char tmpstr[327670];
 
         va_list argptr;
         va_start(argptr, fmt);
