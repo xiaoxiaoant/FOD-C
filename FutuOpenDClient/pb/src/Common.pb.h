@@ -77,6 +77,26 @@ inline bool RetType_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<RetType>(
     RetType_descriptor(), name, value);
 }
+enum PacketEncAlgo {
+  PacketEncAlgo_FTAES_ECB = 0,
+  PacketEncAlgo_None = -1,
+  PacketEncAlgo_AES_ECB = 1
+};
+bool PacketEncAlgo_IsValid(int value);
+const PacketEncAlgo PacketEncAlgo_MIN = PacketEncAlgo_None;
+const PacketEncAlgo PacketEncAlgo_MAX = PacketEncAlgo_AES_ECB;
+const int PacketEncAlgo_ARRAYSIZE = PacketEncAlgo_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* PacketEncAlgo_descriptor();
+inline const ::std::string& PacketEncAlgo_Name(PacketEncAlgo value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    PacketEncAlgo_descriptor(), value);
+}
+inline bool PacketEncAlgo_Parse(
+    const ::std::string& name, PacketEncAlgo* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<PacketEncAlgo>(
+    PacketEncAlgo_descriptor(), name, value);
+}
 // ===================================================================
 
 class PacketID : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Common.PacketID) */ {
@@ -274,6 +294,11 @@ template <> struct is_proto_enum< ::Common::RetType> : ::google::protobuf::inter
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Common::RetType>() {
   return ::Common::RetType_descriptor();
+}
+template <> struct is_proto_enum< ::Common::PacketEncAlgo> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Common::PacketEncAlgo>() {
+  return ::Common::PacketEncAlgo_descriptor();
 }
 
 }  // namespace protobuf

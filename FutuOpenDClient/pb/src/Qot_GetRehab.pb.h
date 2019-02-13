@@ -480,6 +480,13 @@ class Rehab : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   double spdividend() const;
   void set_spdividend(double value);
 
+  // optional double timestamp = 23;
+  bool has_timestamp() const;
+  void clear_timestamp();
+  static const int kTimestampFieldNumber = 23;
+  double timestamp() const;
+  void set_timestamp(double value);
+
   // @@protoc_insertion_point(class_scope:Qot_GetRehab.Rehab)
  private:
   void set_has_time();
@@ -526,6 +533,8 @@ class Rehab : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   void clear_has_dividend();
   void set_has_spdividend();
   void clear_has_spdividend();
+  void set_has_timestamp();
+  void clear_has_timestamp();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -555,6 +564,7 @@ class Rehab : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   double addprice_;
   double dividend_;
   double spdividend_;
+  double timestamp_;
   friend struct ::protobuf_Qot_5fGetRehab_2eproto::TableStruct;
   friend void ::protobuf_Qot_5fGetRehab_2eproto::InitDefaultsRehabImpl();
 };
@@ -1665,6 +1675,30 @@ inline void Rehab::set_spdividend(double value) {
   set_has_spdividend();
   spdividend_ = value;
   // @@protoc_insertion_point(field_set:Qot_GetRehab.Rehab.spDividend)
+}
+
+// optional double timestamp = 23;
+inline bool Rehab::has_timestamp() const {
+  return (_has_bits_[0] & 0x00400000u) != 0;
+}
+inline void Rehab::set_has_timestamp() {
+  _has_bits_[0] |= 0x00400000u;
+}
+inline void Rehab::clear_has_timestamp() {
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline void Rehab::clear_timestamp() {
+  timestamp_ = 0;
+  clear_has_timestamp();
+}
+inline double Rehab::timestamp() const {
+  // @@protoc_insertion_point(field_get:Qot_GetRehab.Rehab.timestamp)
+  return timestamp_;
+}
+inline void Rehab::set_timestamp(double value) {
+  set_has_timestamp();
+  timestamp_ = value;
+  // @@protoc_insertion_point(field_set:Qot_GetRehab.Rehab.timestamp)
 }
 
 // -------------------------------------------------------------------

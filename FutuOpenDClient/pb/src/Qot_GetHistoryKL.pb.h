@@ -393,12 +393,21 @@ class S2C : public ::google::protobuf::Message /* @@protoc_insertion_point(class
   ::Qot_Common::Security* mutable_security();
   void set_allocated_security(::Qot_Common::Security* security);
 
+  // optional double nextKLTimestamp = 4;
+  bool has_nextkltimestamp() const;
+  void clear_nextkltimestamp();
+  static const int kNextKLTimestampFieldNumber = 4;
+  double nextkltimestamp() const;
+  void set_nextkltimestamp(double value);
+
   // @@protoc_insertion_point(class_scope:Qot_GetHistoryKL.S2C)
  private:
   void set_has_security();
   void clear_has_security();
   void set_has_nextkltime();
   void clear_has_nextkltime();
+  void set_has_nextkltimestamp();
+  void clear_has_nextkltimestamp();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
@@ -406,6 +415,7 @@ class S2C : public ::google::protobuf::Message /* @@protoc_insertion_point(class
   ::google::protobuf::RepeatedPtrField< ::Qot_Common::KLine > kllist_;
   ::google::protobuf::internal::ArenaStringPtr nextkltime_;
   ::Qot_Common::Security* security_;
+  double nextkltimestamp_;
   friend struct ::protobuf_Qot_5fGetHistoryKL_2eproto::TableStruct;
   friend void ::protobuf_Qot_5fGetHistoryKL_2eproto::InitDefaultsS2CImpl();
 };
@@ -1096,6 +1106,30 @@ inline void S2C::set_allocated_nextkltime(::std::string* nextkltime) {
   }
   nextkltime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), nextkltime);
   // @@protoc_insertion_point(field_set_allocated:Qot_GetHistoryKL.S2C.nextKLTime)
+}
+
+// optional double nextKLTimestamp = 4;
+inline bool S2C::has_nextkltimestamp() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void S2C::set_has_nextkltimestamp() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void S2C::clear_has_nextkltimestamp() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void S2C::clear_nextkltimestamp() {
+  nextkltimestamp_ = 0;
+  clear_has_nextkltimestamp();
+}
+inline double S2C::nextkltimestamp() const {
+  // @@protoc_insertion_point(field_get:Qot_GetHistoryKL.S2C.nextKLTimestamp)
+  return nextkltimestamp_;
+}
+inline void S2C::set_nextkltimestamp(double value) {
+  set_has_nextkltimestamp();
+  nextkltimestamp_ = value;
+  // @@protoc_insertion_point(field_set:Qot_GetHistoryKL.S2C.nextKLTimestamp)
 }
 
 // -------------------------------------------------------------------

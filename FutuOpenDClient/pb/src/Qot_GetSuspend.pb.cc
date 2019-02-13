@@ -204,7 +204,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSuspend::Suspend, time_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSuspend::Suspend, timestamp_),
   0,
+  1,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSuspend::SecuritySuspend, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSuspend::SecuritySuspend, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -244,11 +246,11 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 8, sizeof(::Qot_GetSuspend::C2S)},
-  { 11, 17, sizeof(::Qot_GetSuspend::Suspend)},
-  { 18, 25, sizeof(::Qot_GetSuspend::SecuritySuspend)},
-  { 27, 33, sizeof(::Qot_GetSuspend::S2C)},
-  { 34, 40, sizeof(::Qot_GetSuspend::Request)},
-  { 41, 50, sizeof(::Qot_GetSuspend::Response)},
+  { 11, 18, sizeof(::Qot_GetSuspend::Suspend)},
+  { 20, 27, sizeof(::Qot_GetSuspend::SecuritySuspend)},
+  { 29, 35, sizeof(::Qot_GetSuspend::S2C)},
+  { 36, 42, sizeof(::Qot_GetSuspend::Request)},
+  { 43, 52, sizeof(::Qot_GetSuspend::Response)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -285,19 +287,20 @@ void AddDescriptorsImpl() {
       "\n\024Qot_GetSuspend.proto\022\016Qot_GetSuspend\032\014"
       "Common.proto\032\020Qot_Common.proto\"U\n\003C2S\022*\n"
       "\014securityList\030\001 \003(\0132\024.Qot_Common.Securit"
-      "y\022\021\n\tbeginTime\030\002 \002(\t\022\017\n\007endTime\030\003 \002(\t\"\027\n"
-      "\007Suspend\022\014\n\004time\030\001 \002(\t\"g\n\017SecuritySuspen"
-      "d\022&\n\010security\030\001 \002(\0132\024.Qot_Common.Securit"
-      "y\022,\n\013suspendList\030\002 \003(\0132\027.Qot_GetSuspend."
-      "Suspend\"C\n\003S2C\022<\n\023SecuritySuspendList\030\001 "
-      "\003(\0132\037.Qot_GetSuspend.SecuritySuspend\"+\n\007"
-      "Request\022 \n\003c2s\030\001 \002(\0132\023.Qot_GetSuspend.C2"
-      "S\"d\n\010Response\022\025\n\007retType\030\001 \002(\005:\004-400\022\016\n\006"
-      "retMsg\030\002 \001(\t\022\017\n\007errCode\030\003 \001(\005\022 \n\003s2c\030\004 \001"
-      "(\0132\023.Qot_GetSuspend.S2C"
+      "y\022\021\n\tbeginTime\030\002 \002(\t\022\017\n\007endTime\030\003 \002(\t\"*\n"
+      "\007Suspend\022\014\n\004time\030\001 \002(\t\022\021\n\ttimestamp\030\002 \001("
+      "\001\"g\n\017SecuritySuspend\022&\n\010security\030\001 \002(\0132\024"
+      ".Qot_Common.Security\022,\n\013suspendList\030\002 \003("
+      "\0132\027.Qot_GetSuspend.Suspend\"C\n\003S2C\022<\n\023Sec"
+      "uritySuspendList\030\001 \003(\0132\037.Qot_GetSuspend."
+      "SecuritySuspend\"+\n\007Request\022 \n\003c2s\030\001 \002(\0132"
+      "\023.Qot_GetSuspend.C2S\"d\n\010Response\022\025\n\007retT"
+      "ype\030\001 \002(\005:\004-400\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007errCo"
+      "de\030\003 \001(\005\022 \n\003s2c\030\004 \001(\0132\023.Qot_GetSuspend.S"
+      "2C"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 503);
+      descriptor, 522);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Qot_GetSuspend.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -720,6 +723,7 @@ void Suspend::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Suspend::kTimeFieldNumber;
+const int Suspend::kTimestampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Suspend::Suspend()
@@ -740,12 +744,14 @@ Suspend::Suspend(const Suspend& from)
   if (from.has_time()) {
     time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.time_);
   }
+  timestamp_ = from.timestamp_;
   // @@protoc_insertion_point(copy_constructor:Qot_GetSuspend.Suspend)
 }
 
 void Suspend::SharedCtor() {
   _cached_size_ = 0;
   time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  timestamp_ = 0;
 }
 
 Suspend::~Suspend() {
@@ -791,6 +797,7 @@ void Suspend::Clear() {
     GOOGLE_DCHECK(!time_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
     (*time_.UnsafeRawStringPointer())->clear();
   }
+  timestamp_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -815,6 +822,20 @@ bool Suspend::MergePartialFromCodedStream(
             this->time().data(), static_cast<int>(this->time().length()),
             ::google::protobuf::internal::WireFormat::PARSE,
             "Qot_GetSuspend.Suspend.time");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double timestamp = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
+          set_has_timestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &timestamp_)));
         } else {
           goto handle_unusual;
         }
@@ -858,6 +879,11 @@ void Suspend::SerializeWithCachedSizes(
       1, this->time(), output);
   }
 
+  // optional double timestamp = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->timestamp(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -884,6 +910,11 @@ void Suspend::SerializeWithCachedSizes(
         1, this->time(), target);
   }
 
+  // optional double timestamp = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->timestamp(), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -907,6 +938,11 @@ size_t Suspend::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->time());
   }
+  // optional double timestamp = 2;
+  if (has_timestamp()) {
+    total_size += 1 + 8;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -936,9 +972,16 @@ void Suspend::MergeFrom(const Suspend& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_time()) {
-    set_has_time();
-    time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.time_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
+      set_has_time();
+      time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.time_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      timestamp_ = from.timestamp_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -968,6 +1011,7 @@ void Suspend::Swap(Suspend* other) {
 void Suspend::InternalSwap(Suspend* other) {
   using std::swap;
   time_.Swap(&other->time_);
+  swap(timestamp_, other->timestamp_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);

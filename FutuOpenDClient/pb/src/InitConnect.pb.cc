@@ -139,9 +139,11 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::C2S, clientver_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::C2S, clientid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::C2S, recvnotify_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::C2S, packetencalgo_),
   1,
   0,
   2,
+  3,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::S2C, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::InitConnect::S2C, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -179,10 +181,10 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   1,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, sizeof(::InitConnect::C2S)},
-  { 11, 21, sizeof(::InitConnect::S2C)},
-  { 26, 32, sizeof(::InitConnect::Request)},
-  { 33, 42, sizeof(::InitConnect::Response)},
+  { 0, 9, sizeof(::InitConnect::C2S)},
+  { 13, 23, sizeof(::InitConnect::S2C)},
+  { 28, 34, sizeof(::InitConnect::Request)},
+  { 35, 44, sizeof(::InitConnect::Response)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -215,18 +217,18 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\021InitConnect.proto\022\013InitConnect\032\014Common"
-      ".proto\">\n\003C2S\022\021\n\tclientVer\030\001 \002(\005\022\020\n\010clie"
-      "ntID\030\002 \002(\t\022\022\n\nrecvNotify\030\003 \001(\010\"l\n\003S2C\022\021\n"
-      "\tserverVer\030\001 \002(\005\022\023\n\013loginUserID\030\002 \002(\004\022\016\n"
-      "\006connID\030\003 \002(\004\022\022\n\nconnAESKey\030\004 \002(\t\022\031\n\021kee"
-      "pAliveInterval\030\005 \002(\005\"(\n\007Request\022\035\n\003c2s\030\001"
-      " \002(\0132\020.InitConnect.C2S\"a\n\010Response\022\025\n\007re"
-      "tType\030\001 \002(\005:\004-400\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007err"
-      "Code\030\003 \001(\005\022\035\n\003s2c\030\004 \001(\0132\020.InitConnect.S2"
-      "C"
+      ".proto\"U\n\003C2S\022\021\n\tclientVer\030\001 \002(\005\022\020\n\010clie"
+      "ntID\030\002 \002(\t\022\022\n\nrecvNotify\030\003 \001(\010\022\025\n\rpacket"
+      "EncAlgo\030\004 \001(\005\"l\n\003S2C\022\021\n\tserverVer\030\001 \002(\005\022"
+      "\023\n\013loginUserID\030\002 \002(\004\022\016\n\006connID\030\003 \002(\004\022\022\n\n"
+      "connAESKey\030\004 \002(\t\022\031\n\021keepAliveInterval\030\005 "
+      "\002(\005\"(\n\007Request\022\035\n\003c2s\030\001 \002(\0132\020.InitConnec"
+      "t.C2S\"a\n\010Response\022\025\n\007retType\030\001 \002(\005:\004-400"
+      "\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007errCode\030\003 \001(\005\022\035\n\003s2c"
+      "\030\004 \001(\0132\020.InitConnect.S2C"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 361);
+      descriptor, 384);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "InitConnect.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -253,6 +255,7 @@ void C2S::InitAsDefaultInstance() {
 const int C2S::kClientVerFieldNumber;
 const int C2S::kClientIDFieldNumber;
 const int C2S::kRecvNotifyFieldNumber;
+const int C2S::kPacketEncAlgoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 C2S::C2S()
@@ -274,8 +277,8 @@ C2S::C2S(const C2S& from)
     clientid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientid_);
   }
   ::memcpy(&clientver_, &from.clientver_,
-    static_cast<size_t>(reinterpret_cast<char*>(&recvnotify_) -
-    reinterpret_cast<char*>(&clientver_)) + sizeof(recvnotify_));
+    static_cast<size_t>(reinterpret_cast<char*>(&packetencalgo_) -
+    reinterpret_cast<char*>(&clientver_)) + sizeof(packetencalgo_));
   // @@protoc_insertion_point(copy_constructor:InitConnect.C2S)
 }
 
@@ -283,8 +286,8 @@ void C2S::SharedCtor() {
   _cached_size_ = 0;
   clientid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&clientver_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&recvnotify_) -
-      reinterpret_cast<char*>(&clientver_)) + sizeof(recvnotify_));
+      reinterpret_cast<char*>(&packetencalgo_) -
+      reinterpret_cast<char*>(&clientver_)) + sizeof(packetencalgo_));
 }
 
 C2S::~C2S() {
@@ -330,10 +333,10 @@ void C2S::Clear() {
     GOOGLE_DCHECK(!clientid_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
     (*clientid_.UnsafeRawStringPointer())->clear();
   }
-  if (cached_has_bits & 6u) {
+  if (cached_has_bits & 14u) {
     ::memset(&clientver_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&recvnotify_) -
-        reinterpret_cast<char*>(&clientver_)) + sizeof(recvnotify_));
+        reinterpret_cast<char*>(&packetencalgo_) -
+        reinterpret_cast<char*>(&clientver_)) + sizeof(packetencalgo_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -393,6 +396,20 @@ bool C2S::MergePartialFromCodedStream(
         break;
       }
 
+      // optional int32 packetEncAlgo = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+          set_has_packetencalgo();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &packetencalgo_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -440,6 +457,11 @@ void C2S::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->recvnotify(), output);
   }
 
+  // optional int32 packetEncAlgo = 4;
+  if (cached_has_bits & 0x00000008u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->packetencalgo(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -474,6 +496,11 @@ void C2S::SerializeWithCachedSizes(
   // optional bool recvNotify = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->recvnotify(), target);
+  }
+
+  // optional int32 packetEncAlgo = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->packetencalgo(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -527,11 +554,20 @@ size_t C2S::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
-  // optional bool recvNotify = 3;
-  if (has_recvnotify()) {
-    total_size += 1 + 1;
-  }
+  if (_has_bits_[0 / 32] & 12u) {
+    // optional bool recvNotify = 3;
+    if (has_recvnotify()) {
+      total_size += 1 + 1;
+    }
 
+    // optional int32 packetEncAlgo = 4;
+    if (has_packetencalgo()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->packetencalgo());
+    }
+
+  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -562,7 +598,7 @@ void C2S::MergeFrom(const C2S& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 15u) {
     if (cached_has_bits & 0x00000001u) {
       set_has_clientid();
       clientid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientid_);
@@ -572,6 +608,9 @@ void C2S::MergeFrom(const C2S& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       recvnotify_ = from.recvnotify_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      packetencalgo_ = from.packetencalgo_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -605,6 +644,7 @@ void C2S::InternalSwap(C2S* other) {
   clientid_.Swap(&other->clientid_);
   swap(clientver_, other->clientver_);
   swap(recvnotify_, other->recvnotify_);
+  swap(packetencalgo_, other->packetencalgo_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);

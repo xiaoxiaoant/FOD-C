@@ -61,7 +61,7 @@ void NetCenter::on_connect(TcpConnect *conn)
 {
     uv_timer_stop(&keep_alive_timer_);
     //连接成功后需要调用InitConnect
-    req_init_connect(100, "ant_demo", true);
+    req_init_connect(100, "ant_test", true);
 }
 
 void NetCenter::on_recv(TcpConnect *conn, Buffer *buffer)

@@ -49,7 +49,7 @@ void InitDefaultsPacketID() {
 }
 
 ::google::protobuf::Metadata file_level_metadata[1];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
+const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Common::PacketID, _has_bits_),
@@ -96,10 +96,13 @@ void AddDescriptorsImpl() {
       "nnID\030\001 \002(\004\022\020\n\010serialNo\030\002 \002(\r*w\n\007RetType\022"
       "\023\n\017RetType_Succeed\020\000\022\033\n\016RetType_Failed\020\377"
       "\377\377\377\377\377\377\377\377\001\022\034\n\017RetType_TimeOut\020\234\377\377\377\377\377\377\377\377\001\022"
-      "\034\n\017RetType_Unknown\020\360\374\377\377\377\377\377\377\377\001"
+      "\034\n\017RetType_Unknown\020\360\374\377\377\377\377\377\377\377\001*h\n\rPacketE"
+      "ncAlgo\022\033\n\027PacketEncAlgo_FTAES_ECB\020\000\022\037\n\022P"
+      "acketEncAlgo_None\020\377\377\377\377\377\377\377\377\377\001\022\031\n\025PacketEn"
+      "cAlgo_AES_ECB\020\001"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 189);
+      descriptor, 295);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Common.proto", &protobuf_RegisterTypes);
 }
@@ -126,6 +129,21 @@ bool RetType_IsValid(int value) {
     case -100:
     case -1:
     case 0:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* PacketEncAlgo_descriptor() {
+  protobuf_Common_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_Common_2eproto::file_level_enum_descriptors[1];
+}
+bool PacketEncAlgo_IsValid(int value) {
+  switch (value) {
+    case -1:
+    case 0:
+    case 1:
       return true;
     default:
       return false;

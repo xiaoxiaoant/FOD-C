@@ -1289,6 +1289,20 @@ class Order : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   double fillavgprice() const;
   void set_fillavgprice(double value);
 
+  // optional double createTimestamp = 16;
+  bool has_createtimestamp() const;
+  void clear_createtimestamp();
+  static const int kCreateTimestampFieldNumber = 16;
+  double createtimestamp() const;
+  void set_createtimestamp(double value);
+
+  // optional double updateTimestamp = 17;
+  bool has_updatetimestamp() const;
+  void clear_updatetimestamp();
+  static const int kUpdateTimestampFieldNumber = 17;
+  double updatetimestamp() const;
+  void set_updatetimestamp(double value);
+
   // @@protoc_insertion_point(class_scope:Trd_Common.Order)
  private:
   void set_has_trdside();
@@ -1321,6 +1335,10 @@ class Order : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   void clear_has_lasterrmsg();
   void set_has_secmarket();
   void clear_has_secmarket();
+  void set_has_createtimestamp();
+  void clear_has_createtimestamp();
+  void set_has_updatetimestamp();
+  void clear_has_updatetimestamp();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -1343,6 +1361,8 @@ class Order : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::google::protobuf::int32 secmarket_;
   double fillqty_;
   double fillavgprice_;
+  double createtimestamp_;
+  double updatetimestamp_;
   friend struct ::protobuf_Trd_5fCommon_2eproto::TableStruct;
   friend void ::protobuf_Trd_5fCommon_2eproto::InitDefaultsOrderImpl();
 };
@@ -1569,6 +1589,13 @@ class OrderFill : public ::google::protobuf::Message /* @@protoc_insertion_point
   double price() const;
   void set_price(double value);
 
+  // optional double createTimestamp = 14;
+  bool has_createtimestamp() const;
+  void clear_createtimestamp();
+  static const int kCreateTimestampFieldNumber = 14;
+  double createtimestamp() const;
+  void set_createtimestamp(double value);
+
   // optional int32 secMarket = 13;
   bool has_secmarket() const;
   void clear_secmarket();
@@ -1604,6 +1631,8 @@ class OrderFill : public ::google::protobuf::Message /* @@protoc_insertion_point
   void clear_has_counterbrokername();
   void set_has_secmarket();
   void clear_has_secmarket();
+  void set_has_createtimestamp();
+  void clear_has_createtimestamp();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -1623,6 +1652,7 @@ class OrderFill : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::int32 counterbrokerid_;
   double qty_;
   double price_;
+  double createtimestamp_;
   ::google::protobuf::int32 secmarket_;
   friend struct ::protobuf_Trd_5fCommon_2eproto::TableStruct;
   friend void ::protobuf_Trd_5fCommon_2eproto::InitDefaultsOrderFillImpl();
@@ -3401,6 +3431,54 @@ inline void Order::set_secmarket(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Trd_Common.Order.secMarket)
 }
 
+// optional double createTimestamp = 16;
+inline bool Order::has_createtimestamp() const {
+  return (_has_bits_[0] & 0x00008000u) != 0;
+}
+inline void Order::set_has_createtimestamp() {
+  _has_bits_[0] |= 0x00008000u;
+}
+inline void Order::clear_has_createtimestamp() {
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline void Order::clear_createtimestamp() {
+  createtimestamp_ = 0;
+  clear_has_createtimestamp();
+}
+inline double Order::createtimestamp() const {
+  // @@protoc_insertion_point(field_get:Trd_Common.Order.createTimestamp)
+  return createtimestamp_;
+}
+inline void Order::set_createtimestamp(double value) {
+  set_has_createtimestamp();
+  createtimestamp_ = value;
+  // @@protoc_insertion_point(field_set:Trd_Common.Order.createTimestamp)
+}
+
+// optional double updateTimestamp = 17;
+inline bool Order::has_updatetimestamp() const {
+  return (_has_bits_[0] & 0x00010000u) != 0;
+}
+inline void Order::set_has_updatetimestamp() {
+  _has_bits_[0] |= 0x00010000u;
+}
+inline void Order::clear_has_updatetimestamp() {
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline void Order::clear_updatetimestamp() {
+  updatetimestamp_ = 0;
+  clear_has_updatetimestamp();
+}
+inline double Order::updatetimestamp() const {
+  // @@protoc_insertion_point(field_get:Trd_Common.Order.updateTimestamp)
+  return updatetimestamp_;
+}
+inline void Order::set_updatetimestamp(double value) {
+  set_has_updatetimestamp();
+  updatetimestamp_ = value;
+  // @@protoc_insertion_point(field_set:Trd_Common.Order.updateTimestamp)
+}
+
 // -------------------------------------------------------------------
 
 // OrderFill
@@ -3929,13 +4007,13 @@ inline void OrderFill::set_allocated_counterbrokername(::std::string* counterbro
 
 // optional int32 secMarket = 13;
 inline bool OrderFill::has_secmarket() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
+  return (_has_bits_[0] & 0x00002000u) != 0;
 }
 inline void OrderFill::set_has_secmarket() {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00002000u;
 }
 inline void OrderFill::clear_has_secmarket() {
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00002000u;
 }
 inline void OrderFill::clear_secmarket() {
   secmarket_ = 0;
@@ -3949,6 +4027,30 @@ inline void OrderFill::set_secmarket(::google::protobuf::int32 value) {
   set_has_secmarket();
   secmarket_ = value;
   // @@protoc_insertion_point(field_set:Trd_Common.OrderFill.secMarket)
+}
+
+// optional double createTimestamp = 14;
+inline bool OrderFill::has_createtimestamp() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+inline void OrderFill::set_has_createtimestamp() {
+  _has_bits_[0] |= 0x00001000u;
+}
+inline void OrderFill::clear_has_createtimestamp() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline void OrderFill::clear_createtimestamp() {
+  createtimestamp_ = 0;
+  clear_has_createtimestamp();
+}
+inline double OrderFill::createtimestamp() const {
+  // @@protoc_insertion_point(field_get:Trd_Common.OrderFill.createTimestamp)
+  return createtimestamp_;
+}
+inline void OrderFill::set_createtimestamp(double value) {
+  set_has_createtimestamp();
+  createtimestamp_ = value;
+  // @@protoc_insertion_point(field_set:Trd_Common.OrderFill.createTimestamp)
 }
 
 // -------------------------------------------------------------------

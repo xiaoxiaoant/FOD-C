@@ -25,11 +25,6 @@ class C2SDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<C2S>
       _instance;
 } _C2S_default_instance_;
-class PlateInfoDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<PlateInfo>
-      _instance;
-} _PlateInfo_default_instance_;
 class S2CDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<S2C>
@@ -68,28 +63,6 @@ void InitDefaultsC2S() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsC2SImpl);
 }
 
-void InitDefaultsPlateInfoImpl() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_Qot_5fCommon_2eproto::InitDefaultsSecurity();
-  {
-    void* ptr = &::Qot_GetPlateSet::_PlateInfo_default_instance_;
-    new (ptr) ::Qot_GetPlateSet::PlateInfo();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::Qot_GetPlateSet::PlateInfo::InitAsDefaultInstance();
-}
-
-void InitDefaultsPlateInfo() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsPlateInfoImpl);
-}
-
 void InitDefaultsS2CImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -98,7 +71,7 @@ void InitDefaultsS2CImpl() {
 #else
   ::google::protobuf::internal::InitProtobufDefaults();
 #endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_Qot_5fGetPlateSet_2eproto::InitDefaultsPlateInfo();
+  protobuf_Qot_5fCommon_2eproto::InitDefaultsPlateInfo();
   {
     void* ptr = &::Qot_GetPlateSet::_S2C_default_instance_;
     new (ptr) ::Qot_GetPlateSet::S2C();
@@ -156,7 +129,7 @@ void InitDefaultsResponse() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsResponseImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[5];
+::google::protobuf::Metadata file_level_metadata[4];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::C2S, _has_bits_),
@@ -168,15 +141,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::C2S, platesettype_),
   0,
   1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::PlateInfo, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::PlateInfo, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::PlateInfo, plate_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::PlateInfo, name_),
-  1,
-  0,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::S2C, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetPlateSet::S2C, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -207,15 +171,13 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 7, sizeof(::Qot_GetPlateSet::C2S)},
-  { 9, 16, sizeof(::Qot_GetPlateSet::PlateInfo)},
-  { 18, 24, sizeof(::Qot_GetPlateSet::S2C)},
-  { 25, 31, sizeof(::Qot_GetPlateSet::Request)},
-  { 32, 41, sizeof(::Qot_GetPlateSet::Response)},
+  { 9, 15, sizeof(::Qot_GetPlateSet::S2C)},
+  { 16, 22, sizeof(::Qot_GetPlateSet::Request)},
+  { 23, 32, sizeof(::Qot_GetPlateSet::Response)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetPlateSet::_C2S_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetPlateSet::_PlateInfo_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetPlateSet::_S2C_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetPlateSet::_Request_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetPlateSet::_Response_default_instance_),
@@ -237,7 +199,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 5);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
 }
 
 void AddDescriptorsImpl() {
@@ -245,17 +207,15 @@ void AddDescriptorsImpl() {
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\025Qot_GetPlateSet.proto\022\017Qot_GetPlateSet"
       "\032\014Common.proto\032\020Qot_Common.proto\"+\n\003C2S\022"
-      "\016\n\006market\030\001 \002(\005\022\024\n\014plateSetType\030\002 \002(\005\">\n"
-      "\tPlateInfo\022#\n\005plate\030\001 \002(\0132\024.Qot_Common.S"
-      "ecurity\022\014\n\004name\030\002 \002(\t\"8\n\003S2C\0221\n\rplateInf"
-      "oList\030\001 \003(\0132\032.Qot_GetPlateSet.PlateInfo\""
-      ",\n\007Request\022!\n\003c2s\030\001 \002(\0132\024.Qot_GetPlateSe"
-      "t.C2S\"e\n\010Response\022\025\n\007retType\030\001 \002(\005:\004-400"
-      "\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007errCode\030\003 \001(\005\022!\n\003s2c"
-      "\030\004 \001(\0132\024.Qot_GetPlateSet.S2C"
+      "\016\n\006market\030\001 \002(\005\022\024\n\014plateSetType\030\002 \002(\005\"3\n"
+      "\003S2C\022,\n\rplateInfoList\030\001 \003(\0132\025.Qot_Common"
+      ".PlateInfo\",\n\007Request\022!\n\003c2s\030\001 \002(\0132\024.Qot"
+      "_GetPlateSet.C2S\"e\n\010Response\022\025\n\007retType\030"
+      "\001 \002(\005:\004-400\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007errCode\030\003"
+      " \001(\005\022!\n\003s2c\030\004 \001(\0132\024.Qot_GetPlateSet.S2C"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 388);
+      descriptor, 319);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Qot_GetPlateSet.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -590,355 +550,10 @@ void C2S::InternalSwap(C2S* other) {
 
 // ===================================================================
 
-void PlateInfo::InitAsDefaultInstance() {
-  ::Qot_GetPlateSet::_PlateInfo_default_instance_._instance.get_mutable()->plate_ = const_cast< ::Qot_Common::Security*>(
-      ::Qot_Common::Security::internal_default_instance());
-}
-void PlateInfo::clear_plate() {
-  if (plate_ != NULL) plate_->Clear();
-  clear_has_plate();
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PlateInfo::kPlateFieldNumber;
-const int PlateInfo::kNameFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-PlateInfo::PlateInfo()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_Qot_5fGetPlateSet_2eproto::InitDefaultsPlateInfo();
-  }
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:Qot_GetPlateSet.PlateInfo)
-}
-PlateInfo::PlateInfo(const PlateInfo& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _has_bits_(from._has_bits_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_name()) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  if (from.has_plate()) {
-    plate_ = new ::Qot_Common::Security(*from.plate_);
-  } else {
-    plate_ = NULL;
-  }
-  // @@protoc_insertion_point(copy_constructor:Qot_GetPlateSet.PlateInfo)
-}
-
-void PlateInfo::SharedCtor() {
-  _cached_size_ = 0;
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  plate_ = NULL;
-}
-
-PlateInfo::~PlateInfo() {
-  // @@protoc_insertion_point(destructor:Qot_GetPlateSet.PlateInfo)
-  SharedDtor();
-}
-
-void PlateInfo::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete plate_;
-}
-
-void PlateInfo::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* PlateInfo::descriptor() {
-  ::protobuf_Qot_5fGetPlateSet_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Qot_5fGetPlateSet_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const PlateInfo& PlateInfo::default_instance() {
-  ::protobuf_Qot_5fGetPlateSet_2eproto::InitDefaultsPlateInfo();
-  return *internal_default_instance();
-}
-
-PlateInfo* PlateInfo::New(::google::protobuf::Arena* arena) const {
-  PlateInfo* n = new PlateInfo;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void PlateInfo::Clear() {
-// @@protoc_insertion_point(message_clear_start:Qot_GetPlateSet.PlateInfo)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 3u) {
-    if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(!name_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
-      (*name_.UnsafeRawStringPointer())->clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(plate_ != NULL);
-      plate_->Clear();
-    }
-  }
-  _has_bits_.Clear();
-  _internal_metadata_.Clear();
-}
-
-bool PlateInfo::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:Qot_GetPlateSet.PlateInfo)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .Qot_Common.Security plate = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_plate()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // required string name = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->name().data(), static_cast<int>(this->name().length()),
-            ::google::protobuf::internal::WireFormat::PARSE,
-            "Qot_GetPlateSet.PlateInfo.name");
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:Qot_GetPlateSet.PlateInfo)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:Qot_GetPlateSet.PlateInfo)
-  return false;
-#undef DO_
-}
-
-void PlateInfo::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Qot_GetPlateSet.PlateInfo)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  // required .Qot_Common.Security plate = 1;
-  if (cached_has_bits & 0x00000002u) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->plate_, output);
-  }
-
-  // required string name = 2;
-  if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->name().data(), static_cast<int>(this->name().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "Qot_GetPlateSet.PlateInfo.name");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->name(), output);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:Qot_GetPlateSet.PlateInfo)
-}
-
-::google::protobuf::uint8* PlateInfo::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:Qot_GetPlateSet.PlateInfo)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  // required .Qot_Common.Security plate = 1;
-  if (cached_has_bits & 0x00000002u) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        1, *this->plate_, deterministic, target);
-  }
-
-  // required string name = 2;
-  if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->name().data(), static_cast<int>(this->name().length()),
-      ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "Qot_GetPlateSet.PlateInfo.name");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->name(), target);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Qot_GetPlateSet.PlateInfo)
-  return target;
-}
-
-size_t PlateInfo::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Qot_GetPlateSet.PlateInfo)
-  size_t total_size = 0;
-
-  if (has_name()) {
-    // required string name = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-  }
-
-  if (has_plate()) {
-    // required .Qot_Common.Security plate = 1;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *this->plate_);
-  }
-
-  return total_size;
-}
-size_t PlateInfo::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Qot_GetPlateSet.PlateInfo)
-  size_t total_size = 0;
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
-  }
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string name = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
-
-    // required .Qot_Common.Security plate = 1;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *this->plate_);
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void PlateInfo::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Qot_GetPlateSet.PlateInfo)
-  GOOGLE_DCHECK_NE(&from, this);
-  const PlateInfo* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const PlateInfo>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Qot_GetPlateSet.PlateInfo)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Qot_GetPlateSet.PlateInfo)
-    MergeFrom(*source);
-  }
-}
-
-void PlateInfo::MergeFrom(const PlateInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Qot_GetPlateSet.PlateInfo)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 3u) {
-    if (cached_has_bits & 0x00000001u) {
-      set_has_name();
-      name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-    }
-    if (cached_has_bits & 0x00000002u) {
-      mutable_plate()->::Qot_Common::Security::MergeFrom(from.plate());
-    }
-  }
-}
-
-void PlateInfo::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Qot_GetPlateSet.PlateInfo)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void PlateInfo::CopyFrom(const PlateInfo& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Qot_GetPlateSet.PlateInfo)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool PlateInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-  if (has_plate()) {
-    if (!this->plate_->IsInitialized()) return false;
-  }
-  return true;
-}
-
-void PlateInfo::Swap(PlateInfo* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void PlateInfo::InternalSwap(PlateInfo* other) {
-  using std::swap;
-  name_.Swap(&other->name_);
-  swap(plate_, other->plate_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata PlateInfo::GetMetadata() const {
-  protobuf_Qot_5fGetPlateSet_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Qot_5fGetPlateSet_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-
-// ===================================================================
-
 void S2C::InitAsDefaultInstance() {
+}
+void S2C::clear_plateinfolist() {
+  plateinfolist_.Clear();
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int S2C::kPlateInfoListFieldNumber;
@@ -1018,7 +633,7 @@ bool S2C::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .Qot_GetPlateSet.PlateInfo plateInfoList = 1;
+      // repeated .Qot_Common.PlateInfo plateInfoList = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
@@ -1055,7 +670,7 @@ void S2C::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Qot_GetPlateSet.PlateInfo plateInfoList = 1;
+  // repeated .Qot_Common.PlateInfo plateInfoList = 1;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->plateinfolist_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
@@ -1076,7 +691,7 @@ void S2C::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Qot_GetPlateSet.PlateInfo plateInfoList = 1;
+  // repeated .Qot_Common.PlateInfo plateInfoList = 1;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->plateinfolist_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -1101,7 +716,7 @@ size_t S2C::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  // repeated .Qot_GetPlateSet.PlateInfo plateInfoList = 1;
+  // repeated .Qot_Common.PlateInfo plateInfoList = 1;
   {
     unsigned int count = static_cast<unsigned int>(this->plateinfolist_size());
     total_size += 1UL * count;

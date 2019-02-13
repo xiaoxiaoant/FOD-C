@@ -222,6 +222,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::Rehab, addprice_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::Rehab, dividend_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::Rehab, spdividend_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::Rehab, timestamp_),
   0,
   1,
   2,
@@ -244,6 +245,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   19,
   20,
   21,
+  22,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::SecurityRehab, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetRehab::SecurityRehab, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -283,11 +285,11 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 6, sizeof(::Qot_GetRehab::C2S)},
-  { 7, 34, sizeof(::Qot_GetRehab::Rehab)},
-  { 56, 63, sizeof(::Qot_GetRehab::SecurityRehab)},
-  { 65, 71, sizeof(::Qot_GetRehab::S2C)},
-  { 72, 78, sizeof(::Qot_GetRehab::Request)},
-  { 79, 88, sizeof(::Qot_GetRehab::Response)},
+  { 7, 35, sizeof(::Qot_GetRehab::Rehab)},
+  { 58, 65, sizeof(::Qot_GetRehab::SecurityRehab)},
+  { 67, 73, sizeof(::Qot_GetRehab::S2C)},
+  { 74, 80, sizeof(::Qot_GetRehab::Request)},
+  { 81, 90, sizeof(::Qot_GetRehab::Response)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -323,7 +325,7 @@ void AddDescriptorsImpl() {
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\022Qot_GetRehab.proto\022\014Qot_GetRehab\032\014Comm"
       "on.proto\032\020Qot_Common.proto\"1\n\003C2S\022*\n\014sec"
-      "urityList\030\001 \003(\0132\024.Qot_Common.Security\"\247\003"
+      "urityList\030\001 \003(\0132\024.Qot_Common.Security\"\272\003"
       "\n\005Rehab\022\014\n\004time\030\001 \002(\t\022\026\n\016companyActFlag\030"
       "\002 \002(\003\022\022\n\nfwdFactorA\030\003 \002(\001\022\022\n\nfwdFactorB\030"
       "\004 \002(\001\022\022\n\nbwdFactorA\030\005 \002(\001\022\022\n\nbwdFactorB\030"
@@ -334,23 +336,24 @@ void AddDescriptorsImpl() {
       "\tallotBase\030\017 \001(\005\022\020\n\010allotErt\030\020 \001(\005\022\022\n\nal"
       "lotPrice\030\021 \001(\001\022\017\n\007addBase\030\022 \001(\005\022\016\n\006addEr"
       "t\030\023 \001(\005\022\020\n\010addPrice\030\024 \001(\001\022\020\n\010dividend\030\025 "
-      "\001(\001\022\022\n\nspDividend\030\026 \001(\001\"_\n\rSecurityRehab"
-      "\022&\n\010security\030\001 \002(\0132\024.Qot_Common.Security"
-      "\022&\n\trehabList\030\002 \003(\0132\023.Qot_GetRehab.Rehab"
-      "\"=\n\003S2C\0226\n\021securityRehabList\030\001 \003(\0132\033.Qot"
-      "_GetRehab.SecurityRehab\")\n\007Request\022\036\n\003c2"
-      "s\030\001 \002(\0132\021.Qot_GetRehab.C2S\"b\n\010Response\022\025"
-      "\n\007retType\030\001 \002(\005:\004-400\022\016\n\006retMsg\030\002 \001(\t\022\017\n"
-      "\007errCode\030\003 \001(\005\022\036\n\003s2c\030\004 \001(\0132\021.Qot_GetReh"
-      "ab.S2C*\332\001\n\nCompanyAct\022\023\n\017CompanyAct_None"
-      "\020\000\022\024\n\020CompanyAct_Split\020\001\022\023\n\017CompanyAct_J"
-      "oin\020\002\022\024\n\020CompanyAct_Bonus\020\004\022\027\n\023CompanyAc"
-      "t_Transfer\020\010\022\024\n\020CompanyAct_Allot\020\020\022\022\n\016Co"
-      "mpanyAct_Add\020 \022\027\n\023CompanyAct_Dividend\020@\022"
-      "\032\n\025CompanyAct_SPDividend\020\200\001"
+      "\001(\001\022\022\n\nspDividend\030\026 \001(\001\022\021\n\ttimestamp\030\027 \001"
+      "(\001\"_\n\rSecurityRehab\022&\n\010security\030\001 \002(\0132\024."
+      "Qot_Common.Security\022&\n\trehabList\030\002 \003(\0132\023"
+      ".Qot_GetRehab.Rehab\"=\n\003S2C\0226\n\021securityRe"
+      "habList\030\001 \003(\0132\033.Qot_GetRehab.SecurityReh"
+      "ab\")\n\007Request\022\036\n\003c2s\030\001 \002(\0132\021.Qot_GetReha"
+      "b.C2S\"b\n\010Response\022\025\n\007retType\030\001 \002(\005:\004-400"
+      "\022\016\n\006retMsg\030\002 \001(\t\022\017\n\007errCode\030\003 \001(\005\022\036\n\003s2c"
+      "\030\004 \001(\0132\021.Qot_GetRehab.S2C*\332\001\n\nCompanyAct"
+      "\022\023\n\017CompanyAct_None\020\000\022\024\n\020CompanyAct_Spli"
+      "t\020\001\022\023\n\017CompanyAct_Join\020\002\022\024\n\020CompanyAct_B"
+      "onus\020\004\022\027\n\023CompanyAct_Transfer\020\010\022\024\n\020Compa"
+      "nyAct_Allot\020\020\022\022\n\016CompanyAct_Add\020 \022\027\n\023Com"
+      "panyAct_Dividend\020@\022\032\n\025CompanyAct_SPDivid"
+      "end\020\200\001"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1067);
+      descriptor, 1086);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Qot_GetRehab.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -666,6 +669,7 @@ const int Rehab::kAddErtFieldNumber;
 const int Rehab::kAddPriceFieldNumber;
 const int Rehab::kDividendFieldNumber;
 const int Rehab::kSpDividendFieldNumber;
+const int Rehab::kTimestampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Rehab::Rehab()
@@ -687,8 +691,8 @@ Rehab::Rehab(const Rehab& from)
     time_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.time_);
   }
   ::memcpy(&companyactflag_, &from.companyactflag_,
-    static_cast<size_t>(reinterpret_cast<char*>(&spdividend_) -
-    reinterpret_cast<char*>(&companyactflag_)) + sizeof(spdividend_));
+    static_cast<size_t>(reinterpret_cast<char*>(&timestamp_) -
+    reinterpret_cast<char*>(&companyactflag_)) + sizeof(timestamp_));
   // @@protoc_insertion_point(copy_constructor:Qot_GetRehab.Rehab)
 }
 
@@ -696,8 +700,8 @@ void Rehab::SharedCtor() {
   _cached_size_ = 0;
   time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&companyactflag_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&spdividend_) -
-      reinterpret_cast<char*>(&companyactflag_)) + sizeof(spdividend_));
+      reinterpret_cast<char*>(&timestamp_) -
+      reinterpret_cast<char*>(&companyactflag_)) + sizeof(timestamp_));
 }
 
 Rehab::~Rehab() {
@@ -753,10 +757,10 @@ void Rehab::Clear() {
         reinterpret_cast<char*>(&allotert_) -
         reinterpret_cast<char*>(&joinbase_)) + sizeof(allotert_));
   }
-  if (cached_has_bits & 4128768u) {
+  if (cached_has_bits & 8323072u) {
     ::memset(&allotprice_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&spdividend_) -
-        reinterpret_cast<char*>(&allotprice_)) + sizeof(spdividend_));
+        reinterpret_cast<char*>(&timestamp_) -
+        reinterpret_cast<char*>(&allotprice_)) + sizeof(timestamp_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -1082,6 +1086,20 @@ bool Rehab::MergePartialFromCodedStream(
         break;
       }
 
+      // optional double timestamp = 23;
+      case 23: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(185u /* 185 & 0xFF */)) {
+          set_has_timestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &timestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1224,6 +1242,11 @@ void Rehab::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(22, this->spdividend(), output);
   }
 
+  // optional double timestamp = 23;
+  if (cached_has_bits & 0x00400000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(23, this->timestamp(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1353,6 +1376,11 @@ void Rehab::SerializeWithCachedSizes(
   // optional double spDividend = 22;
   if (cached_has_bits & 0x00200000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(22, this->spdividend(), target);
+  }
+
+  // optional double timestamp = 23;
+  if (cached_has_bits & 0x00400000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(23, this->timestamp(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1512,7 +1540,7 @@ size_t Rehab::ByteSizeLong() const {
     }
 
   }
-  if (_has_bits_[16 / 32] & 4128768u) {
+  if (_has_bits_[16 / 32] & 8323072u) {
     // optional double allotPrice = 17;
     if (has_allotprice()) {
       total_size += 2 + 8;
@@ -1544,6 +1572,11 @@ size_t Rehab::ByteSizeLong() const {
 
     // optional double spDividend = 22;
     if (has_spdividend()) {
+      total_size += 2 + 8;
+    }
+
+    // optional double timestamp = 23;
+    if (has_timestamp()) {
       total_size += 2 + 8;
     }
 
@@ -1633,7 +1666,7 @@ void Rehab::MergeFrom(const Rehab& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 4128768u) {
+  if (cached_has_bits & 8323072u) {
     if (cached_has_bits & 0x00010000u) {
       allotprice_ = from.allotprice_;
     }
@@ -1651,6 +1684,9 @@ void Rehab::MergeFrom(const Rehab& from) {
     }
     if (cached_has_bits & 0x00200000u) {
       spdividend_ = from.spdividend_;
+    }
+    if (cached_has_bits & 0x00400000u) {
+      timestamp_ = from.timestamp_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1703,6 +1739,7 @@ void Rehab::InternalSwap(Rehab* other) {
   swap(addprice_, other->addprice_);
   swap(dividend_, other->dividend_);
   swap(spdividend_, other->spdividend_);
+  swap(timestamp_, other->timestamp_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);

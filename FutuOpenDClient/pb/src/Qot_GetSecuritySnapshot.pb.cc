@@ -35,6 +35,11 @@ class WarrantSnapshotExDataDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<WarrantSnapshotExData>
       _instance;
 } _WarrantSnapshotExData_default_instance_;
+class OptionSnapshotExDataDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<OptionSnapshotExData>
+      _instance;
+} _OptionSnapshotExData_default_instance_;
 class SnapshotBasicDataDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<SnapshotBasicData>
@@ -127,6 +132,28 @@ void InitDefaultsWarrantSnapshotExData() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsWarrantSnapshotExDataImpl);
 }
 
+void InitDefaultsOptionSnapshotExDataImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_Qot_5fCommon_2eproto::InitDefaultsSecurity();
+  {
+    void* ptr = &::Qot_GetSecuritySnapshot::_OptionSnapshotExData_default_instance_;
+    new (ptr) ::Qot_GetSecuritySnapshot::OptionSnapshotExData();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::Qot_GetSecuritySnapshot::OptionSnapshotExData::InitAsDefaultInstance();
+}
+
+void InitDefaultsOptionSnapshotExData() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsOptionSnapshotExDataImpl);
+}
+
 void InitDefaultsSnapshotBasicDataImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -160,6 +187,7 @@ void InitDefaultsSnapshotImpl() {
   protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsSnapshotBasicData();
   protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsEquitySnapshotExData();
   protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsWarrantSnapshotExData();
+  protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsOptionSnapshotExData();
   {
     void* ptr = &::Qot_GetSecuritySnapshot::_Snapshot_default_instance_;
     new (ptr) ::Qot_GetSecuritySnapshot::Snapshot();
@@ -239,7 +267,7 @@ void InitDefaultsResponse() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsResponseImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[8];
+::google::protobuf::Metadata file_level_metadata[9];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::C2S, _has_bits_),
@@ -265,6 +293,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::EquitySnapshotExData, eyrate_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::EquitySnapshotExData, perate_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::EquitySnapshotExData, pbrate_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::EquitySnapshotExData, pettmrate_),
   0,
   1,
   2,
@@ -276,6 +305,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   8,
   9,
   10,
+  11,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -294,8 +324,10 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, delta_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, impliedvolatility_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, premium_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, maturitytimestamp_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::WarrantSnapshotExData, endtradetimestamp_),
   3,
-  12,
+  14,
   4,
   0,
   1,
@@ -307,6 +339,41 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   9,
   10,
   11,
+  12,
+  13,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, _has_bits_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, owner_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, striketime_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, strikeprice_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, contractsize_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, openinterest_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, impliedvolatility_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, premium_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, delta_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, gamma_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, vega_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, theta_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, rho_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::OptionSnapshotExData, striketimestamp_),
+  2,
+  1,
+  0,
+  4,
+  3,
+  13,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -327,11 +394,17 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, volume_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, turnover_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, turnoverrate_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, listtimestamp_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, updatetimestamp_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, askprice_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, bidprice_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, askvol_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::SnapshotBasicData, bidvol_),
   2,
   3,
   4,
   0,
-  14,
+  20,
   5,
   1,
   6,
@@ -342,6 +415,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   11,
   12,
   13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -350,9 +429,11 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, basic_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, equityexdata_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, warrantexdata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::Snapshot, optionexdata_),
   0,
   1,
   2,
+  3,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::S2C, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Qot_GetSecuritySnapshot::S2C, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -383,19 +464,21 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 6, sizeof(::Qot_GetSecuritySnapshot::C2S)},
-  { 7, 23, sizeof(::Qot_GetSecuritySnapshot::EquitySnapshotExData)},
-  { 34, 52, sizeof(::Qot_GetSecuritySnapshot::WarrantSnapshotExData)},
-  { 65, 85, sizeof(::Qot_GetSecuritySnapshot::SnapshotBasicData)},
-  { 100, 108, sizeof(::Qot_GetSecuritySnapshot::Snapshot)},
-  { 111, 117, sizeof(::Qot_GetSecuritySnapshot::S2C)},
-  { 118, 124, sizeof(::Qot_GetSecuritySnapshot::Request)},
-  { 125, 134, sizeof(::Qot_GetSecuritySnapshot::Response)},
+  { 7, 24, sizeof(::Qot_GetSecuritySnapshot::EquitySnapshotExData)},
+  { 36, 56, sizeof(::Qot_GetSecuritySnapshot::WarrantSnapshotExData)},
+  { 71, 90, sizeof(::Qot_GetSecuritySnapshot::OptionSnapshotExData)},
+  { 104, 130, sizeof(::Qot_GetSecuritySnapshot::SnapshotBasicData)},
+  { 151, 160, sizeof(::Qot_GetSecuritySnapshot::Snapshot)},
+  { 164, 170, sizeof(::Qot_GetSecuritySnapshot::S2C)},
+  { 171, 177, sizeof(::Qot_GetSecuritySnapshot::Request)},
+  { 178, 187, sizeof(::Qot_GetSecuritySnapshot::Response)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_C2S_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_EquitySnapshotExData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_WarrantSnapshotExData_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_OptionSnapshotExData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_SnapshotBasicData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_Snapshot_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Qot_GetSecuritySnapshot::_S2C_default_instance_),
@@ -419,7 +502,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 8);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 9);
 }
 
 void AddDescriptorsImpl() {
@@ -428,35 +511,49 @@ void AddDescriptorsImpl() {
       "\n\035Qot_GetSecuritySnapshot.proto\022\027Qot_Get"
       "SecuritySnapshot\032\014Common.proto\032\020Qot_Comm"
       "on.proto\"1\n\003C2S\022*\n\014securityList\030\001 \003(\0132\024."
-      "Qot_Common.Security\"\207\002\n\024EquitySnapshotEx"
+      "Qot_Common.Security\"\232\002\n\024EquitySnapshotEx"
       "Data\022\024\n\014issuedShares\030\001 \002(\003\022\027\n\017issuedMark"
       "etVal\030\002 \002(\001\022\020\n\010netAsset\030\003 \002(\001\022\021\n\tnetProf"
       "it\030\004 \002(\001\022\030\n\020earningsPershare\030\005 \002(\001\022\031\n\021ou"
       "tstandingShares\030\006 \002(\003\022\034\n\024outstandingMark"
       "etVal\030\007 \002(\001\022\030\n\020netAssetPershare\030\010 \002(\001\022\016\n"
       "\006eyRate\030\t \002(\001\022\016\n\006peRate\030\n \002(\001\022\016\n\006pbRate\030"
-      "\013 \002(\001\"\273\002\n\025WarrantSnapshotExData\022\026\n\016conve"
-      "rsionRate\030\001 \002(\001\022\023\n\013warrantType\030\002 \002(\005\022\023\n\013"
-      "strikePrice\030\003 \002(\001\022\024\n\014maturityTime\030\004 \002(\t\022"
-      "\024\n\014endTradeTime\030\005 \002(\t\022#\n\005owner\030\006 \002(\0132\024.Q"
-      "ot_Common.Security\022\025\n\rrecoveryPrice\030\007 \002("
-      "\001\022\024\n\014streetVolumn\030\010 \002(\003\022\023\n\013issueVolumn\030\t"
-      " \002(\003\022\022\n\nstreetRate\030\n \002(\001\022\r\n\005delta\030\013 \002(\001\022"
-      "\031\n\021impliedVolatility\030\014 \002(\001\022\017\n\007premium\030\r "
-      "\002(\001\"\302\002\n\021SnapshotBasicData\022&\n\010security\030\001 "
-      "\002(\0132\024.Qot_Common.Security\022\014\n\004type\030\002 \002(\005\022"
-      "\021\n\tisSuspend\030\003 \002(\010\022\020\n\010listTime\030\004 \002(\t\022\017\n\007"
-      "lotSize\030\005 \002(\005\022\023\n\013priceSpread\030\006 \002(\001\022\022\n\nup"
-      "dateTime\030\007 \002(\t\022\021\n\thighPrice\030\010 \002(\001\022\021\n\tope"
-      "nPrice\030\t \002(\001\022\020\n\010lowPrice\030\n \002(\001\022\026\n\016lastCl"
-      "osePrice\030\013 \002(\001\022\020\n\010curPrice\030\014 \002(\001\022\016\n\006volu"
-      "me\030\r \002(\003\022\020\n\010turnover\030\016 \002(\001\022\024\n\014turnoverRa"
-      "te\030\017 \002(\001\"\321\001\n\010Snapshot\0229\n\005basic\030\001 \002(\0132*.Q"
-      "ot_GetSecuritySnapshot.SnapshotBasicData"
-      "\022C\n\014equityExData\030\002 \001(\0132-.Qot_GetSecurity"
-      "Snapshot.EquitySnapshotExData\022E\n\rwarrant"
-      "ExData\030\003 \001(\0132..Qot_GetSecuritySnapshot.W"
-      "arrantSnapshotExData\">\n\003S2C\0227\n\014snapshotL"
+      "\013 \002(\001\022\021\n\tpeTTMRate\030\014 \002(\001\"\361\002\n\025WarrantSnap"
+      "shotExData\022\026\n\016conversionRate\030\001 \002(\001\022\023\n\013wa"
+      "rrantType\030\002 \002(\005\022\023\n\013strikePrice\030\003 \002(\001\022\024\n\014"
+      "maturityTime\030\004 \002(\t\022\024\n\014endTradeTime\030\005 \002(\t"
+      "\022#\n\005owner\030\006 \002(\0132\024.Qot_Common.Security\022\025\n"
+      "\rrecoveryPrice\030\007 \002(\001\022\024\n\014streetVolumn\030\010 \002"
+      "(\003\022\023\n\013issueVolumn\030\t \002(\003\022\022\n\nstreetRate\030\n "
+      "\002(\001\022\r\n\005delta\030\013 \002(\001\022\031\n\021impliedVolatility\030"
+      "\014 \002(\001\022\017\n\007premium\030\r \002(\001\022\031\n\021maturityTimest"
+      "amp\030\016 \001(\001\022\031\n\021endTradeTimestamp\030\017 \001(\001\"\253\002\n"
+      "\024OptionSnapshotExData\022\014\n\004type\030\001 \002(\005\022#\n\005o"
+      "wner\030\002 \002(\0132\024.Qot_Common.Security\022\022\n\nstri"
+      "keTime\030\003 \002(\t\022\023\n\013strikePrice\030\004 \002(\001\022\024\n\014con"
+      "tractSize\030\005 \002(\005\022\024\n\014openInterest\030\006 \002(\005\022\031\n"
+      "\021impliedVolatility\030\007 \002(\001\022\017\n\007premium\030\010 \002("
+      "\001\022\r\n\005delta\030\t \002(\001\022\r\n\005gamma\030\n \002(\001\022\014\n\004vega\030"
+      "\013 \002(\001\022\r\n\005theta\030\014 \002(\001\022\013\n\003rho\030\r \002(\001\022\027\n\017str"
+      "ikeTimestamp\030\016 \001(\001\"\266\003\n\021SnapshotBasicData"
+      "\022&\n\010security\030\001 \002(\0132\024.Qot_Common.Security"
+      "\022\014\n\004type\030\002 \002(\005\022\021\n\tisSuspend\030\003 \002(\010\022\020\n\010lis"
+      "tTime\030\004 \002(\t\022\017\n\007lotSize\030\005 \002(\005\022\023\n\013priceSpr"
+      "ead\030\006 \002(\001\022\022\n\nupdateTime\030\007 \002(\t\022\021\n\thighPri"
+      "ce\030\010 \002(\001\022\021\n\topenPrice\030\t \002(\001\022\020\n\010lowPrice\030"
+      "\n \002(\001\022\026\n\016lastClosePrice\030\013 \002(\001\022\020\n\010curPric"
+      "e\030\014 \002(\001\022\016\n\006volume\030\r \002(\003\022\020\n\010turnover\030\016 \002("
+      "\001\022\024\n\014turnoverRate\030\017 \002(\001\022\025\n\rlistTimestamp"
+      "\030\020 \001(\001\022\027\n\017updateTimestamp\030\021 \001(\001\022\020\n\010askPr"
+      "ice\030\022 \001(\001\022\020\n\010bidPrice\030\023 \001(\001\022\016\n\006askVol\030\024 "
+      "\001(\003\022\016\n\006bidVol\030\025 \001(\003\"\226\002\n\010Snapshot\0229\n\005basi"
+      "c\030\001 \002(\0132*.Qot_GetSecuritySnapshot.Snapsh"
+      "otBasicData\022C\n\014equityExData\030\002 \001(\0132-.Qot_"
+      "GetSecuritySnapshot.EquitySnapshotExData"
+      "\022E\n\rwarrantExData\030\003 \001(\0132..Qot_GetSecurit"
+      "ySnapshot.WarrantSnapshotExData\022C\n\014optio"
+      "nExData\030\004 \001(\0132-.Qot_GetSecuritySnapshot."
+      "OptionSnapshotExData\">\n\003S2C\0227\n\014snapshotL"
       "ist\030\001 \003(\0132!.Qot_GetSecuritySnapshot.Snap"
       "shot\"4\n\007Request\022)\n\003c2s\030\001 \002(\0132\034.Qot_GetSe"
       "curitySnapshot.C2S\"m\n\010Response\022\025\n\007retTyp"
@@ -465,7 +562,7 @@ void AddDescriptorsImpl() {
       "pshot.S2C"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1489);
+      descriptor, 2049);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Qot_GetSecuritySnapshot.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -749,6 +846,7 @@ const int EquitySnapshotExData::kNetAssetPershareFieldNumber;
 const int EquitySnapshotExData::kEyRateFieldNumber;
 const int EquitySnapshotExData::kPeRateFieldNumber;
 const int EquitySnapshotExData::kPbRateFieldNumber;
+const int EquitySnapshotExData::kPeTTMRateFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 EquitySnapshotExData::EquitySnapshotExData()
@@ -766,16 +864,16 @@ EquitySnapshotExData::EquitySnapshotExData(const EquitySnapshotExData& from)
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&issuedshares_, &from.issuedshares_,
-    static_cast<size_t>(reinterpret_cast<char*>(&pbrate_) -
-    reinterpret_cast<char*>(&issuedshares_)) + sizeof(pbrate_));
+    static_cast<size_t>(reinterpret_cast<char*>(&pettmrate_) -
+    reinterpret_cast<char*>(&issuedshares_)) + sizeof(pettmrate_));
   // @@protoc_insertion_point(copy_constructor:Qot_GetSecuritySnapshot.EquitySnapshotExData)
 }
 
 void EquitySnapshotExData::SharedCtor() {
   _cached_size_ = 0;
   ::memset(&issuedshares_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&pbrate_) -
-      reinterpret_cast<char*>(&issuedshares_)) + sizeof(pbrate_));
+      reinterpret_cast<char*>(&pettmrate_) -
+      reinterpret_cast<char*>(&issuedshares_)) + sizeof(pettmrate_));
 }
 
 EquitySnapshotExData::~EquitySnapshotExData() {
@@ -821,10 +919,10 @@ void EquitySnapshotExData::Clear() {
         reinterpret_cast<char*>(&netassetpershare_) -
         reinterpret_cast<char*>(&issuedshares_)) + sizeof(netassetpershare_));
   }
-  if (cached_has_bits & 1792u) {
+  if (cached_has_bits & 3840u) {
     ::memset(&eyrate_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&pbrate_) -
-        reinterpret_cast<char*>(&eyrate_)) + sizeof(pbrate_));
+        reinterpret_cast<char*>(&pettmrate_) -
+        reinterpret_cast<char*>(&eyrate_)) + sizeof(pettmrate_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -994,6 +1092,20 @@ bool EquitySnapshotExData::MergePartialFromCodedStream(
         break;
       }
 
+      // required double peTTMRate = 12;
+      case 12: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(97u /* 97 & 0xFF */)) {
+          set_has_pettmrate();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &pettmrate_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1076,6 +1188,11 @@ void EquitySnapshotExData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(11, this->pbrate(), output);
   }
 
+  // required double peTTMRate = 12;
+  if (cached_has_bits & 0x00000800u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(12, this->pettmrate(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1144,6 +1261,11 @@ void EquitySnapshotExData::SerializeWithCachedSizes(
   // required double pbRate = 11;
   if (cached_has_bits & 0x00000400u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(11, this->pbrate(), target);
+  }
+
+  // required double peTTMRate = 12;
+  if (cached_has_bits & 0x00000800u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(12, this->pettmrate(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1217,6 +1339,11 @@ size_t EquitySnapshotExData::RequiredFieldsByteSizeFallback() const {
     total_size += 1 + 8;
   }
 
+  if (has_pettmrate()) {
+    // required double peTTMRate = 12;
+    total_size += 1 + 8;
+  }
+
   return total_size;
 }
 size_t EquitySnapshotExData::ByteSizeLong() const {
@@ -1228,7 +1355,7 @@ size_t EquitySnapshotExData::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x000007ff) ^ 0x000007ff) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000fff) ^ 0x00000fff) == 0) {  // All required fields are present.
     // required int64 issuedShares = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -1264,6 +1391,9 @@ size_t EquitySnapshotExData::ByteSizeLong() const {
     total_size += 1 + 8;
 
     // required double pbRate = 11;
+    total_size += 1 + 8;
+
+    // required double peTTMRate = 12;
     total_size += 1 + 8;
 
   } else {
@@ -1326,7 +1456,7 @@ void EquitySnapshotExData::MergeFrom(const EquitySnapshotExData& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 1792u) {
+  if (cached_has_bits & 3840u) {
     if (cached_has_bits & 0x00000100u) {
       eyrate_ = from.eyrate_;
     }
@@ -1335,6 +1465,9 @@ void EquitySnapshotExData::MergeFrom(const EquitySnapshotExData& from) {
     }
     if (cached_has_bits & 0x00000400u) {
       pbrate_ = from.pbrate_;
+    }
+    if (cached_has_bits & 0x00000800u) {
+      pettmrate_ = from.pettmrate_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1355,7 +1488,7 @@ void EquitySnapshotExData::CopyFrom(const EquitySnapshotExData& from) {
 }
 
 bool EquitySnapshotExData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000007ff) != 0x000007ff) return false;
+  if ((_has_bits_[0] & 0x00000fff) != 0x00000fff) return false;
   return true;
 }
 
@@ -1376,6 +1509,7 @@ void EquitySnapshotExData::InternalSwap(EquitySnapshotExData* other) {
   swap(eyrate_, other->eyrate_);
   swap(perate_, other->perate_);
   swap(pbrate_, other->pbrate_);
+  swap(pettmrate_, other->pettmrate_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
@@ -1411,6 +1545,8 @@ const int WarrantSnapshotExData::kStreetRateFieldNumber;
 const int WarrantSnapshotExData::kDeltaFieldNumber;
 const int WarrantSnapshotExData::kImpliedVolatilityFieldNumber;
 const int WarrantSnapshotExData::kPremiumFieldNumber;
+const int WarrantSnapshotExData::kMaturityTimestampFieldNumber;
+const int WarrantSnapshotExData::kEndTradeTimestampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WarrantSnapshotExData::WarrantSnapshotExData()
@@ -1515,7 +1651,7 @@ void WarrantSnapshotExData::Clear() {
         reinterpret_cast<char*>(&issuevolumn_) -
         reinterpret_cast<char*>(&conversionrate_)) + sizeof(issuevolumn_));
   }
-  if (cached_has_bits & 7936u) {
+  if (cached_has_bits & 32512u) {
     ::memset(&streetrate_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&warranttype_) -
         reinterpret_cast<char*>(&streetrate_)) + sizeof(warranttype_));
@@ -1718,6 +1854,34 @@ bool WarrantSnapshotExData::MergePartialFromCodedStream(
         break;
       }
 
+      // optional double maturityTimestamp = 14;
+      case 14: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(113u /* 113 & 0xFF */)) {
+          set_has_maturitytimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &maturitytimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double endTradeTimestamp = 15;
+      case 15: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(121u /* 121 & 0xFF */)) {
+          set_has_endtradetimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &endtradetimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1751,7 +1915,7 @@ void WarrantSnapshotExData::SerializeWithCachedSizes(
   }
 
   // required int32 warrantType = 2;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00004000u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->warranttype(), output);
   }
 
@@ -1821,6 +1985,16 @@ void WarrantSnapshotExData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(13, this->premium(), output);
   }
 
+  // optional double maturityTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(14, this->maturitytimestamp(), output);
+  }
+
+  // optional double endTradeTimestamp = 15;
+  if (cached_has_bits & 0x00002000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(15, this->endtradetimestamp(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1842,7 +2016,7 @@ void WarrantSnapshotExData::SerializeWithCachedSizes(
   }
 
   // required int32 warrantType = 2;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->warranttype(), target);
   }
 
@@ -1913,6 +2087,16 @@ void WarrantSnapshotExData::SerializeWithCachedSizes(
   // required double premium = 13;
   if (cached_has_bits & 0x00000800u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(13, this->premium(), target);
+  }
+
+  // optional double maturityTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(14, this->maturitytimestamp(), target);
+  }
+
+  // optional double endTradeTimestamp = 15;
+  if (cached_has_bits & 0x00002000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(15, this->endtradetimestamp(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2015,7 +2199,7 @@ size_t WarrantSnapshotExData::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00001fff) ^ 0x00001fff) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00004fff) ^ 0x00004fff) == 0) {  // All required fields are present.
     // required string maturityTime = 4;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2069,6 +2253,18 @@ size_t WarrantSnapshotExData::ByteSizeLong() const {
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
+  }
+  if (_has_bits_[8 / 32] & 12288u) {
+    // optional double maturityTimestamp = 14;
+    if (has_maturitytimestamp()) {
+      total_size += 1 + 8;
+    }
+
+    // optional double endTradeTimestamp = 15;
+    if (has_endtradetimestamp()) {
+      total_size += 1 + 8;
+    }
+
   }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -2129,7 +2325,7 @@ void WarrantSnapshotExData::MergeFrom(const WarrantSnapshotExData& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 7936u) {
+  if (cached_has_bits & 32512u) {
     if (cached_has_bits & 0x00000100u) {
       streetrate_ = from.streetrate_;
     }
@@ -2143,6 +2339,12 @@ void WarrantSnapshotExData::MergeFrom(const WarrantSnapshotExData& from) {
       premium_ = from.premium_;
     }
     if (cached_has_bits & 0x00001000u) {
+      maturitytimestamp_ = from.maturitytimestamp_;
+    }
+    if (cached_has_bits & 0x00002000u) {
+      endtradetimestamp_ = from.endtradetimestamp_;
+    }
+    if (cached_has_bits & 0x00004000u) {
       warranttype_ = from.warranttype_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2164,7 +2366,7 @@ void WarrantSnapshotExData::CopyFrom(const WarrantSnapshotExData& from) {
 }
 
 bool WarrantSnapshotExData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
+  if ((_has_bits_[0] & 0x00004fff) != 0x00004fff) return false;
   if (has_owner()) {
     if (!this->owner_->IsInitialized()) return false;
   }
@@ -2189,6 +2391,8 @@ void WarrantSnapshotExData::InternalSwap(WarrantSnapshotExData* other) {
   swap(delta_, other->delta_);
   swap(impliedvolatility_, other->impliedvolatility_);
   swap(premium_, other->premium_);
+  swap(maturitytimestamp_, other->maturitytimestamp_);
+  swap(endtradetimestamp_, other->endtradetimestamp_);
   swap(warranttype_, other->warranttype_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2196,6 +2400,826 @@ void WarrantSnapshotExData::InternalSwap(WarrantSnapshotExData* other) {
 }
 
 ::google::protobuf::Metadata WarrantSnapshotExData::GetMetadata() const {
+  protobuf_Qot_5fGetSecuritySnapshot_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void OptionSnapshotExData::InitAsDefaultInstance() {
+  ::Qot_GetSecuritySnapshot::_OptionSnapshotExData_default_instance_._instance.get_mutable()->owner_ = const_cast< ::Qot_Common::Security*>(
+      ::Qot_Common::Security::internal_default_instance());
+}
+void OptionSnapshotExData::clear_owner() {
+  if (owner_ != NULL) owner_->Clear();
+  clear_has_owner();
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int OptionSnapshotExData::kTypeFieldNumber;
+const int OptionSnapshotExData::kOwnerFieldNumber;
+const int OptionSnapshotExData::kStrikeTimeFieldNumber;
+const int OptionSnapshotExData::kStrikePriceFieldNumber;
+const int OptionSnapshotExData::kContractSizeFieldNumber;
+const int OptionSnapshotExData::kOpenInterestFieldNumber;
+const int OptionSnapshotExData::kImpliedVolatilityFieldNumber;
+const int OptionSnapshotExData::kPremiumFieldNumber;
+const int OptionSnapshotExData::kDeltaFieldNumber;
+const int OptionSnapshotExData::kGammaFieldNumber;
+const int OptionSnapshotExData::kVegaFieldNumber;
+const int OptionSnapshotExData::kThetaFieldNumber;
+const int OptionSnapshotExData::kRhoFieldNumber;
+const int OptionSnapshotExData::kStrikeTimestampFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+OptionSnapshotExData::OptionSnapshotExData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsOptionSnapshotExData();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+}
+OptionSnapshotExData::OptionSnapshotExData(const OptionSnapshotExData& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  striketime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.has_striketime()) {
+    striketime_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.striketime_);
+  }
+  if (from.has_owner()) {
+    owner_ = new ::Qot_Common::Security(*from.owner_);
+  } else {
+    owner_ = NULL;
+  }
+  ::memcpy(&type_, &from.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&openinterest_) -
+    reinterpret_cast<char*>(&type_)) + sizeof(openinterest_));
+  // @@protoc_insertion_point(copy_constructor:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+}
+
+void OptionSnapshotExData::SharedCtor() {
+  _cached_size_ = 0;
+  striketime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&owner_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&openinterest_) -
+      reinterpret_cast<char*>(&owner_)) + sizeof(openinterest_));
+}
+
+OptionSnapshotExData::~OptionSnapshotExData() {
+  // @@protoc_insertion_point(destructor:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  SharedDtor();
+}
+
+void OptionSnapshotExData::SharedDtor() {
+  striketime_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete owner_;
+}
+
+void OptionSnapshotExData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* OptionSnapshotExData::descriptor() {
+  ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const OptionSnapshotExData& OptionSnapshotExData::default_instance() {
+  ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::InitDefaultsOptionSnapshotExData();
+  return *internal_default_instance();
+}
+
+OptionSnapshotExData* OptionSnapshotExData::New(::google::protobuf::Arena* arena) const {
+  OptionSnapshotExData* n = new OptionSnapshotExData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void OptionSnapshotExData::Clear() {
+// @@protoc_insertion_point(message_clear_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(!striketime_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
+      (*striketime_.UnsafeRawStringPointer())->clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(owner_ != NULL);
+      owner_->Clear();
+    }
+  }
+  if (cached_has_bits & 252u) {
+    ::memset(&type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&delta_) -
+        reinterpret_cast<char*>(&type_)) + sizeof(delta_));
+  }
+  if (cached_has_bits & 16128u) {
+    ::memset(&gamma_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&openinterest_) -
+        reinterpret_cast<char*>(&gamma_)) + sizeof(openinterest_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear();
+}
+
+bool OptionSnapshotExData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 type = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+          set_has_type();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &type_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required .Qot_Common.Security owner = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_owner()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required string strikeTime = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_striketime()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->striketime().data(), static_cast<int>(this->striketime().length()),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "Qot_GetSecuritySnapshot.OptionSnapshotExData.strikeTime");
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double strikePrice = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
+          set_has_strikeprice();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &strikeprice_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 contractSize = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
+          set_has_contractsize();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &contractsize_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required int32 openInterest = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
+          set_has_openinterest();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &openinterest_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double impliedVolatility = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(57u /* 57 & 0xFF */)) {
+          set_has_impliedvolatility();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &impliedvolatility_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double premium = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(65u /* 65 & 0xFF */)) {
+          set_has_premium();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &premium_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double delta = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(73u /* 73 & 0xFF */)) {
+          set_has_delta();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &delta_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double gamma = 10;
+      case 10: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(81u /* 81 & 0xFF */)) {
+          set_has_gamma();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &gamma_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double vega = 11;
+      case 11: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(89u /* 89 & 0xFF */)) {
+          set_has_vega();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &vega_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double theta = 12;
+      case 12: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(97u /* 97 & 0xFF */)) {
+          set_has_theta();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &theta_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // required double rho = 13;
+      case 13: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(105u /* 105 & 0xFF */)) {
+          set_has_rho();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &rho_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double strikeTimestamp = 14;
+      case 14: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(113u /* 113 & 0xFF */)) {
+          set_has_striketimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &striketimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  return false;
+#undef DO_
+}
+
+void OptionSnapshotExData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 type = 1;
+  if (cached_has_bits & 0x00000004u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->type(), output);
+  }
+
+  // required .Qot_Common.Security owner = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->owner_, output);
+  }
+
+  // required string strikeTime = 3;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->striketime().data(), static_cast<int>(this->striketime().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "Qot_GetSecuritySnapshot.OptionSnapshotExData.strikeTime");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->striketime(), output);
+  }
+
+  // required double strikePrice = 4;
+  if (cached_has_bits & 0x00000010u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->strikeprice(), output);
+  }
+
+  // required int32 contractSize = 5;
+  if (cached_has_bits & 0x00000008u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->contractsize(), output);
+  }
+
+  // required int32 openInterest = 6;
+  if (cached_has_bits & 0x00002000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->openinterest(), output);
+  }
+
+  // required double impliedVolatility = 7;
+  if (cached_has_bits & 0x00000020u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->impliedvolatility(), output);
+  }
+
+  // required double premium = 8;
+  if (cached_has_bits & 0x00000040u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->premium(), output);
+  }
+
+  // required double delta = 9;
+  if (cached_has_bits & 0x00000080u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(9, this->delta(), output);
+  }
+
+  // required double gamma = 10;
+  if (cached_has_bits & 0x00000100u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(10, this->gamma(), output);
+  }
+
+  // required double vega = 11;
+  if (cached_has_bits & 0x00000200u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(11, this->vega(), output);
+  }
+
+  // required double theta = 12;
+  if (cached_has_bits & 0x00000400u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(12, this->theta(), output);
+  }
+
+  // required double rho = 13;
+  if (cached_has_bits & 0x00000800u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(13, this->rho(), output);
+  }
+
+  // optional double strikeTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(14, this->striketimestamp(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+}
+
+::google::protobuf::uint8* OptionSnapshotExData::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 type = 1;
+  if (cached_has_bits & 0x00000004u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->type(), target);
+  }
+
+  // required .Qot_Common.Security owner = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        2, *this->owner_, deterministic, target);
+  }
+
+  // required string strikeTime = 3;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->striketime().data(), static_cast<int>(this->striketime().length()),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "Qot_GetSecuritySnapshot.OptionSnapshotExData.strikeTime");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->striketime(), target);
+  }
+
+  // required double strikePrice = 4;
+  if (cached_has_bits & 0x00000010u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->strikeprice(), target);
+  }
+
+  // required int32 contractSize = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->contractsize(), target);
+  }
+
+  // required int32 openInterest = 6;
+  if (cached_has_bits & 0x00002000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->openinterest(), target);
+  }
+
+  // required double impliedVolatility = 7;
+  if (cached_has_bits & 0x00000020u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->impliedvolatility(), target);
+  }
+
+  // required double premium = 8;
+  if (cached_has_bits & 0x00000040u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->premium(), target);
+  }
+
+  // required double delta = 9;
+  if (cached_has_bits & 0x00000080u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(9, this->delta(), target);
+  }
+
+  // required double gamma = 10;
+  if (cached_has_bits & 0x00000100u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(10, this->gamma(), target);
+  }
+
+  // required double vega = 11;
+  if (cached_has_bits & 0x00000200u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(11, this->vega(), target);
+  }
+
+  // required double theta = 12;
+  if (cached_has_bits & 0x00000400u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(12, this->theta(), target);
+  }
+
+  // required double rho = 13;
+  if (cached_has_bits & 0x00000800u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(13, this->rho(), target);
+  }
+
+  // optional double strikeTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(14, this->striketimestamp(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  return target;
+}
+
+size_t OptionSnapshotExData::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  size_t total_size = 0;
+
+  if (has_striketime()) {
+    // required string strikeTime = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->striketime());
+  }
+
+  if (has_owner()) {
+    // required .Qot_Common.Security owner = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *this->owner_);
+  }
+
+  if (has_type()) {
+    // required int32 type = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->type());
+  }
+
+  if (has_contractsize()) {
+    // required int32 contractSize = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->contractsize());
+  }
+
+  if (has_strikeprice()) {
+    // required double strikePrice = 4;
+    total_size += 1 + 8;
+  }
+
+  if (has_impliedvolatility()) {
+    // required double impliedVolatility = 7;
+    total_size += 1 + 8;
+  }
+
+  if (has_premium()) {
+    // required double premium = 8;
+    total_size += 1 + 8;
+  }
+
+  if (has_delta()) {
+    // required double delta = 9;
+    total_size += 1 + 8;
+  }
+
+  if (has_gamma()) {
+    // required double gamma = 10;
+    total_size += 1 + 8;
+  }
+
+  if (has_vega()) {
+    // required double vega = 11;
+    total_size += 1 + 8;
+  }
+
+  if (has_theta()) {
+    // required double theta = 12;
+    total_size += 1 + 8;
+  }
+
+  if (has_rho()) {
+    // required double rho = 13;
+    total_size += 1 + 8;
+  }
+
+  if (has_openinterest()) {
+    // required int32 openInterest = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->openinterest());
+  }
+
+  return total_size;
+}
+size_t OptionSnapshotExData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x00002fff) ^ 0x00002fff) == 0) {  // All required fields are present.
+    // required string strikeTime = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->striketime());
+
+    // required .Qot_Common.Security owner = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *this->owner_);
+
+    // required int32 type = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->type());
+
+    // required int32 contractSize = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->contractsize());
+
+    // required double strikePrice = 4;
+    total_size += 1 + 8;
+
+    // required double impliedVolatility = 7;
+    total_size += 1 + 8;
+
+    // required double premium = 8;
+    total_size += 1 + 8;
+
+    // required double delta = 9;
+    total_size += 1 + 8;
+
+    // required double gamma = 10;
+    total_size += 1 + 8;
+
+    // required double vega = 11;
+    total_size += 1 + 8;
+
+    // required double theta = 12;
+    total_size += 1 + 8;
+
+    // required double rho = 13;
+    total_size += 1 + 8;
+
+    // required int32 openInterest = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->openinterest());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  // optional double strikeTimestamp = 14;
+  if (has_striketimestamp()) {
+    total_size += 1 + 8;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void OptionSnapshotExData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  GOOGLE_DCHECK_NE(&from, this);
+  const OptionSnapshotExData* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const OptionSnapshotExData>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+    MergeFrom(*source);
+  }
+}
+
+void OptionSnapshotExData::MergeFrom(const OptionSnapshotExData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 255u) {
+    if (cached_has_bits & 0x00000001u) {
+      set_has_striketime();
+      striketime_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.striketime_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      mutable_owner()->::Qot_Common::Security::MergeFrom(from.owner());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      type_ = from.type_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      contractsize_ = from.contractsize_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      strikeprice_ = from.strikeprice_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      impliedvolatility_ = from.impliedvolatility_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      premium_ = from.premium_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      delta_ = from.delta_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 16128u) {
+    if (cached_has_bits & 0x00000100u) {
+      gamma_ = from.gamma_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      vega_ = from.vega_;
+    }
+    if (cached_has_bits & 0x00000400u) {
+      theta_ = from.theta_;
+    }
+    if (cached_has_bits & 0x00000800u) {
+      rho_ = from.rho_;
+    }
+    if (cached_has_bits & 0x00001000u) {
+      striketimestamp_ = from.striketimestamp_;
+    }
+    if (cached_has_bits & 0x00002000u) {
+      openinterest_ = from.openinterest_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+}
+
+void OptionSnapshotExData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void OptionSnapshotExData::CopyFrom(const OptionSnapshotExData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Qot_GetSecuritySnapshot.OptionSnapshotExData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OptionSnapshotExData::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00002fff) != 0x00002fff) return false;
+  if (has_owner()) {
+    if (!this->owner_->IsInitialized()) return false;
+  }
+  return true;
+}
+
+void OptionSnapshotExData::Swap(OptionSnapshotExData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void OptionSnapshotExData::InternalSwap(OptionSnapshotExData* other) {
+  using std::swap;
+  striketime_.Swap(&other->striketime_);
+  swap(owner_, other->owner_);
+  swap(type_, other->type_);
+  swap(contractsize_, other->contractsize_);
+  swap(strikeprice_, other->strikeprice_);
+  swap(impliedvolatility_, other->impliedvolatility_);
+  swap(premium_, other->premium_);
+  swap(delta_, other->delta_);
+  swap(gamma_, other->gamma_);
+  swap(vega_, other->vega_);
+  swap(theta_, other->theta_);
+  swap(rho_, other->rho_);
+  swap(striketimestamp_, other->striketimestamp_);
+  swap(openinterest_, other->openinterest_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata OptionSnapshotExData::GetMetadata() const {
   protobuf_Qot_5fGetSecuritySnapshot_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_Qot_5fGetSecuritySnapshot_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -2227,6 +3251,12 @@ const int SnapshotBasicData::kCurPriceFieldNumber;
 const int SnapshotBasicData::kVolumeFieldNumber;
 const int SnapshotBasicData::kTurnoverFieldNumber;
 const int SnapshotBasicData::kTurnoverRateFieldNumber;
+const int SnapshotBasicData::kListTimestampFieldNumber;
+const int SnapshotBasicData::kUpdateTimestampFieldNumber;
+const int SnapshotBasicData::kAskPriceFieldNumber;
+const int SnapshotBasicData::kBidPriceFieldNumber;
+const int SnapshotBasicData::kAskVolFieldNumber;
+const int SnapshotBasicData::kBidVolFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SnapshotBasicData::SnapshotBasicData()
@@ -2331,10 +3361,15 @@ void SnapshotBasicData::Clear() {
         reinterpret_cast<char*>(&openprice_) -
         reinterpret_cast<char*>(&type_)) + sizeof(openprice_));
   }
-  if (cached_has_bits & 32512u) {
+  if (cached_has_bits & 65280u) {
     ::memset(&lowprice_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&updatetimestamp_) -
+        reinterpret_cast<char*>(&lowprice_)) + sizeof(updatetimestamp_));
+  }
+  if (cached_has_bits & 2031616u) {
+    ::memset(&askprice_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&lotsize_) -
-        reinterpret_cast<char*>(&lowprice_)) + sizeof(lotsize_));
+        reinterpret_cast<char*>(&askprice_)) + sizeof(lotsize_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -2346,7 +3381,7 @@ bool SnapshotBasicData::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:Qot_GetSecuritySnapshot.SnapshotBasicData)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -2562,6 +3597,90 @@ bool SnapshotBasicData::MergePartialFromCodedStream(
         break;
       }
 
+      // optional double listTimestamp = 16;
+      case 16: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(129u /* 129 & 0xFF */)) {
+          set_has_listtimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &listtimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double updateTimestamp = 17;
+      case 17: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(137u /* 137 & 0xFF */)) {
+          set_has_updatetimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &updatetimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double askPrice = 18;
+      case 18: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(145u /* 145 & 0xFF */)) {
+          set_has_askprice();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &askprice_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double bidPrice = 19;
+      case 19: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(153u /* 153 & 0xFF */)) {
+          set_has_bidprice();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &bidprice_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional int64 askVol = 20;
+      case 20: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(160u /* 160 & 0xFF */)) {
+          set_has_askvol();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &askvol_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional int64 bidVol = 21;
+      case 21: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(168u /* 168 & 0xFF */)) {
+          set_has_bidvol();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &bidvol_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2616,7 +3735,7 @@ void SnapshotBasicData::SerializeWithCachedSizes(
   }
 
   // required int32 lotSize = 5;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00100000u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->lotsize(), output);
   }
 
@@ -2675,6 +3794,36 @@ void SnapshotBasicData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(15, this->turnoverrate(), output);
   }
 
+  // optional double listTimestamp = 16;
+  if (cached_has_bits & 0x00004000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(16, this->listtimestamp(), output);
+  }
+
+  // optional double updateTimestamp = 17;
+  if (cached_has_bits & 0x00008000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(17, this->updatetimestamp(), output);
+  }
+
+  // optional double askPrice = 18;
+  if (cached_has_bits & 0x00010000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(18, this->askprice(), output);
+  }
+
+  // optional double bidPrice = 19;
+  if (cached_has_bits & 0x00020000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(19, this->bidprice(), output);
+  }
+
+  // optional int64 askVol = 20;
+  if (cached_has_bits & 0x00040000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(20, this->askvol(), output);
+  }
+
+  // optional int64 bidVol = 21;
+  if (cached_has_bits & 0x00080000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(21, this->bidvol(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -2719,7 +3868,7 @@ void SnapshotBasicData::SerializeWithCachedSizes(
   }
 
   // required int32 lotSize = 5;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->lotsize(), target);
   }
 
@@ -2777,6 +3926,36 @@ void SnapshotBasicData::SerializeWithCachedSizes(
   // required double turnoverRate = 15;
   if (cached_has_bits & 0x00002000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(15, this->turnoverrate(), target);
+  }
+
+  // optional double listTimestamp = 16;
+  if (cached_has_bits & 0x00004000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(16, this->listtimestamp(), target);
+  }
+
+  // optional double updateTimestamp = 17;
+  if (cached_has_bits & 0x00008000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(17, this->updatetimestamp(), target);
+  }
+
+  // optional double askPrice = 18;
+  if (cached_has_bits & 0x00010000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(18, this->askprice(), target);
+  }
+
+  // optional double bidPrice = 19;
+  if (cached_has_bits & 0x00020000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(19, this->bidprice(), target);
+  }
+
+  // optional int64 askVol = 20;
+  if (cached_has_bits & 0x00040000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(20, this->askvol(), target);
+  }
+
+  // optional int64 bidVol = 21;
+  if (cached_has_bits & 0x00080000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(21, this->bidvol(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2889,7 +4068,7 @@ size_t SnapshotBasicData::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         _internal_metadata_.unknown_fields());
   }
-  if (((_has_bits_[0] & 0x00007fff) ^ 0x00007fff) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00103fff) ^ 0x00103fff) == 0) {  // All required fields are present.
     // required string listTime = 4;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2950,6 +4129,44 @@ size_t SnapshotBasicData::ByteSizeLong() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
+  if (_has_bits_[8 / 32] & 49152u) {
+    // optional double listTimestamp = 16;
+    if (has_listtimestamp()) {
+      total_size += 2 + 8;
+    }
+
+    // optional double updateTimestamp = 17;
+    if (has_updatetimestamp()) {
+      total_size += 2 + 8;
+    }
+
+  }
+  if (_has_bits_[16 / 32] & 983040u) {
+    // optional double askPrice = 18;
+    if (has_askprice()) {
+      total_size += 2 + 8;
+    }
+
+    // optional double bidPrice = 19;
+    if (has_bidprice()) {
+      total_size += 2 + 8;
+    }
+
+    // optional int64 askVol = 20;
+    if (has_askvol()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->askvol());
+    }
+
+    // optional int64 bidVol = 21;
+    if (has_bidvol()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->bidvol());
+    }
+
+  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3009,7 +4226,7 @@ void SnapshotBasicData::MergeFrom(const SnapshotBasicData& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 32512u) {
+  if (cached_has_bits & 65280u) {
     if (cached_has_bits & 0x00000100u) {
       lowprice_ = from.lowprice_;
     }
@@ -3029,6 +4246,27 @@ void SnapshotBasicData::MergeFrom(const SnapshotBasicData& from) {
       turnoverrate_ = from.turnoverrate_;
     }
     if (cached_has_bits & 0x00004000u) {
+      listtimestamp_ = from.listtimestamp_;
+    }
+    if (cached_has_bits & 0x00008000u) {
+      updatetimestamp_ = from.updatetimestamp_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 2031616u) {
+    if (cached_has_bits & 0x00010000u) {
+      askprice_ = from.askprice_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      bidprice_ = from.bidprice_;
+    }
+    if (cached_has_bits & 0x00040000u) {
+      askvol_ = from.askvol_;
+    }
+    if (cached_has_bits & 0x00080000u) {
+      bidvol_ = from.bidvol_;
+    }
+    if (cached_has_bits & 0x00100000u) {
       lotsize_ = from.lotsize_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -3050,7 +4288,7 @@ void SnapshotBasicData::CopyFrom(const SnapshotBasicData& from) {
 }
 
 bool SnapshotBasicData::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00007fff) != 0x00007fff) return false;
+  if ((_has_bits_[0] & 0x00103fff) != 0x00103fff) return false;
   if (has_security()) {
     if (!this->security_->IsInitialized()) return false;
   }
@@ -3077,6 +4315,12 @@ void SnapshotBasicData::InternalSwap(SnapshotBasicData* other) {
   swap(volume_, other->volume_);
   swap(turnover_, other->turnover_);
   swap(turnoverrate_, other->turnoverrate_);
+  swap(listtimestamp_, other->listtimestamp_);
+  swap(updatetimestamp_, other->updatetimestamp_);
+  swap(askprice_, other->askprice_);
+  swap(bidprice_, other->bidprice_);
+  swap(askvol_, other->askvol_);
+  swap(bidvol_, other->bidvol_);
   swap(lotsize_, other->lotsize_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -3098,11 +4342,14 @@ void Snapshot::InitAsDefaultInstance() {
       ::Qot_GetSecuritySnapshot::EquitySnapshotExData::internal_default_instance());
   ::Qot_GetSecuritySnapshot::_Snapshot_default_instance_._instance.get_mutable()->warrantexdata_ = const_cast< ::Qot_GetSecuritySnapshot::WarrantSnapshotExData*>(
       ::Qot_GetSecuritySnapshot::WarrantSnapshotExData::internal_default_instance());
+  ::Qot_GetSecuritySnapshot::_Snapshot_default_instance_._instance.get_mutable()->optionexdata_ = const_cast< ::Qot_GetSecuritySnapshot::OptionSnapshotExData*>(
+      ::Qot_GetSecuritySnapshot::OptionSnapshotExData::internal_default_instance());
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Snapshot::kBasicFieldNumber;
 const int Snapshot::kEquityExDataFieldNumber;
 const int Snapshot::kWarrantExDataFieldNumber;
+const int Snapshot::kOptionExDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Snapshot::Snapshot()
@@ -3134,14 +4381,19 @@ Snapshot::Snapshot(const Snapshot& from)
   } else {
     warrantexdata_ = NULL;
   }
+  if (from.has_optionexdata()) {
+    optionexdata_ = new ::Qot_GetSecuritySnapshot::OptionSnapshotExData(*from.optionexdata_);
+  } else {
+    optionexdata_ = NULL;
+  }
   // @@protoc_insertion_point(copy_constructor:Qot_GetSecuritySnapshot.Snapshot)
 }
 
 void Snapshot::SharedCtor() {
   _cached_size_ = 0;
   ::memset(&basic_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&warrantexdata_) -
-      reinterpret_cast<char*>(&basic_)) + sizeof(warrantexdata_));
+      reinterpret_cast<char*>(&optionexdata_) -
+      reinterpret_cast<char*>(&basic_)) + sizeof(optionexdata_));
 }
 
 Snapshot::~Snapshot() {
@@ -3153,6 +4405,7 @@ void Snapshot::SharedDtor() {
   if (this != internal_default_instance()) delete basic_;
   if (this != internal_default_instance()) delete equityexdata_;
   if (this != internal_default_instance()) delete warrantexdata_;
+  if (this != internal_default_instance()) delete optionexdata_;
 }
 
 void Snapshot::SetCachedSize(int size) const {
@@ -3185,7 +4438,7 @@ void Snapshot::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 15u) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(basic_ != NULL);
       basic_->Clear();
@@ -3197,6 +4450,10 @@ void Snapshot::Clear() {
     if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(warrantexdata_ != NULL);
       warrantexdata_->Clear();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(optionexdata_ != NULL);
+      optionexdata_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -3249,6 +4506,18 @@ bool Snapshot::MergePartialFromCodedStream(
         break;
       }
 
+      // optional .Qot_GetSecuritySnapshot.OptionSnapshotExData optionExData = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_optionexdata()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -3294,6 +4563,12 @@ void Snapshot::SerializeWithCachedSizes(
       3, *this->warrantexdata_, output);
   }
 
+  // optional .Qot_GetSecuritySnapshot.OptionSnapshotExData optionExData = 4;
+  if (cached_has_bits & 0x00000008u) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *this->optionexdata_, output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -3330,6 +4605,13 @@ void Snapshot::SerializeWithCachedSizes(
         3, *this->warrantexdata_, deterministic, target);
   }
 
+  // optional .Qot_GetSecuritySnapshot.OptionSnapshotExData optionExData = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        4, *this->optionexdata_, deterministic, target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -3353,7 +4635,7 @@ size_t Snapshot::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormatLite::MessageSize(
         *this->basic_);
   }
-  if (_has_bits_[0 / 32] & 6u) {
+  if (_has_bits_[0 / 32] & 14u) {
     // optional .Qot_GetSecuritySnapshot.EquitySnapshotExData equityExData = 2;
     if (has_equityexdata()) {
       total_size += 1 +
@@ -3366,6 +4648,13 @@ size_t Snapshot::ByteSizeLong() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSize(
           *this->warrantexdata_);
+    }
+
+    // optional .Qot_GetSecuritySnapshot.OptionSnapshotExData optionExData = 4;
+    if (has_optionexdata()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          *this->optionexdata_);
     }
 
   }
@@ -3399,7 +4688,7 @@ void Snapshot::MergeFrom(const Snapshot& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 7u) {
+  if (cached_has_bits & 15u) {
     if (cached_has_bits & 0x00000001u) {
       mutable_basic()->::Qot_GetSecuritySnapshot::SnapshotBasicData::MergeFrom(from.basic());
     }
@@ -3408,6 +4697,9 @@ void Snapshot::MergeFrom(const Snapshot& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       mutable_warrantexdata()->::Qot_GetSecuritySnapshot::WarrantSnapshotExData::MergeFrom(from.warrantexdata());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      mutable_optionexdata()->::Qot_GetSecuritySnapshot::OptionSnapshotExData::MergeFrom(from.optionexdata());
     }
   }
 }
@@ -3437,6 +4729,9 @@ bool Snapshot::IsInitialized() const {
   if (has_warrantexdata()) {
     if (!this->warrantexdata_->IsInitialized()) return false;
   }
+  if (has_optionexdata()) {
+    if (!this->optionexdata_->IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -3449,6 +4744,7 @@ void Snapshot::InternalSwap(Snapshot* other) {
   swap(basic_, other->basic_);
   swap(equityexdata_, other->equityexdata_);
   swap(warrantexdata_, other->warrantexdata_);
+  swap(optionexdata_, other->optionexdata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);

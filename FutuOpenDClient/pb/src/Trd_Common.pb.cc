@@ -336,6 +336,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::Order, fillavgprice_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::Order, lasterrmsg_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::Order, secmarket_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::Order, createtimestamp_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::Order, updatetimestamp_),
   6,
   7,
   11,
@@ -351,6 +353,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   14,
   5,
   12,
+  15,
+  16,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -369,6 +373,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, counterbrokerid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, counterbrokername_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, secmarket_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::OrderFill, createtimestamp_),
   8,
   6,
   0,
@@ -381,6 +386,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   4,
   9,
   5,
+  13,
   12,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::MaxTrdQtys, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Trd_Common::MaxTrdQtys, _internal_metadata_),
@@ -416,10 +422,10 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 11, 19, sizeof(::Trd_Common::TrdAcc)},
   { 22, 34, sizeof(::Trd_Common::Funds)},
   { 41, 64, sizeof(::Trd_Common::Position)},
-  { 82, 102, sizeof(::Trd_Common::Order)},
-  { 117, 135, sizeof(::Trd_Common::OrderFill)},
-  { 148, 158, sizeof(::Trd_Common::MaxTrdQtys)},
-  { 163, 172, sizeof(::Trd_Common::TrdFilterConditions)},
+  { 82, 104, sizeof(::Trd_Common::Order)},
+  { 121, 140, sizeof(::Trd_Common::OrderFill)},
+  { 154, 164, sizeof(::Trd_Common::MaxTrdQtys)},
+  { 169, 178, sizeof(::Trd_Common::TrdFilterConditions)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -471,65 +477,67 @@ void AddDescriptorsImpl() {
       "cMarket\030\014 \001(\005\022\020\n\010td_plVal\030\025 \001(\001\022\021\n\ttd_tr"
       "dVal\030\026 \001(\001\022\021\n\ttd_buyVal\030\027 \001(\001\022\021\n\ttd_buyQ"
       "ty\030\030 \001(\001\022\022\n\ntd_sellVal\030\031 \001(\001\022\022\n\ntd_sellQ"
-      "ty\030\032 \001(\001\"\222\002\n\005Order\022\017\n\007trdSide\030\001 \002(\005\022\021\n\to"
+      "ty\030\032 \001(\001\"\304\002\n\005Order\022\017\n\007trdSide\030\001 \002(\005\022\021\n\to"
       "rderType\030\002 \002(\005\022\023\n\013orderStatus\030\003 \002(\005\022\017\n\007o"
       "rderID\030\004 \002(\004\022\021\n\torderIDEx\030\005 \002(\t\022\014\n\004code\030"
       "\006 \002(\t\022\014\n\004name\030\007 \002(\t\022\013\n\003qty\030\010 \002(\001\022\r\n\005pric"
       "e\030\t \001(\001\022\022\n\ncreateTime\030\n \002(\t\022\022\n\nupdateTim"
       "e\030\013 \002(\t\022\017\n\007fillQty\030\014 \001(\001\022\024\n\014fillAvgPrice"
       "\030\r \001(\001\022\022\n\nlastErrMsg\030\016 \001(\t\022\021\n\tsecMarket\030"
-      "\017 \001(\005\"\365\001\n\tOrderFill\022\017\n\007trdSide\030\001 \002(\005\022\016\n\006"
-      "fillID\030\002 \002(\004\022\020\n\010fillIDEx\030\003 \002(\t\022\017\n\007orderI"
-      "D\030\004 \001(\004\022\021\n\torderIDEx\030\005 \001(\t\022\014\n\004code\030\006 \002(\t"
-      "\022\014\n\004name\030\007 \002(\t\022\013\n\003qty\030\010 \002(\001\022\r\n\005price\030\t \002"
-      "(\001\022\022\n\ncreateTime\030\n \002(\t\022\027\n\017counterBrokerI"
-      "D\030\013 \001(\005\022\031\n\021counterBrokerName\030\014 \001(\t\022\021\n\tse"
-      "cMarket\030\r \001(\005\"\200\001\n\nMaxTrdQtys\022\022\n\nmaxCashB"
-      "uy\030\001 \002(\001\022\033\n\023maxCashAndMarginBuy\030\002 \001(\001\022\027\n"
-      "\017maxPositionSell\030\003 \002(\001\022\024\n\014maxSellShort\030\004"
-      " \001(\001\022\022\n\nmaxBuyBack\030\005 \001(\001\"[\n\023TrdFilterCon"
-      "ditions\022\020\n\010codeList\030\001 \003(\t\022\016\n\006idList\030\002 \003("
-      "\004\022\021\n\tbeginTime\030\003 \001(\t\022\017\n\007endTime\030\004 \001(\t*.\n"
-      "\006TrdEnv\022\023\n\017TrdEnv_Simulate\020\000\022\017\n\013TrdEnv_R"
-      "eal\020\001*l\n\tTrdMarket\022\025\n\021TrdMarket_Unknown\020"
-      "\000\022\020\n\014TrdMarket_HK\020\001\022\020\n\014TrdMarket_US\020\002\022\020\n"
-      "\014TrdMarket_CN\020\003\022\022\n\016TrdMarket_HKCC\020\004*\202\001\n\014"
-      "TrdSecMarket\022\030\n\024TrdSecMarket_Unknown\020\000\022\023"
-      "\n\017TrdSecMarket_HK\020\001\022\023\n\017TrdSecMarket_US\020\002"
-      "\022\026\n\022TrdSecMarket_CN_SH\020\037\022\026\n\022TrdSecMarket"
-      "_CN_SZ\020 *m\n\007TrdSide\022\023\n\017TrdSide_Unknown\020\000"
-      "\022\017\n\013TrdSide_Buy\020\001\022\020\n\014TrdSide_Sell\020\002\022\025\n\021T"
-      "rdSide_SellShort\020\003\022\023\n\017TrdSide_BuyBack\020\004*"
-      "\272\001\n\tOrderType\022\025\n\021OrderType_Unknown\020\000\022\024\n\020"
-      "OrderType_Normal\020\001\022\024\n\020OrderType_Market\020\002"
-      "\022\033\n\027OrderType_AbsoluteLimit\020\005\022\025\n\021OrderTy"
-      "pe_Auction\020\006\022\032\n\026OrderType_AuctionLimit\020\007"
-      "\022\032\n\026OrderType_SpecialLimit\020\010*\335\003\n\013OrderSt"
-      "atus\022\033\n\027OrderStatus_Unsubmitted\020\000\022 \n\023Ord"
-      "erStatus_Unknown\020\377\377\377\377\377\377\377\377\377\001\022\035\n\031OrderStat"
-      "us_WaitingSubmit\020\001\022\032\n\026OrderStatus_Submit"
-      "ting\020\002\022\034\n\030OrderStatus_SubmitFailed\020\003\022\027\n\023"
-      "OrderStatus_TimeOut\020\004\022\031\n\025OrderStatus_Sub"
-      "mitted\020\005\022\033\n\027OrderStatus_Filled_Part\020\n\022\032\n"
-      "\026OrderStatus_Filled_All\020\013\022\037\n\033OrderStatus"
-      "_Cancelling_Part\020\014\022\036\n\032OrderStatus_Cancel"
-      "ling_All\020\r\022\036\n\032OrderStatus_Cancelled_Part"
-      "\020\016\022\035\n\031OrderStatus_Cancelled_All\020\017\022\026\n\022Ord"
-      "erStatus_Failed\020\025\022\030\n\024OrderStatus_Disable"
-      "d\020\026\022\027\n\023OrderStatus_Deleted\020\027*`\n\014Position"
-      "Side\022\025\n\021PositionSide_Long\020\000\022!\n\024PositionS"
-      "ide_Unknown\020\377\377\377\377\377\377\377\377\377\001\022\026\n\022PositionSide_S"
-      "hort\020\001*\255\001\n\rModifyOrderOp\022\031\n\025ModifyOrderO"
-      "p_Unknown\020\000\022\030\n\024ModifyOrderOp_Normal\020\001\022\030\n"
-      "\024ModifyOrderOp_Cancel\020\002\022\031\n\025ModifyOrderOp"
-      "_Disable\020\003\022\030\n\024ModifyOrderOp_Enable\020\004\022\030\n\024"
-      "ModifyOrderOp_Delete\020\005*\206\001\n\024ReconfirmOrde"
-      "rReason\022 \n\034ReconfirmOrderReason_Unknown\020"
-      "\000\022$\n ReconfirmOrderReason_QtyTooLarge\020\001\022"
-      "&\n\"ReconfirmOrderReason_PriceAbnormal\020\002"
+      "\017 \001(\005\022\027\n\017createTimestamp\030\020 \001(\001\022\027\n\017update"
+      "Timestamp\030\021 \001(\001\"\216\002\n\tOrderFill\022\017\n\007trdSide"
+      "\030\001 \002(\005\022\016\n\006fillID\030\002 \002(\004\022\020\n\010fillIDEx\030\003 \002(\t"
+      "\022\017\n\007orderID\030\004 \001(\004\022\021\n\torderIDEx\030\005 \001(\t\022\014\n\004"
+      "code\030\006 \002(\t\022\014\n\004name\030\007 \002(\t\022\013\n\003qty\030\010 \002(\001\022\r\n"
+      "\005price\030\t \002(\001\022\022\n\ncreateTime\030\n \002(\t\022\027\n\017coun"
+      "terBrokerID\030\013 \001(\005\022\031\n\021counterBrokerName\030\014"
+      " \001(\t\022\021\n\tsecMarket\030\r \001(\005\022\027\n\017createTimesta"
+      "mp\030\016 \001(\001\"\200\001\n\nMaxTrdQtys\022\022\n\nmaxCashBuy\030\001 "
+      "\002(\001\022\033\n\023maxCashAndMarginBuy\030\002 \001(\001\022\027\n\017maxP"
+      "ositionSell\030\003 \002(\001\022\024\n\014maxSellShort\030\004 \001(\001\022"
+      "\022\n\nmaxBuyBack\030\005 \001(\001\"[\n\023TrdFilterConditio"
+      "ns\022\020\n\010codeList\030\001 \003(\t\022\016\n\006idList\030\002 \003(\004\022\021\n\t"
+      "beginTime\030\003 \001(\t\022\017\n\007endTime\030\004 \001(\t*.\n\006TrdE"
+      "nv\022\023\n\017TrdEnv_Simulate\020\000\022\017\n\013TrdEnv_Real\020\001"
+      "*l\n\tTrdMarket\022\025\n\021TrdMarket_Unknown\020\000\022\020\n\014"
+      "TrdMarket_HK\020\001\022\020\n\014TrdMarket_US\020\002\022\020\n\014TrdM"
+      "arket_CN\020\003\022\022\n\016TrdMarket_HKCC\020\004*\202\001\n\014TrdSe"
+      "cMarket\022\030\n\024TrdSecMarket_Unknown\020\000\022\023\n\017Trd"
+      "SecMarket_HK\020\001\022\023\n\017TrdSecMarket_US\020\002\022\026\n\022T"
+      "rdSecMarket_CN_SH\020\037\022\026\n\022TrdSecMarket_CN_S"
+      "Z\020 *m\n\007TrdSide\022\023\n\017TrdSide_Unknown\020\000\022\017\n\013T"
+      "rdSide_Buy\020\001\022\020\n\014TrdSide_Sell\020\002\022\025\n\021TrdSid"
+      "e_SellShort\020\003\022\023\n\017TrdSide_BuyBack\020\004*\272\001\n\tO"
+      "rderType\022\025\n\021OrderType_Unknown\020\000\022\024\n\020Order"
+      "Type_Normal\020\001\022\024\n\020OrderType_Market\020\002\022\033\n\027O"
+      "rderType_AbsoluteLimit\020\005\022\025\n\021OrderType_Au"
+      "ction\020\006\022\032\n\026OrderType_AuctionLimit\020\007\022\032\n\026O"
+      "rderType_SpecialLimit\020\010*\335\003\n\013OrderStatus\022"
+      "\033\n\027OrderStatus_Unsubmitted\020\000\022 \n\023OrderSta"
+      "tus_Unknown\020\377\377\377\377\377\377\377\377\377\001\022\035\n\031OrderStatus_Wa"
+      "itingSubmit\020\001\022\032\n\026OrderStatus_Submitting\020"
+      "\002\022\034\n\030OrderStatus_SubmitFailed\020\003\022\027\n\023Order"
+      "Status_TimeOut\020\004\022\031\n\025OrderStatus_Submitte"
+      "d\020\005\022\033\n\027OrderStatus_Filled_Part\020\n\022\032\n\026Orde"
+      "rStatus_Filled_All\020\013\022\037\n\033OrderStatus_Canc"
+      "elling_Part\020\014\022\036\n\032OrderStatus_Cancelling_"
+      "All\020\r\022\036\n\032OrderStatus_Cancelled_Part\020\016\022\035\n"
+      "\031OrderStatus_Cancelled_All\020\017\022\026\n\022OrderSta"
+      "tus_Failed\020\025\022\030\n\024OrderStatus_Disabled\020\026\022\027"
+      "\n\023OrderStatus_Deleted\020\027*`\n\014PositionSide\022"
+      "\025\n\021PositionSide_Long\020\000\022!\n\024PositionSide_U"
+      "nknown\020\377\377\377\377\377\377\377\377\377\001\022\026\n\022PositionSide_Short\020"
+      "\001*\255\001\n\rModifyOrderOp\022\031\n\025ModifyOrderOp_Unk"
+      "nown\020\000\022\030\n\024ModifyOrderOp_Normal\020\001\022\030\n\024Modi"
+      "fyOrderOp_Cancel\020\002\022\031\n\025ModifyOrderOp_Disa"
+      "ble\020\003\022\030\n\024ModifyOrderOp_Enable\020\004\022\030\n\024Modif"
+      "yOrderOp_Delete\020\005*\206\001\n\024ReconfirmOrderReas"
+      "on\022 \n\034ReconfirmOrderReason_Unknown\020\000\022$\n "
+      "ReconfirmOrderReason_QtyTooLarge\020\001\022&\n\"Re"
+      "confirmOrderReason_PriceAbnormal\020\002"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 2879);
+      descriptor, 2954);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Trd_Common.proto", &protobuf_RegisterTypes);
   ::protobuf_Common_2eproto::AddDescriptors();
@@ -2886,6 +2894,8 @@ const int Order::kFillQtyFieldNumber;
 const int Order::kFillAvgPriceFieldNumber;
 const int Order::kLastErrMsgFieldNumber;
 const int Order::kSecMarketFieldNumber;
+const int Order::kCreateTimestampFieldNumber;
+const int Order::kUpdateTimestampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Order::Order()
@@ -2927,8 +2937,8 @@ Order::Order(const Order& from)
     lasterrmsg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.lasterrmsg_);
   }
   ::memcpy(&trdside_, &from.trdside_,
-    static_cast<size_t>(reinterpret_cast<char*>(&fillavgprice_) -
-    reinterpret_cast<char*>(&trdside_)) + sizeof(fillavgprice_));
+    static_cast<size_t>(reinterpret_cast<char*>(&updatetimestamp_) -
+    reinterpret_cast<char*>(&trdside_)) + sizeof(updatetimestamp_));
   // @@protoc_insertion_point(copy_constructor:Trd_Common.Order)
 }
 
@@ -2941,8 +2951,8 @@ void Order::SharedCtor() {
   updatetime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   lasterrmsg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&trdside_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&fillavgprice_) -
-      reinterpret_cast<char*>(&trdside_)) + sizeof(fillavgprice_));
+      reinterpret_cast<char*>(&updatetimestamp_) -
+      reinterpret_cast<char*>(&trdside_)) + sizeof(updatetimestamp_));
 }
 
 Order::~Order() {
@@ -3020,11 +3030,12 @@ void Order::Clear() {
         reinterpret_cast<char*>(&ordertype_) -
         reinterpret_cast<char*>(&trdside_)) + sizeof(ordertype_));
   }
-  if (cached_has_bits & 32512u) {
+  if (cached_has_bits & 65280u) {
     ::memset(&orderid_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&fillavgprice_) -
-        reinterpret_cast<char*>(&orderid_)) + sizeof(fillavgprice_));
+        reinterpret_cast<char*>(&createtimestamp_) -
+        reinterpret_cast<char*>(&orderid_)) + sizeof(createtimestamp_));
   }
+  updatetimestamp_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -3035,7 +3046,7 @@ bool Order::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:Trd_Common.Order)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -3261,6 +3272,34 @@ bool Order::MergePartialFromCodedStream(
         break;
       }
 
+      // optional double createTimestamp = 16;
+      case 16: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(129u /* 129 & 0xFF */)) {
+          set_has_createtimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &createtimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // optional double updateTimestamp = 17;
+      case 17: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(137u /* 137 & 0xFF */)) {
+          set_has_updatetimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &updatetimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -3393,6 +3432,16 @@ void Order::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(15, this->secmarket(), output);
   }
 
+  // optional double createTimestamp = 16;
+  if (cached_has_bits & 0x00008000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(16, this->createtimestamp(), output);
+  }
+
+  // optional double updateTimestamp = 17;
+  if (cached_has_bits & 0x00010000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(17, this->updatetimestamp(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -3517,6 +3566,16 @@ void Order::SerializeWithCachedSizes(
   // optional int32 secMarket = 15;
   if (cached_has_bits & 0x00001000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(15, this->secmarket(), target);
+  }
+
+  // optional double createTimestamp = 16;
+  if (cached_has_bits & 0x00008000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(16, this->createtimestamp(), target);
+  }
+
+  // optional double updateTimestamp = 17;
+  if (cached_has_bits & 0x00010000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(17, this->updatetimestamp(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -3674,7 +3733,7 @@ size_t Order::ByteSizeLong() const {
     total_size += 1 + 8;
   }
 
-  if (_has_bits_[8 / 32] & 28672u) {
+  if (_has_bits_[8 / 32] & 61440u) {
     // optional int32 secMarket = 15;
     if (has_secmarket()) {
       total_size += 1 +
@@ -3692,7 +3751,17 @@ size_t Order::ByteSizeLong() const {
       total_size += 1 + 8;
     }
 
+    // optional double createTimestamp = 16;
+    if (has_createtimestamp()) {
+      total_size += 2 + 8;
+    }
+
   }
+  // optional double updateTimestamp = 17;
+  if (has_updatetimestamp()) {
+    total_size += 2 + 8;
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -3756,7 +3825,7 @@ void Order::MergeFrom(const Order& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 32512u) {
+  if (cached_has_bits & 65280u) {
     if (cached_has_bits & 0x00000100u) {
       orderid_ = from.orderid_;
     }
@@ -3778,7 +3847,13 @@ void Order::MergeFrom(const Order& from) {
     if (cached_has_bits & 0x00004000u) {
       fillavgprice_ = from.fillavgprice_;
     }
+    if (cached_has_bits & 0x00008000u) {
+      createtimestamp_ = from.createtimestamp_;
+    }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00010000u) {
+    set_updatetimestamp(from.updatetimestamp());
   }
 }
 
@@ -3822,6 +3897,8 @@ void Order::InternalSwap(Order* other) {
   swap(secmarket_, other->secmarket_);
   swap(fillqty_, other->fillqty_);
   swap(fillavgprice_, other->fillavgprice_);
+  swap(createtimestamp_, other->createtimestamp_);
+  swap(updatetimestamp_, other->updatetimestamp_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
@@ -3851,6 +3928,7 @@ const int OrderFill::kCreateTimeFieldNumber;
 const int OrderFill::kCounterBrokerIDFieldNumber;
 const int OrderFill::kCounterBrokerNameFieldNumber;
 const int OrderFill::kSecMarketFieldNumber;
+const int OrderFill::kCreateTimestampFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 OrderFill::OrderFill()
@@ -3985,7 +4063,7 @@ void OrderFill::Clear() {
         reinterpret_cast<char*>(&orderid_) -
         reinterpret_cast<char*>(&fillid_)) + sizeof(orderid_));
   }
-  if (cached_has_bits & 7936u) {
+  if (cached_has_bits & 16128u) {
     ::memset(&trdside_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&secmarket_) -
         reinterpret_cast<char*>(&trdside_)) + sizeof(secmarket_));
@@ -4198,6 +4276,20 @@ bool OrderFill::MergePartialFromCodedStream(
         break;
       }
 
+      // optional double createTimestamp = 14;
+      case 14: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(113u /* 113 & 0xFF */)) {
+          set_has_createtimestamp();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &createtimestamp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -4316,8 +4408,13 @@ void OrderFill::SerializeWithCachedSizes(
   }
 
   // optional int32 secMarket = 13;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(13, this->secmarket(), output);
+  }
+
+  // optional double createTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(14, this->createtimestamp(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4432,8 +4529,13 @@ void OrderFill::SerializeWithCachedSizes(
   }
 
   // optional int32 secMarket = 13;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(13, this->secmarket(), target);
+  }
+
+  // optional double createTimestamp = 14;
+  if (cached_has_bits & 0x00001000u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(14, this->createtimestamp(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -4579,13 +4681,20 @@ size_t OrderFill::ByteSizeLong() const {
         this->counterbrokerid());
   }
 
-  // optional int32 secMarket = 13;
-  if (has_secmarket()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->secmarket());
-  }
+  if (_has_bits_[8 / 32] & 12288u) {
+    // optional double createTimestamp = 14;
+    if (has_createtimestamp()) {
+      total_size += 1 + 8;
+    }
 
+    // optional int32 secMarket = 13;
+    if (has_secmarket()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->secmarket());
+    }
+
+  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -4649,7 +4758,7 @@ void OrderFill::MergeFrom(const OrderFill& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 7936u) {
+  if (cached_has_bits & 16128u) {
     if (cached_has_bits & 0x00000100u) {
       trdside_ = from.trdside_;
     }
@@ -4663,6 +4772,9 @@ void OrderFill::MergeFrom(const OrderFill& from) {
       price_ = from.price_;
     }
     if (cached_has_bits & 0x00001000u) {
+      createtimestamp_ = from.createtimestamp_;
+    }
+    if (cached_has_bits & 0x00002000u) {
       secmarket_ = from.secmarket_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -4706,6 +4818,7 @@ void OrderFill::InternalSwap(OrderFill* other) {
   swap(counterbrokerid_, other->counterbrokerid_);
   swap(qty_, other->qty_);
   swap(price_, other->price_);
+  swap(createtimestamp_, other->createtimestamp_);
   swap(secmarket_, other->secmarket_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);

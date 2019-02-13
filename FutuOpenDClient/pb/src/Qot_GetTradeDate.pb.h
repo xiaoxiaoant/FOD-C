@@ -336,15 +336,35 @@ class TradeDate : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::std::string* release_time();
   void set_allocated_time(::std::string* time);
 
+  // optional double timestamp = 2;
+  bool has_timestamp() const;
+  void clear_timestamp();
+  static const int kTimestampFieldNumber = 2;
+  double timestamp() const;
+  void set_timestamp(double value);
+
+  // optional int32 tradeDateType = 3;
+  bool has_tradedatetype() const;
+  void clear_tradedatetype();
+  static const int kTradeDateTypeFieldNumber = 3;
+  ::google::protobuf::int32 tradedatetype() const;
+  void set_tradedatetype(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:Qot_GetTradeDate.TradeDate)
  private:
   void set_has_time();
   void clear_has_time();
+  void set_has_timestamp();
+  void clear_has_timestamp();
+  void set_has_tradedatetype();
+  void clear_has_tradedatetype();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr time_;
+  double timestamp_;
+  ::google::protobuf::int32 tradedatetype_;
   friend struct ::protobuf_Qot_5fGetTradeDate_2eproto::TableStruct;
   friend void ::protobuf_Qot_5fGetTradeDate_2eproto::InitDefaultsTradeDateImpl();
 };
@@ -949,6 +969,54 @@ inline void TradeDate::set_allocated_time(::std::string* time) {
   }
   time_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), time);
   // @@protoc_insertion_point(field_set_allocated:Qot_GetTradeDate.TradeDate.time)
+}
+
+// optional double timestamp = 2;
+inline bool TradeDate::has_timestamp() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void TradeDate::set_has_timestamp() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void TradeDate::clear_has_timestamp() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void TradeDate::clear_timestamp() {
+  timestamp_ = 0;
+  clear_has_timestamp();
+}
+inline double TradeDate::timestamp() const {
+  // @@protoc_insertion_point(field_get:Qot_GetTradeDate.TradeDate.timestamp)
+  return timestamp_;
+}
+inline void TradeDate::set_timestamp(double value) {
+  set_has_timestamp();
+  timestamp_ = value;
+  // @@protoc_insertion_point(field_set:Qot_GetTradeDate.TradeDate.timestamp)
+}
+
+// optional int32 tradeDateType = 3;
+inline bool TradeDate::has_tradedatetype() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void TradeDate::set_has_tradedatetype() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void TradeDate::clear_has_tradedatetype() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void TradeDate::clear_tradedatetype() {
+  tradedatetype_ = 0;
+  clear_has_tradedatetype();
+}
+inline ::google::protobuf::int32 TradeDate::tradedatetype() const {
+  // @@protoc_insertion_point(field_get:Qot_GetTradeDate.TradeDate.tradeDateType)
+  return tradedatetype_;
+}
+inline void TradeDate::set_tradedatetype(::google::protobuf::int32 value) {
+  set_has_tradedatetype();
+  tradedatetype_ = value;
+  // @@protoc_insertion_point(field_set:Qot_GetTradeDate.TradeDate.tradeDateType)
 }
 
 // -------------------------------------------------------------------
